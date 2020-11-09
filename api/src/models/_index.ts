@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-import * as config  from '../../db-config.json';
+// import * as config  from '../../db-config.json';
 
 // const dbConfig = config["development"]
 const sequelize = new Sequelize("prasang","postgres","root", {

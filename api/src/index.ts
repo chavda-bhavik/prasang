@@ -5,12 +5,12 @@ import { makeExecutableSchema } from '@graphql-tools/schema'
 import typeDefs from './typedefs/index'
 import resolvers from './resolvers/index'
 
+// require('./models/_index');
+import db from "./models/_index";
 
-// const db = require("./db/db");
-// db.sequelize.sync({ alter: true }, () => {
-//     console.log("DB Synced")
-// });
-// db.sequelize.sync({});
+db.Sequelize.beforeSync(() => {
+    console.log("DB Synced")
+});
 
 const app = express();
 const schema = makeExecutableSchema({

@@ -6,11 +6,7 @@ import typeDefs from './typedefs/index'
 import resolvers from './resolvers/index'
 
 // require('./models/_index');
-import db from "./models/_index";
-
-db.Sequelize.beforeSync(() => {
-    console.log("DB Synced")
-});
+import "./models/_index";
 
 const app = express();
 const schema = makeExecutableSchema({

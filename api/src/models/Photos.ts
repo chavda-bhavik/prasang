@@ -1,48 +1,54 @@
-import { BOOLEAN, Model, STRING, UUIDV4, UUID, DATE } from 'sequelize';
-import sequelize from './_index'
-import { v4 } from 'uuid'
-import { Users } from './Users'
-import { Events } from './Events'
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, ForeignKey, BelongsTo, IsUUID } from "sequelize-typescript";
+import Event from './Events'
 
-export class Photos extends Model {
+@Table({
+    tableName: "photos"
+})
+class Photo extends Model{
+    @IsUUID(4)
+    @Column({
+        primaryKey: true,
+        defaultValue: DataType.UUIDV4,
+        type: DataType.UUID
+    })
+    photoId: string
 
-}
-
-export class PhotosModal {
-    ID: string
+    @Column
     imageUrl: string
-    likes: string
+
+    @Column
+    likes: number
+
+    @Column
     uploadDate: Date
-    isDeleted: boolean
+
+    @ForeignKey( () => Event)
+    @Column({
+        type: DataType.UUID
+    })
+    eventId: string
+
+    @BelongsTo( () => Event)
+    event: Event
+
+    @CreatedAt
     createdAt: Date
+
+    @UpdatedAt
     updatedAt: Date
+
+    @DeletedAt
+    deletedAt: Date
 }
 
-Photos.init(
-    {
-        ID: {
-            type: UUID,
-            primaryKey: true,
-            defaultValue: UUIDV4
-        },
-        imageUrl: STRING(50),
-        eventId: UUID,
-        likes: STRING(50),
-        uploadDate: DATE,
-        userId: UUID,
-        isDeleted: {
-            type: BOOLEAN,
-            defaultValue: false
-        }
-    },
-    { sequelize, modelName: 'Photos'}
-)
+export default Photo
 
-
-Photos.belongsTo(Users, {
-    foreignKey: "userId"
-})
-
-Photos.belongsTo(Events, {
-    foreignKey: "eventId"
-})
+// export class PhotosModal {
+//     ID: string
+//     imageUrl: string
+//     likes: string
+//     uploadDate: Date
+//     isDeleted: boolean
+//     createdAt: Date
+//     updatedAt: Date
+// }

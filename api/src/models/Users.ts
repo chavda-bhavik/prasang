@@ -1,50 +1,52 @@
-import { Model, STRING, BOOLEAN, UUIDV4, UUID, TEXT  } from "sequelize";
-import sequelize from './_index'
-import { Roles } from './Roles'
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, BelongsTo, ForeignKey } from "sequelize-typescript";
+import Role from "./Roles";
 
-export class Users extends Model {
-
-}
-
-export class UsersModel {
-    userId: string
-    name: string
-    email: string
-    password: string
-    username: string
-    contactNo: string
-    isDeleted: boolean
-    createdAt: Date
-    updatedAt: Date
-}
-
-Users.init(
-    {
-        userId: {
-            type: UUID,
-            primaryKey: true,
-            defaultValue: UUIDV4
-        },
-        name: STRING(50),
-        email: {
-           type: STRING(50),
-           unique: true
-        },
-        password: TEXT,
-        username: {
-            type: STRING(50),
-            unique: true
-        },
-        contactNo: STRING(12),
-        roleId: UUID,
-        isDeleted: {
-            type: BOOLEAN,
-            defaultValue: false
-        }
-    },
-    { sequelize, modelName: "Users" }
-)
-
-Users.belongsTo(Roles, {
-    foreignKey: "roleId"
+@Table({
+    tableName: "users"
 })
+class User extends Model{
+    @IsUUID(4)
+    @Column({
+        primaryKey: true,
+        defaultValue: DataType.UUIDV4,
+        type: DataType.UUID
+    })
+    userId: string
+
+    @Column
+    name: string
+    
+    @Column({
+        unique: true
+    })
+    email: string
+
+    @Column
+    password: string
+
+    @Column
+    username: string
+
+    @Column
+    contactNo: string
+
+    @ForeignKey( () => Role)
+    @Column({
+        type: DataType.UUID
+    })
+    roleId: string
+
+    @BelongsTo( () => Role)
+    role: Role
+
+    @CreatedAt
+    createdAt: Date
+
+    @UpdatedAt
+    updatedAt: Date
+
+    @DeletedAt
+    deletedAt: Date
+}
+
+export default User

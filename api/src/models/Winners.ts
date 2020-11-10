@@ -1,46 +1,50 @@
-import { BOOLEAN, Model, STRING, UUIDV4, UUID, DATE } from 'sequelize';
-import sequelize from './_index'
-import { v4 } from 'uuid'
-import { Users } from './Users'
-import { Events } from './Events'
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, ForeignKey, BelongsTo } from "sequelize-typescript";
+import User from "./Users";
+import Event from './Events';
 
-export class Winners extends Model {
+@Table({
+    tableName: "winners"
+})
+class Winner extends Model{
+    @IsUUID(4)
+    @Column({
+        primaryKey: true,
+        defaultValue: DataType.UUIDV4
+    })
+    winnerId: string
 
-}
+    @Column
+    priceAmount: number
 
-export class WinnersModal {
-    ID: string
-    priceAmount: string
-    winnerDate: Date
-    isDeleted: boolean
+    @Column
+    winDate: Date
+
+    @ForeignKey( () => User)
+    @Column({
+        type: DataType.UUID
+    })
+    userId: string
+
+    @BelongsTo( () => User)
+    user: User
+
+    @ForeignKey( () => Event)
+    @Column({
+        type: DataType.UUID
+    })
+    eventId: string
+
+    @BelongsTo( () => Event)
+    event: Event
+
+    @CreatedAt
     createdAt: Date
+
+    @UpdatedAt
     updatedAt: Date
+
+    @DeletedAt
+    deletedAt: Date
 }
 
-Winners.init(
-    {
-        ID: {
-            type: UUID,
-            primaryKey: true,
-            defaultValue: UUIDV4
-        },
-        userId: UUID,
-        eventId: UUID,
-        priceAmount: STRING(50),
-        winnerDate: DATE,
-        isDeleted: {
-            type: BOOLEAN,
-            defaultValue: false
-        }
-    },
-    { sequelize, modelName: 'Winners'}
-)
-
-
-Winners.belongsTo(Users, {
-    foreignKey: "userId"
-})
-
-Winners.belongsTo(Events, {
-    foreignKey: "eventId"
-})
+export default Winner

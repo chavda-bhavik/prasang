@@ -1,50 +1,59 @@
-import { Model, STRING, BOOLEAN, UUIDV4, UUID, TEXT, DATE  } from "sequelize";
-import sequelize from './_index'
-import { EventCategories } from './EventCategories'
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, ForeignKey, BelongsTo } from "sequelize-typescript";
+import EventCategories from "./EventCategories";
 
-export class Events extends Model {
-
-}
-
-export class EventsModel {
-    id: string
-    title: string
-    description: Text
-    startDate: Date
-    endDate: Date
-    eventType: string
-    fees: string
-    imageUrl: Text
-    slug:Text
-    isDeleted: boolean
-    createdAt: Date
-    updatedAt: Date
-}
-
-Events.init(
-    {
-        id: {
-            type: UUID,
-            primaryKey: true,
-            defaultValue: UUIDV4
-        },
-        title: STRING(50),
-        description: STRING(50),
-        startDate: DATE,
-        endDate: DATE,
-        eventType:STRING(50),
-        fees:STRING(50),
-        imageUrl:STRING(50),
-        slug:STRING(50),
-        eventCategoryId: UUID,
-        isDeleted: {
-            type: BOOLEAN,
-            defaultValue: false
-        }
-    },
-    { sequelize, modelName: "Events" }
-)
-
-Events.belongsTo(EventCategories, {
-    foreignKey: "eventCategoryId"
+@Table({
+    tableName: "events"
 })
+class Events extends Model{
+    @IsUUID(4)
+    @Column({
+        primaryKey: true,
+        defaultValue: DataType.UUIDV4,
+        type: DataType.UUID
+    })
+    eventId: string
+
+    @Column
+    title: string
+
+    @Column
+    description: string
+
+    @Column
+    startDate: Date
+
+    @Column
+    endDate: Date
+
+    @Column
+    fees: number
+
+    @Column
+    eventType: string
+
+    @Column
+    imageUrl: string
+
+    @Column
+    slug: string
+
+    @ForeignKey( () => EventCategories)
+    @Column({
+        type: DataType.UUID
+    })
+    categoryId: string
+
+    @BelongsTo( () => EventCategories)
+    category: EventCategories
+
+    @CreatedAt
+    createdAt: Date
+
+    @UpdatedAt
+    updatedAt: Date
+
+    @DeletedAt
+    deletedAt: Date
+}
+
+export default Events

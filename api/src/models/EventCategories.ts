@@ -1,31 +1,28 @@
-import { BOOLEAN, Model, STRING, UUIDV4, UUID } from 'sequelize';
-import sequelize from './_index'
-import { v4 } from 'uuid'
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID } from "sequelize-typescript";
 
-export class EventCategories extends Model {
+@Table({
+    tableName: "eventcategories"
+})
+class EventCategories extends Model{
+    @IsUUID(4)
+    @Column({
+        primaryKey: true,
+        defaultValue: DataType.UUIDV4,
+        type: DataType.UUID
+    })
+    eventId: string
 
-}
-
-export class EventCategoriesModal {
-    id: string
+    @Column
     name: string
-    isDeleted: boolean
+
+    @CreatedAt
     createdAt: Date
+
+    @UpdatedAt
     updatedAt: Date
+    
+    @DeletedAt
+    deletedAt: Date
 }
 
-EventCategories.init(
-    {
-        id: {
-            type: UUID,
-            primaryKey: true,
-            defaultValue: UUIDV4
-        },
-        name: STRING(50),
-        isDeleted: {
-            type: BOOLEAN,
-            defaultValue: false
-        }
-    },
-    { sequelize, modelName: 'EventCategories'}
-)
+export default EventCategories

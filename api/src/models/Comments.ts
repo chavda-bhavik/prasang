@@ -1,42 +1,50 @@
-import { BOOLEAN, Model, STRING, UUIDV4, UUID, DATE } from 'sequelize';
-import sequelize from './_index'
-import { v4 } from 'uuid'
-import { Users } from './Users'
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, ForeignKey, BelongsTo } from "sequelize-typescript";
+import Photo from "./Photos";
+import User from "./Users";
 
-export class Comments extends Model {
-
-}
-
-export class CommentsModal {
-    ID: string
-    text: string
-    photoId: string
-    commentDate: Date
-    isDeleted: boolean
-    createdAt: Date
-    updatedAt: Date
-}
-
-Comments.init(
-    {
-        ID: {
-            type: UUID,
-            primaryKey: true,
-            defaultValue: UUIDV4
-        },
-        text: STRING(50),
-        photoId: UUID,
-        userId: UUID,
-        commentDate: DATE,
-        isDeleted: {
-            type: BOOLEAN,
-            defaultValue: false
-        }
-    },
-    { sequelize, modelName: 'Comments'}
-)
-
-
-Comments.belongsTo(Users, {
-    foreignKey: "userId"
+@Table({
+    tableName: "comments"
 })
+class Comments extends Model{
+    @IsUUID(4)
+    @Column({
+        primaryKey: true,
+        defaultValue: DataType.UUIDV4
+    })
+    commentId: string
+
+    @Column
+    text: string
+
+    @ForeignKey( () => Photo)
+    @Column({
+        type: DataType.UUID
+    })
+    photoId: string
+
+    @BelongsTo( () => Photo)
+    photo: Photo
+
+    @ForeignKey( () => User)
+    @Column({
+        type: DataType.UUID
+    })
+    userId: string
+
+    @BelongsTo( () => User)
+    user: User
+
+    @Column
+    commentDate: Date
+
+    @CreatedAt
+    createdAt: Date
+
+    @UpdatedAt
+    updatedAt: Date
+
+    @DeletedAt
+    deletedAt: Date
+}
+
+export default Comments

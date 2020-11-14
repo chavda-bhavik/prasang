@@ -1,5 +1,5 @@
 const Query = {
-    hello:(parent, args, ctx, info) => {
+    hello:() => {
         return "Hello everyone!"
     }
 }

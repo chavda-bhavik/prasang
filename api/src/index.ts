@@ -6,7 +6,7 @@ import typeDefs from './typedefs/index'
 import resolvers from './resolvers/index'
 
 // require('./models/_index');
-import "./models/_index";
+import db from "./models/_index";
 
 const app = express();
 const schema = makeExecutableSchema({
@@ -18,7 +18,7 @@ app.use('/graphql', (req,res) => {
     return graphqlHTTP({
       schema,
       graphiql: true,
-      context: { req, res }
+      context: { req, res, db }
     })(req, res)
 });
 

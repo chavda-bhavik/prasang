@@ -6,7 +6,7 @@
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres",
-    "logging": true,
+    "logging": false,
     "action": "alter",
     "result": true,
     "timezone": "+00:00"

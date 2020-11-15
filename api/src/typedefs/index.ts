@@ -1,11 +1,13 @@
 import { mergeTypeDefs } from '@graphql-tools/merge'
 
 import DemoTypeDef from './DemoTypeDefs'
-import EventTypeDefs from './EventsTypeDefs'
+import EventCategoriesTypeDefs from './EventCategoriesTypeDefs'
+import EventTypedefs from './EventsTypeDefs'
 
 const types = [
     DemoTypeDef,
-    EventTypeDefs
+    EventCategoriesTypeDefs,
+    EventTypedefs
 ];
 
 export default mergeTypeDefs(types);

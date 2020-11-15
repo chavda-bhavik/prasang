@@ -1,20 +1,44 @@
-const DemoTypeDef = `
+const typeDefs = `
     type Query {
-        eventCategories: [EventCategory!]!
+        events: [Event!]!
     }
     type Mutation {
-        addEventCategory(name: String!, imagePath: String!): EventCategory!
-        editEventCategory(categoryId: ID!, name: String, imagePath: String): EventCategory!
-        deleteEventCategory(categoryId: ID!): EventCategory!
+        addEvent(data: AddEventType!): Event
+        editEvent(eventId: ID!, data: EditEventType!): Event
+        deleteEvent(eventId: ID!): Event
     }
-    type EventCategory {
-        categoryId: ID!
-        name: String!
-        imagePath: String!
+    input EditEventType {
+        title: String
+        categoryId: String
+        description: String
+        startDate: String
+        endDate: String
+        fees: Int
+        imageUrl: String
+    }
+    input AddEventType {
+        title: String!
+        categoryId: String!
+        description: String
+        startDate: String!
+        endDate: String!
+        fees: Int
+        imageUrl: String
+    }
+    type Event {
+        eventId: ID!
+        title: String!
+        description: String!
+        startDate: String
+        endDate: String
+        fees: Int
+        imageUrl: String
+        slug: String
+        category: EventCategory
         createdAt: String!
         updatedAt: String!
         deletedAt: String
     }
 `
 
-export default DemoTypeDef
+export default typeDefs

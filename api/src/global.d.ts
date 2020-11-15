@@ -22,3 +22,13 @@ export interface Context {
     res: Response
     db: db
 }
+// export interface ModelValues {
+//     [key: any]: {
+//         dataValues: any
+//         _previousDataValues: any
+//         _changed: any
+//         _modelOptions: any
+//         _options: any
+//         isNewRecord: Boolean
+//     }
+// }

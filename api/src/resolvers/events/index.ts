@@ -1,9 +1,9 @@
-import Query from './Query'
 import Mutation from './Mutation'
+import Query from './Query'
 
 const index = {
-    Query,
     Mutation,
+    Query
 }
 
-export default index;
+export default index

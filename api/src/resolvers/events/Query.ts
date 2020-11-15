@@ -1,8 +1,8 @@
 import { Context } from "../../global";
 
 const Query = {
-    eventCategories: (_, _2, ctx: Context, _3) => {
-        return ctx.db.EventCategories.findAll();
+    events: async (_, _2, { db }: Context) => {
+        return db.Events.findAll();
     }
 }
 

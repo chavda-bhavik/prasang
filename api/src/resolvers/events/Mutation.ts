@@ -1,53 +1,51 @@
-import { Context } from "../../global";
-import { addCategory, editCategory, deleteCategory } from './EventArgTypes';
+import { Context } from "../../global"
+import findThrowAndReturn from "../utils/findThrowAndReturn";
+import transformDate from "../utils/transformDate";
+import { AddEventType, editEventType, deleteEventType } from "./EventArgTypes";
 
 const Mutation = {
-    addEventCategory: async (_, args: addCategory, ctx: Context) => {
-        return ctx.db.EventCategories.create({
-            name: args.name,
-            imagePath: args.imagePath
-        }, {
-            raw: true
+    addEvent: async (_, args:AddEventType, { db }: Context ) => {
+        let categoryExists = await db.EventCategories.findByPk(args.data.categoryId);
+        if(!categoryExists) {
+            throw new Error("Event category not found!");
+        }
+        if(args.data.startDate) args.data.startDate = transformDate(args.data.startDate);
+        if(args.data.endDate) args.data.endDate = transformDate(args.data.endDate);
+        if(args.data.startDate && args.data.endDate && args.data.startDate > args.data.endDate) {
+            throw new Error("EndDate cannot be greater than StartDate!");
+        }
+        return await db.Events.create({
+            ...args.data
         });
     },
-    editEventCategory: async (_, args: editCategory, ctx: Context) => {
-        let categoryFound = await ctx.db.EventCategories.count({
-            where: {
-                categoryId: args.categoryId,
-            }
-        });
-        if(!categoryFound) {
-            throw new Error("Category not found!");
+    editEvent: async (_, args: editEventType, { db }: Context) => {
+        let event = await findThrowAndReturn(db, "Events", { where: { eventId: args.eventId }});
+        if(args.data.categoryId) {
+            await findThrowAndReturn(db, "EventCategory", { where: { categoryId: args.data.categoryId }});
         }
-        await ctx.db.EventCategories.update({
-            name: args.name,
-            imagePath: args.imagePath
+        if(args.data.startDate) args.data.startDate = transformDate(args.data.startDate);
+        else args.data.startDate = event.startDate;
+        if(args.data.endDate) args.data.endDate = transformDate(args.data.endDate);
+        if(args.data.startDate && args.data.endDate && args.data.startDate > args.data.endDate) {
+            throw new Error("EndDate cannot be greater than StartDate!");
+        }
+        await db.Events.update({
+            ...args.data
         }, {
             where: {
-                categoryId: args.categoryId
+                eventId: args.eventId
             }
         });
-        return ctx.db.EventCategories.findOne({
-            where: {
-                categoryId: args.categoryId
-            }
-        })
+        return findThrowAndReturn(db, "Events", { where: { eventId: args.eventId }} );
     },
-    deleteEventCategory: async (_, args: deleteCategory, { db }: Context) => {
-        let categoryFound = await db.EventCategories.findOne({
+    deleteEvent: async (_, args: deleteEventType, { db }:Context) => {
+        let event = await findThrowAndReturn(db, "Events", { where: { eventId: args.eventId }});
+        await db.Events.destroy({
             where: {
-                categoryId: args.categoryId,
+                eventId: args.eventId
             }
         });
-        if(!categoryFound) {
-            throw new Error("Category not found!");
-        }
-        await db.EventCategories.destroy({
-            where: {
-                categoryId: args.categoryId
-            }
-        });
-        return categoryFound;
+        return event;
     }
 }
 

@@ -1,12 +1,26 @@
-export interface addCategory {
-    name: string
-    imagePath: string
+export interface AddEventType {
+    data: {
+        title: String
+        categoryId: number | string | Buffer | undefined
+        description: String
+        startDate: String | Date
+        endDate: String | Date
+        fees?: Number
+        imageUrl: String
+    }
 }
-export interface editCategory {
-    categoryId: string
-    name?: string
-    imagePath?: string
+export interface editEventType {
+    eventId: string
+    data: {
+        title?: String
+        categoryId?: number | string | Buffer | undefined
+        description?: String
+        startDate?: String | Date
+        endDate?: String | Date
+        fees?: Number
+        imageUrl?: String
+    }
 }
-export interface deleteCategory {
-    categoryId: string
+export interface deleteEventType {
+    eventId: string
 }

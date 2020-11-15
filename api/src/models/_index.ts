@@ -8,7 +8,7 @@ import Roles from "./Roles";
 import User from "./Users";
 import Winner from "./Winners";
 import * as config  from './../../db-config.json';
-
+import { db } from "../global";
 const dbConfig = config["development"]
 
 const sequelize = new Sequelize(
@@ -27,11 +27,20 @@ const sequelize = new Sequelize(
         logging: dbConfig["logging"],
     }
 );
-
 sequelize.addModels([User, Winner, Comments, EventCategories, Events, Photos, Roles]);
 
 sequelize.sync({ alter: true }).then( () => {
     console.log("db synced");
 });
 
-export default sequelize;
+const obj: db = {
+    Events: Events,
+    EventCategories: EventCategories,
+    Comments: Comments,
+    Photos: Photos,
+    Roles: Roles,
+    Users: User,
+    Winners: Winner,
+    sequelize: sequelize
+}
+export default obj;

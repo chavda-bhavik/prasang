@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "power",
-    "password": "power",
+    "username": "postgres",
+    "password": "root",
     "database": "prasang",
     "host": "127.0.0.1",
     "port": 5432,

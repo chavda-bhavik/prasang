@@ -1,7 +1,8 @@
 import Query from './Query'
 
 const index = {
-    Query
+    Query,
+    // Mutation
 }
 
 export default index

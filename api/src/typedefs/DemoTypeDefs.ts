@@ -1,6 +1,8 @@
 const DemoTypeDef = `
     type Query {
-        hello: String!
+        hello: String!,
+        world: String!,
+        roles(query: String): [Roles!]!
     }
 `
 

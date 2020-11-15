@@ -1,5 +1,5 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, HasMany } from "sequelize-typescript";
-import User from "./Users";
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID } from "sequelize-typescript";
+// import User from "./Users";
 
 @Table({
     tableName:"roles"

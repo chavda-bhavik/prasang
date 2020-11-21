@@ -3,7 +3,7 @@ import { addCategory, editCategory, deleteCategory } from './EventCategoryArgTyp
 import { processSingleUpload } from '../utils/Upload'
 
 const Mutation = {
-    addEventCategory: async (_, args:addCategory, ctx:Context, info) => {
+    addEventCategory: async (_, args:addCategory, ctx:Context) => {
         const image:fileField = await processSingleUpload(args.image);
         return ctx.db.EventCategories.create({
             name: args.name,

@@ -1,6 +1,7 @@
-import { Context } from "../../global"
+import { Context, fileField } from "../../global"
 import findThrowAndReturn from "../utils/findThrowAndReturn";
 import transformDate from "../utils/transformDate";
+import { processSingleUpload } from "../utils/Upload";
 import { AddEventType, editEventType, deleteEventType } from "./EventArgTypes";
 
 const Mutation = {
@@ -13,6 +14,12 @@ const Mutation = {
         if(args.data.endDate) args.data.endDate = transformDate(args.data.endDate);
         if(args.data.startDate && args.data.endDate && args.data.startDate > args.data.endDate) {
             throw new Error("EndDate cannot be greater than StartDate!");
+        }
+
+        if(args.data.image) {
+            let image:fileField = await processSingleUpload(args.data.image);
+            args.data.imageUrl = image.path;
+            delete args.data.image;
         }
         return await db.Events.create({
             ...args.data
@@ -29,6 +36,13 @@ const Mutation = {
         if(args.data.startDate && args.data.endDate && args.data.startDate > args.data.endDate) {
             throw new Error("EndDate cannot be greater than StartDate!");
         }
+
+        if(args.data.image) {
+            let image:fileField = await processSingleUpload(args.data.image);
+            args.data.imageUrl = image.path;
+            delete args.data.image;
+        }
+        console.log(args.data);
         await db.Events.update({
             ...args.data
         }, {

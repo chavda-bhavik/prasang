@@ -1,11 +1,13 @@
-const typeDefs = `
-    type Query {
+import { gql }  from 'apollo-server'
+
+const typeDefs = gql`
+    extend type Query {
         events: [Event!]!
     }
-    type Mutation {
-        addEvent(data: AddEventType!): Event
-        editEvent(eventId: ID!, data: EditEventType!): Event
-        deleteEvent(eventId: ID!): Event
+    extend type Mutation {
+        addEvent(data: AddEventType!): Event!
+        editEvent(eventId: ID!, data: EditEventType!): Event!
+        deleteEvent(eventId: ID!): Event!
     }
     input EditEventType {
         title: String
@@ -14,7 +16,7 @@ const typeDefs = `
         startDate: String
         endDate: String
         fees: Int
-        imageUrl: String
+        image: Upload
     }
     input AddEventType {
         title: String!
@@ -23,7 +25,7 @@ const typeDefs = `
         startDate: String!
         endDate: String!
         fees: Int
-        imageUrl: String
+        image: Upload
     }
     type Event {
         eventId: ID!

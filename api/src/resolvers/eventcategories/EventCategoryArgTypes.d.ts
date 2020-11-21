@@ -1,11 +1,11 @@
 export interface addCategory {
     name: string
-    imagePath: string
+    image: any
 }
 export interface editCategory {
     categoryId: string
     name?: string
-    imagePath?: string
+    image?: string
 }
 export interface deleteCategory {
     categoryId: string

@@ -6,7 +6,8 @@ export interface AddEventType {
         startDate: String | Date
         endDate: String | Date
         fees?: Number
-        imageUrl: String
+        image: any
+        imageUrl?: String
     }
 }
 export interface editEventType {
@@ -18,6 +19,7 @@ export interface editEventType {
         startDate?: String | Date
         endDate?: String | Date
         fees?: Number
+        image?: any
         imageUrl?: String
     }
 }

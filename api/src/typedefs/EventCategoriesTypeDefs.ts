@@ -1,10 +1,12 @@
-const DemoTypeDef = `
-    type Query {
+import { gql }  from 'apollo-server'
+
+const EventCategoriesTypeDef = gql`
+    extend type Query {
         eventCategories: [EventCategory!]!
     }
-    type Mutation {
-        addEventCategory(name: String!, imagePath: String!): EventCategory!
-        editEventCategory(categoryId: ID!, name: String, imagePath: String): EventCategory!
+    extend type Mutation {
+        addEventCategory(name: String!, image: Upload!): EventCategory!
+        editEventCategory(categoryId: ID!, name: String, image: Upload): EventCategory!
         deleteEventCategory(categoryId: ID!): EventCategory!
     }
     type EventCategory {
@@ -17,4 +19,4 @@ const DemoTypeDef = `
     }
 `
 
-export default DemoTypeDef
+export default EventCategoriesTypeDef

@@ -1,5 +1,6 @@
 const Query = {
-    hello:() => {
+    hello:(parent, args, ctx, info) => {
+        console.log(args.image);
         return "Hello everyone!"
     }
 }

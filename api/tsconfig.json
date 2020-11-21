@@ -11,8 +11,13 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "strictPropertyInitialization": false,
+      "allowUnusedLabels": true,
+      "resolveJsonModule": true,
       "sourceMap": true,
       "strict": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "allowUnreachableCode": false,
       "typeRoots": [
         "node_modules/@types"
       ],

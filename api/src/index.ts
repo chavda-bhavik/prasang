@@ -1,31 +1,24 @@
 import * as express from "express"
-import { graphqlHTTP } from "express-graphql"
-import { makeExecutableSchema } from '@graphql-tools/schema'
-
+import { ApolloServer } from "apollo-server-express";
+import { merge } from "lodash";
+import db from "./models/_index";
 import typeDefs from './typedefs/index'
 import resolvers from './resolvers/index'
 
-
-// const db = require("./db/db");
-// db.sequelize.sync({ alter: true }, () => {
-//     console.log("DB Synced")
-// });
-// db.sequelize.sync({});
-
 const app = express();
-const schema = makeExecutableSchema({
+const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: merge(resolvers),
+  context({ req, res }) {
+      return {
+          db,
+          request: req,
+          response: res
+      }
+  }
 });
+server.applyMiddleware({ app });
 
-app.use('/graphql', (req,res) => {
-    return graphqlHTTP({
-      schema,
-      graphiql: true,
-      context: { req, res }
-    })(req, res)
-});
-
-app.listen(3000,()=>{
-    console.log("Server is running on 3000")
+app.listen({ port: 3000 }, () => {
+  console.log("Server is runnuing on PORT 3000");
 })

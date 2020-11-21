@@ -1,6 +1,7 @@
 const UserTypeDefs = `
     type Query {
-        users(query:String): [Users!]!
+        users(userId: ID): [Users!]!
+        usersOne(userId: ID,email:String): Users!
     }
     type Mutation {
         addUser(name: String!,, email: String,password: String,username: String,contactNo: String,roleId: String): Users!

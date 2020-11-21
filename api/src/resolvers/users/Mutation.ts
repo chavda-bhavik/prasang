@@ -3,6 +3,26 @@ import { addUser,deleteUser,editUser } from './UserArgTypes';
 
 const Mutation = {
     addUser: async (_, args: addUser, ctx: Context) => {
+        
+        let usernameExists = await ctx.db.Users.count({
+            where: {
+                username: args.username,
+            }
+        });
+        let emailExists = await ctx.db.Users.count({
+            where: {
+                email: args.email,
+            }
+        });
+        
+        if(usernameExists)
+        {
+           throw new Error("Username Exists Please Select Unique"); 
+        }
+        if(emailExists)
+        {
+           throw new Error("Email Exists Please Select Unique"); 
+        }
         return ctx.db.Users.create({
             name: args.name,
             email:args.email,

@@ -10,10 +10,13 @@ class EventCategories extends Model{
         defaultValue: DataType.UUIDV4,
         type: DataType.UUID
     })
-    eventId: string
+    categoryId: string
 
     @Column
     name: string
+
+    @Column
+    imagePath: string
 
     @CreatedAt
     createdAt: Date

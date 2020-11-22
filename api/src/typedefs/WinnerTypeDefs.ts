@@ -1,4 +1,5 @@
-const WinnerTypeDefs = `
+import { gql }  from 'apollo-server'
+const WinnerTypeDefs = gql`
     type Query {
         winners: [Winner!]!
     }

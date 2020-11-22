@@ -1,3 +1,5 @@
 export interface addRole {
-    name: string
+    data : {
+        name: string
+    }
 }

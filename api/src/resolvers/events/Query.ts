@@ -1,8 +1,8 @@
 import { Context } from "../../global";
 
 const Query = {
-    roles: (_, _2, { db }: Context) => {
-        return db.Roles.findAll();
+    events: async (_, _2, { db }: Context) => {
+        return db.Events.findAll();
     }
 }
 

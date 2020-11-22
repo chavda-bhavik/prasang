@@ -1,9 +1,14 @@
-const RoleTypeDefs = `
-    type Query {
+import { gql }  from 'apollo-server'
+
+const RoleTypeDefs = gql`
+    extend type Query {
         roles: [Roles!]!
     }
-    type Mutation {
-        addRole(name: String!): Roles!
+    extend type Mutation {
+        addRole(data:AddRoleType!): Roles!
+    }
+    input AddRoleType {
+        name:String!
     }
     type Roles {
         roleId:ID!

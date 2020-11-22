@@ -22,3 +22,18 @@ export interface Context {
     res: Response
     db: db
 }
+export interface fileField {
+    path: String
+    uploadName: String
+    mimetype: String
+}
+// export interface ModelValues {
+//     [key: any]: {
+//         dataValues: any
+//         _previousDataValues: any
+//         _changed: any
+//         _modelOptions: any
+//         _options: any
+//         isNewRecord: Boolean
+//     }
+// }

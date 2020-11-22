@@ -3,7 +3,7 @@ import Mutation from './Mutation'
 
 const index = {
     Query,
-    Mutation
+    Mutation,
 }
 
-export default index
+export default index;

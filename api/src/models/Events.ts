@@ -1,5 +1,6 @@
 import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, ForeignKey, BelongsTo } from "sequelize-typescript";
 import EventCategories from "./EventCategories";
+import slugify from '../resolvers/utils/slugify'
 
 @Table({
     tableName: "events"
@@ -13,7 +14,14 @@ class Events extends Model{
     })
     eventId: string
 
-    @Column
+    @Column({
+        set(value: string) {
+            // @ts-ignore
+            this.setDataValue("title", value)
+            // @ts-ignore
+            this.setDataValue("slug", slugify(value))
+        }
+    })
     title: string
 
     @Column
@@ -25,11 +33,10 @@ class Events extends Model{
     @Column
     endDate: Date
 
-    @Column
+    @Column({
+        defaultValue: 0
+    })
     fees: number
-
-    @Column
-    eventType: string
 
     @Column
     imageUrl: string

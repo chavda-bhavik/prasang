@@ -1,20 +1,32 @@
 export interface addUser {
-    name:string
-    email:string
-    password:string
-    username:string
-    contactNo:string
-    roleId:string
+    data : {
+        name:string
+        email:string
+        password:string
+        username:string
+        contactNo:string
+        roleId:string
+    }
 }
 export interface editUser {
-    userId:string
-    name?:string
-    email?:string
-    password?:string
-    username?:string
-    contactNo?:string
-    roleId?:string
+    data : {
+        userId:string
+        name?:string
+        email?:string
+        password?:string
+        username?:string
+        contactNo?:string
+        roleId?:string
+    }
 }
 export interface deleteUser {
-    userId: string
+    data : {
+        userId: string
+    }
+}
+export interface login {
+    data : {
+        email:string
+        password:string
+    }
 }

@@ -16,6 +16,7 @@ const EventCategoriesTypeDef = gql`
         createdAt: String!
         updatedAt: String!
         deletedAt: String
+        events: [Event!]!
     }
 `
 

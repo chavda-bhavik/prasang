@@ -3,6 +3,7 @@ import RoleResolver from './roles/index'
 import UserResolver from './users/index'
 import EventCategoriesResolver from './eventcategories/index'
 import EventResolver from './events/index'
+import DashboardResolver from './dashboard/index'
 // import WinnerArgTypes from './winner/WinnerArgTypes
 
 const index = [
@@ -10,7 +11,8 @@ const index = [
     EventCategoriesResolver,
     EventResolver,
     RoleResolver,
-    UserResolver
+    UserResolver,
+    DashboardResolver
 ]
 
 export default index;

@@ -29,7 +29,7 @@ const sequelize = new Sequelize(
 );
 sequelize.addModels([User, Winner, Comments, EventCategories, Events, Photos, Roles]);
 
-sequelize.sync().then( () => {
+sequelize.sync({alter:true}).then( () => {
     console.log("db synced");
 });
 

@@ -5,6 +5,7 @@ export interface addUser {
         password:string
         username:string
         contactNo:string
+        IsEnable?:boolean
         roleId:string
     }
 }
@@ -16,6 +17,7 @@ export interface editUser {
         password?:string
         username?:string
         contactNo?:string
+        IsEnable?:boolean
         roleId?:string
     }
 }
@@ -27,6 +29,26 @@ export interface deleteUser {
 export interface login {
     data : {
         email:string
+        password:string
+    }
+}
+export interface enableUser {
+    data : {
+        userId:string,
+        IsEnable:boolean
+    }
+}
+
+export interface changePassword {
+    data : {
+        password:string,
+        oldPassword:string
+    }
+}
+
+export interface forgotPassword {
+    data:{
+        email:string,
         password:string
     }
 }

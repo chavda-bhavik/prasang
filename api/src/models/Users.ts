@@ -30,6 +30,11 @@ class User extends Model{
     @Column
     contactNo: string
 
+    @Column({
+        defaultValue:true
+    })
+    IsEnable: boolean
+
     @ForeignKey( () => Role)
     @Column({
         type: DataType.UUID
@@ -37,7 +42,7 @@ class User extends Model{
     roleId: string
 
     @BelongsTo( () => Role)
-    role: Role
+    role: Role    
 
     @CreatedAt
     createdAt: Date

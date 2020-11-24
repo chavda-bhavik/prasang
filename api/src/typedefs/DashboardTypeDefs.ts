@@ -2,10 +2,13 @@ import { gql }  from 'apollo-server'
 
 const DashboardTypeDefs = gql`
     extend type Query {
-        OngoingEvent : Int!
-        CommingEvent : Int!
-        PastEvent : Int!
-        CurrentUser : Int!
+        Dashboard:[DashboardType!]!
+    }
+    type DashboardType {
+        ongoingEvent:Int!
+        commingEvent:Int!
+        pastEvent:Int!
+        currentUser:Int!
     }
 `
 

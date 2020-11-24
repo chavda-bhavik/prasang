@@ -12,8 +12,8 @@ const server = new ApolloServer({
   context({ req, res }) {
       return {
           db,
-          request: req,
-          response: res
+          req,
+          res
       }
   }
 });

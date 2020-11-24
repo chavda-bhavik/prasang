@@ -2,12 +2,12 @@ import { gql }  from 'apollo-server'
 
 const typeDefs = gql`
     extend type Query {
-        events: [Event!]!
+        events: [Events!]!
     }
     extend type Mutation {
-        addEvent(data: AddEventType!): Event!
-        editEvent(eventId: ID!, data: EditEventType!): Event!
-        deleteEvent(eventId: ID!): Event!
+        addEvent(data: AddEventType!): Events!
+        editEvent(eventId: ID!, data: EditEventType!): Events!
+        deleteEvent(eventId: ID!): Events!
     }
     input EditEventType {
         title: String
@@ -27,10 +27,10 @@ const typeDefs = gql`
         fees: Int
         image: Upload
     }
-    type Event {
+    type Events {
         eventId: ID!
         title: String!
-        description: String!
+        description: String
         startDate: String
         endDate: String
         fees: Int

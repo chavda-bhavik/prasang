@@ -40,6 +40,7 @@ const typeDefs = gql`
         createdAt: String!
         updatedAt: String!
         deletedAt: String
+        participations: [Participations!]!
     }
 `
 

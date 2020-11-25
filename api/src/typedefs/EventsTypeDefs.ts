@@ -15,6 +15,7 @@ const typeDefs = gql`
         description: String
         startDate: String
         endDate: String
+        lastRegistraionDate: String
         fees: Int
         image: Upload
     }
@@ -24,13 +25,14 @@ const typeDefs = gql`
         description: String
         startDate: String!
         endDate: String!
+        lastRegistraionDate: String!
         fees: Int
         image: Upload
     }
     type Event {
         eventId: ID!
         title: String!
-        description: String!
+        description: String
         startDate: String
         endDate: String
         fees: Int

@@ -87,7 +87,6 @@ const Mutation = {
                 email:args.data.email
             }
         })
-        console.log(user);
         if(!user){
             throw new Error("Unable to Login")
         }
@@ -95,7 +94,6 @@ const Mutation = {
         if(!isMatch){
             throw new Error("Invalid Username or Password")
         }
-        console.log(user.userId)
         return {
             user,
             token: generateToken(user.userId)

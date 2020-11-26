@@ -1,6 +1,7 @@
 import { gql }  from 'apollo-server'
 
 const typeDefs = gql`
+scalar Upload
     extend type Query {
         events: [Event!]!
     }

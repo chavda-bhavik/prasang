@@ -81,13 +81,12 @@ const Mutation = {
         return userExists;
     },
     login: async (_, args:login , { db }: Context) => {
-        
         const user = await db.Users.findOne({
             where:{
-                email:args.data.email
+                email:args.data.email,
+                IsEnable:true
             }
         })
-        console.log(user);
         if(!user){
             throw new Error("Unable to Login")
         }
@@ -95,7 +94,6 @@ const Mutation = {
         if(!isMatch){
             throw new Error("Invalid Username or Password")
         }
-        console.log(user.userId)
         return {
             user,
             token: generateToken(user.userId)

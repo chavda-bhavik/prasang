@@ -4,7 +4,7 @@ import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID
 @Table({
     tableName:"roles"
 })
-class Role extends Model{
+class Roles extends Model{
     @IsUUID(4)
     @Column({
         primaryKey: true,
@@ -29,4 +29,4 @@ class Role extends Model{
     deletedAt: Date
 }
 
-export default Role
+export default Roles

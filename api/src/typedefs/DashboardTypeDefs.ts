@@ -11,5 +11,4 @@ const DashboardTypeDefs = gql`
         currentUser:Int!
     }
 `
-
 export default DashboardTypeDefs

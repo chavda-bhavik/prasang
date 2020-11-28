@@ -25,14 +25,14 @@ const IsAuthenticated = rule({ cache: 'contextual' })(async (_, _2, {user}:Conte
 
 const IsAdmin = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {
     const u = await user;
-    const result = u?.role.name === "Admin";
+    const result = u?.roles.name === "Admin";
     console.log(`isAdmin:${result}`);
     return result;
 })
 
 const IsUser = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {    
     const u = await user;
-    const result = u?.role.name === "User";
+    const result = u?.roles.name === "User";
     console.log(`isUser:${result}`);
     return result;
 })
@@ -40,6 +40,7 @@ const IsUser = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) =
 export const Permissions = shield({
     Query: {
       Dashboard: and(IsAuthenticated, IsAdmin),
-      usersOne: and(IsAuthenticated, IsUser)
+      usersProfile: and(IsAuthenticated, IsUser),
+      myParticipations: and(IsAuthenticated, IsUser),
     }
 })

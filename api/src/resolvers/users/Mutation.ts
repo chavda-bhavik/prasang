@@ -81,10 +81,10 @@ const Mutation = {
         return userExists;
     },
     login: async (_, args:login , { db }: Context) => {
-        
         const user = await db.Users.findOne({
             where:{
-                email:args.data.email
+                email:args.data.email,
+                IsEnable:true
             }
         })
         if(!user){

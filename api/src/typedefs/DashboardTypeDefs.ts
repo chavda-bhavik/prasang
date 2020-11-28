@@ -1,6 +1,6 @@
 import { gql }  from 'apollo-server'
 
-export const DashboardTypeDefs = gql`
+const DashboardTypeDefs = gql`
     extend type Query {
         Dashboard:[DashboardType!]!
     }
@@ -11,3 +11,4 @@ export const DashboardTypeDefs = gql`
         currentUser:Int!
     }
 `
+export default DashboardTypeDefs

@@ -6,6 +6,7 @@ import Photo from "./models/Photos";
 import Role from "./models/Roles";
 import User from "./models/Users";
 import Winner from "./models/Winners";
+import Participations from "./models/Participations";
 
 export interface db {
     sequelize: Sequelize
@@ -16,11 +17,13 @@ export interface db {
     Roles: typeof Role
     Users: typeof User
     Winners: typeof Winner
+    Participations: typeof Participations
 }
 export interface Context {
     req: Request
     res: Response
     db: db
+    user : User | null
 }
 export interface fileField {
     path: String

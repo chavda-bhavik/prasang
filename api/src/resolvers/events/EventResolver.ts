@@ -8,6 +8,13 @@ const EventResolver = {
                 categoryId: parent.categoryId
             }
         });
+    },
+    participations: async (parent: Event, _, { db }: Context) => {
+        return db.Participations.findAll({
+            where: {
+                eventId: parent.eventId
+            }
+        })
     }
 }
 

@@ -5,7 +5,7 @@ import Query from './Query'
 const index = {
     Mutation,
     Query,
-    Event: EventResolver
+    Events: EventResolver
 }
 
 export default index

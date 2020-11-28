@@ -1,5 +1,5 @@
 import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, ForeignKey, BelongsTo, IsUUID } from "sequelize-typescript";
-import Event from './Events'
+import Participations from "./Participations";
 
 @Table({
     tableName: "photos"
@@ -22,14 +22,14 @@ class Photo extends Model{
     @Column
     uploadDate: Date
 
-    @ForeignKey( () => Event)
+    @ForeignKey( () => Participations)
     @Column({
         type: DataType.UUID
     })
-    eventId: string
+    participationId: string
 
-    @BelongsTo( () => Event)
-    event: Event
+    @BelongsTo( () => Participations)
+    participations: Participations
 
     @CreatedAt
     createdAt: Date

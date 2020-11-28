@@ -4,16 +4,27 @@ import { merge } from "lodash";
 import db from "./models/_index";
 import typeDefs from './typedefs/index'
 import resolvers from './resolvers/index'
-
+const { applyMiddleware } = require("graphql-middleware");
+const { makeExecutableSchema } = require("graphql-tools");
+import { getUser,Permissions } from './Permissions';
 const app = express();
+const schema = applyMiddleware(
+  makeExecutableSchema({
+    typeDefs,
+    resolvers: merge(resolvers)
+  }),
+  Permissions
+)
 const server = new ApolloServer({
   typeDefs,
   resolvers: merge(resolvers),
+  schema:schema,
   context({ req, res }) {
       return {
           db,
           req,
-          res
+          res,
+          user: getUser(req, db)
       }
   }
 });

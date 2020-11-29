@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
+import hashpassword from "../resolvers/utils/hashpassword";
 
 import Comments from "./Comments";
 import EventCategories from "./EventCategories";
@@ -11,7 +12,7 @@ import Participations from './Participations';
 
 import * as config  from './../../db-config.json';
 import { db } from "../global";
-const dbConfig = config["development"]
+const dbConfig = config[process.env.mode || 'development']
 
 const sequelize = new Sequelize(
     dbConfig["database"],
@@ -31,9 +32,40 @@ const sequelize = new Sequelize(
 );
 sequelize.addModels([User, Winner, Comments, EventCategories, Events, Photos, Roles, Participations]);
 
-sequelize.sync({alter:true}).then( () => {
+sequelize.sync({ alter:true }).then( async () => {
     console.log("db synced");
+    await makeRoleEntries();
 });
+
+async function makeRoleEntries() {
+    let roles = await Roles.count();
+    if(roles == 0) {
+        let roles:Roles[] = await Roles.bulkCreate([
+            { name:"Admin" },
+            { name:"User" },
+        ]);
+        let password1 = await hashpassword("admin1234");
+        let password2 = await hashpassword("user1234");
+        await User.bulkCreate([
+            {
+                name:"admin",
+                email:"admin@gmail.com",
+                password: password1,
+                username: "admin",
+                contactNo: '0000000000',
+                roleId: roles[0].roleId
+            }, {
+                name:"user",
+                email:"user@gmail.com",
+                password: password2,
+                username: "user",
+                contactNo: '1111111111',
+                roleId: roles[1].roleId
+            }
+        ]);
+        console.log("Initial entried made to the database!");
+    }
+}
 
 const obj: db = {
     Events: Events,

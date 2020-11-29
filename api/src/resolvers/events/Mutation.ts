@@ -12,6 +12,7 @@ const Mutation = {
         }
         if(args.data.startDate) args.data.startDate = transformDate(args.data.startDate);
         if(args.data.endDate) args.data.endDate = transformDate(args.data.endDate);
+        if(args.data.lastRegistraionDate) args.data.lastRegistraionDate = transformDate(args.data.lastRegistraionDate);
         if(args.data.startDate && args.data.endDate && args.data.startDate > args.data.endDate) {
             throw new Error("EndDate cannot be greater than StartDate!");
         }
@@ -33,6 +34,7 @@ const Mutation = {
         if(args.data.startDate) args.data.startDate = transformDate(args.data.startDate);
         else args.data.startDate = event.startDate;
         if(args.data.endDate) args.data.endDate = transformDate(args.data.endDate);
+        if(args.data.lastRegistraionDate) args.data.lastRegistraionDate = transformDate(args.data.lastRegistraionDate);
         if(args.data.startDate && args.data.endDate && args.data.startDate > args.data.endDate) {
             throw new Error("EndDate cannot be greater than StartDate!");
         }

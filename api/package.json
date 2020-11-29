@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
-    "dev": "nodemon -e ts --exec ts-node src/index.ts",
+    "dev": "nodemon -e ts --exec env-cmd -f config/dev.env ts-node src/index.ts",
     "preinstall": "npx npm-force-resolutions"
   },
   "keywords": [],
@@ -20,7 +20,11 @@
     "apollo-server-express": "^2.19.0",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.23.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
+    "graphql-middleware": "^4.0.2",
+    "graphql-shield": "^7.4.2",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",

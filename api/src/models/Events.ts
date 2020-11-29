@@ -33,6 +33,9 @@ class Events extends Model{
     @Column
     endDate: Date
 
+    @Column
+    lastRegistraionDate: Date
+
     @Column({
         defaultValue: 0
     })

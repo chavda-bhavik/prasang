@@ -1,6 +1,7 @@
 import { gql }  from 'apollo-server'
 
 const typeDefs = gql`
+scalar Upload
     extend type Query {
         events: [Events!]!
     }
@@ -15,6 +16,7 @@ const typeDefs = gql`
         description: String
         startDate: String
         endDate: String
+        lastRegistraionDate: String
         fees: Int
         image: Upload
     }
@@ -24,6 +26,7 @@ const typeDefs = gql`
         description: String
         startDate: String!
         endDate: String!
+        lastRegistraionDate: String!
         fees: Int
         image: Upload
     }

@@ -2,7 +2,8 @@ import { gql }  from 'apollo-server'
 const UserTypeDefs = gql`
     extend type Query {
         users(userId: ID): [Users!]!
-        usersOne: Users!
+        myParticipations: [Participations!]
+        usersProfile: Users!
     }
     extend type Mutation {
         addUser(data:AddUserType!): Users!
@@ -59,7 +60,7 @@ const UserTypeDefs = gql`
         username:String!
         contactNo:String!
         IsEnable:Boolean!
-        role:Roles
+        roleId:String!
         createdAt: String!
         updatedAt: String!
         deletedAt: String

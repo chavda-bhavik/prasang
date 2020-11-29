@@ -1,5 +1,5 @@
 import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, BelongsTo, ForeignKey } from "sequelize-typescript";
-import Role from "./Roles";
+import Roles from "./Roles";
 
 @Table({
     tableName: "users"
@@ -35,14 +35,14 @@ class User extends Model{
     })
     IsEnable: boolean
 
-    @ForeignKey( () => Role)
+    @ForeignKey( () => Roles)
     @Column({
         type: DataType.UUID
     })
     roleId: string
 
-    @BelongsTo( () => Role)
-    role: Role    
+    @BelongsTo( () => Roles)
+    roles: Roles    
 
     @CreatedAt
     createdAt: Date

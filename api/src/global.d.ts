@@ -23,6 +23,7 @@ export interface Context {
     req: Request
     res: Response
     db: db
+    user : User | null
 }
 export interface fileField {
     path: String

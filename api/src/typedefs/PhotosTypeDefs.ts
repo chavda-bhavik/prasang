@@ -11,6 +11,8 @@ const typeDefs = gql`
         photoId: ID!
         imageUrl: String!
         likes: Int!
+        comments: [Comments!]!
+        user: Users!
         createdAt: String!
         updatedAt: String!
         deletedAt: String

@@ -60,7 +60,9 @@ export const Permissions = shield({
         // Participations
         participate: and(IsAuthenticated, IsUser),
         // Photos
-        addPhoto: and(IsAuthenticated, IsUser)
+        addPhoto: and(IsAuthenticated, IsUser),
+        // Comments
+        addComment: and(IsAuthenticated, IsUser)
     }
 }, {
     allowExternalErrors: true,

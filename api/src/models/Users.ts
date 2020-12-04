@@ -30,6 +30,9 @@ class User extends Model{
     @Column
     contactNo: string
 
+    @Column
+    image: string
+
     @Column({
         defaultValue:true
     })

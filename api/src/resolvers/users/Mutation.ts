@@ -1,8 +1,8 @@
-import { Context } from "../../global";
+import { Context , fileField } from "../../global";
 import { addUser,deleteUser,editUser,login, enableUser,changePassword,forgotPassword} from './UserArgTypes';
 import hashpassword from '../utils/hashpassword';
 import generateToken from '../utils/generateToken';
-import getUserId from '../utils/getUserId'
+import { processSingleUpload } from "../utils/Upload";
 import bcrypt = require("bcrypt");
 const Mutation = {
     addUser: async (_, args: addUser, {db}: Context) => {
@@ -26,25 +26,41 @@ const Mutation = {
         {
            throw new Error("Email Exists Please Select Unique"); 
         }
+        if(args.data.image) {
+            let image:fileField = await processSingleUpload(args.data.image);
+            args.data.image = image.path;
+            // delete args.data.image;
+        }
         return await db.Users.create({
             name: args.data.name,
             email:args.data.email,
             password:hash_password,
             username:args.data.username,
             contactNo:args.data.contactNo,
-            roleId:args.data.roleId
+            roleId:args.data.roleId,
+            image:args.data.image
         }, {
             raw: true
         });
     },
-    editUser: async (_, args: editUser, {db}: Context) => {
+    editUser: async (_, args: editUser, {db,user}: Context) => {
+        const users = await user; 
+        let userId = '0';
+        if(users?.userId){
+            userId = users?.userId;
+        }
         let userExists = await db.Users.count({
             where: {
-                userId: args.data.userId,
+                userId: userId,
             }
         });
         if(!userExists) {
             throw new Error("user not exists");
+        }
+        if(args.data.image) {
+            let image:fileField = await processSingleUpload(args.data.image);
+            args.data.image = image.path;
+            // delete args.data.image;
         }
         await db.Users.update({
             name: args.data.name,
@@ -52,15 +68,16 @@ const Mutation = {
             password:args.data.password,
             username:args.data.username,
             contactNo:args.data.contactNo,
-            roleId:args.data.roleId
+            roleId:args.data.roleId,
+            image:args.data.image
         }, {
             where: {
-                userId: args.data.userId
+                userId: userId
             }
         });
         return await db.Users.findOne({
             where: {
-                userId: args.data.userId
+                userId: userId
             }
         })
     },
@@ -115,8 +132,12 @@ const Mutation = {
 
         return IsEnable
     },
-    changePassword: async(_,args:changePassword,{db,req}:Context) => {
-        const userId =await getUserId(req)
+    changePassword: async(_,args:changePassword,{db,user}:Context) => {
+        const users = await user; 
+        let userId = '0';
+        if(users?.userId){
+            userId = users?.userId;
+        }
         const IsExists = await db.Users.findByPk(userId);
         if(!IsExists)
         {
@@ -137,8 +158,12 @@ const Mutation = {
         })
         return IsExists
     },
-    forgotPassword:async(_,args:forgotPassword,{db,req}:Context) => {
-        await getUserId(req)
+    forgotPassword:async(_,args:forgotPassword,{db}:Context) => {
+        // const users = await user; 
+        // let userId = '0';
+        // if(users?.userId){
+        //     userId = users?.userId;
+        // }
         const IsExists = await db.Users.findOne({where:{email:args.data.email}});
         if(!IsExists)
         {

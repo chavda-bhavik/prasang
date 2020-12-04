@@ -44,7 +44,9 @@ export const Permissions = shield({
         usersProfile: and(IsAuthenticated, IsUser),
         myParticipations: and(IsAuthenticated, IsUser),
         // Participations
-        getParticipations: and(IsAuthenticated, or(IsAdmin, IsUser))
+        getParticipations: and(IsAuthenticated, or(IsAdmin, IsUser)),
+        // Photos
+        photos: and(IsAuthenticated, IsUser),
     },
     Mutation: {
         // Event Categories
@@ -56,7 +58,9 @@ export const Permissions = shield({
         editEvent: and(IsAuthenticated, IsAdmin),
         deleteEvent: and(IsAuthenticated, IsAdmin),
         // Participations
-        participate: and(IsAuthenticated, IsUser)
+        participate: and(IsAuthenticated, IsUser),
+        // Photos
+        addPhoto: and(IsAuthenticated, IsUser)
     }
 }, {
     allowExternalErrors: true,

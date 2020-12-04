@@ -5,6 +5,7 @@ import EventCategoriesTypeDefs from './EventCategoriesTypeDefs'
 import EventTypedefs from './EventsTypeDefs'
 import DashboardTypeDefs from './DashboardTypeDefs'
 import ParticipationTypeDefs from './ParticipationTypeDefs'
+import PhotosTypeDefs from './PhotosTypeDefs'
 
 const types = [
     DemoTypeDef,
@@ -13,7 +14,8 @@ const types = [
     RoleTypeDefs,
     UserTypeDefs,
     DashboardTypeDefs,
-    ParticipationTypeDefs
+    ParticipationTypeDefs,
+    PhotosTypeDefs
 ];
 
 export default types;

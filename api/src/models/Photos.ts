@@ -16,10 +16,14 @@ class Photo extends Model{
     @Column
     imageUrl: string
 
-    @Column
+    @Column({
+        defaultValue: 0
+    })
     likes: number
 
-    @Column
+    @Column({
+        defaultValue: new Date()
+    })
     uploadDate: Date
 
     @ForeignKey( () => Participations)

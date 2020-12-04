@@ -1,8 +1,9 @@
 import { Context, fileField } from "../../global"
-import { addPhoto } from "./PhotosArgTypes";
+import { addPhoto, likePhoto } from "./PhotosArgTypes";
 import { processSingleUpload } from "../utils/Upload";
 import Participations from "../../models/Participations";
 import Events from "../../models/Events";
+import Photo from "../../models/Photos";
 
 const Mutation = {
     addPhoto: async (_, args:addPhoto, { db, user }: Context) => {
@@ -36,6 +37,28 @@ const Mutation = {
             imageUrl: image.path,
             participationId: participation.participationId
         });
+    },
+    likePhoto: async (_, args: likePhoto, { db, user }: Context) => {
+        if(!user) return;
+        let photo:Photo = await db.Photos.findByPk(args.photoId);
+        let likes:string[] = photo.likes;
+        let userIdIndex:number = likes.findIndex(id => id === user.userId);
+        
+        if(userIdIndex === -1) {
+            likes.push(user.userId);
+        } else {
+            likes.splice(userIdIndex, 1);
+        }
+
+        await db.Photos.update({
+            likes
+        }, {
+            where: {
+                photoId: args.photoId
+            }
+        });
+
+        return likes.length;
     }
 }
 

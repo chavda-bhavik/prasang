@@ -15,7 +15,8 @@ export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
             attributes: ["name"],
         }]
     });
-    return user.toJSON();
+    if(user) return user.toJSON();
+    return null;
 }
 
 const IsAuthenticated = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {
@@ -61,6 +62,7 @@ export const Permissions = shield({
         participate: and(IsAuthenticated, IsUser),
         // Photos
         addPhoto: and(IsAuthenticated, IsUser),
+        likePhoto: and(IsAuthenticated, IsUser),
         // Comments
         addComment: and(IsAuthenticated, IsUser)
     }

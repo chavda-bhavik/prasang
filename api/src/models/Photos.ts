@@ -17,9 +17,10 @@ class Photo extends Model{
     imageUrl: string
 
     @Column({
-        defaultValue: 0
+        defaultValue: [],
+        type: DataType.ARRAY(DataType.UUID)
     })
-    likes: number
+    likes: string[]
 
     @Column({
         defaultValue: new Date()

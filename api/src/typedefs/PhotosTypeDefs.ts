@@ -6,11 +6,13 @@ const typeDefs = gql`
     }
     extend type Mutation {
         addPhoto(eventId: ID!, image: Upload!): Photos
+        likePhoto(photoId: ID!): Int!
     }
     type Photos {
         photoId: ID!
         imageUrl: String!
         likes: Int!
+        isLiked: Boolean!
         comments: [Comments!]!
         user: Users!
         createdAt: String!

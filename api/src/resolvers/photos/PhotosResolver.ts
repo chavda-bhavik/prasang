@@ -17,6 +17,13 @@ const PhotosResolver = {
             }]
         });
         return particiapation.user
+    },
+    likes: async (parent: Photo) => {
+        return parent.likes.length;
+    },
+    isLiked: async (parent: Photo, _, { user }:Context) => {
+        if(!user) return false;
+        return parent.likes.includes(user.userId);
     }
 }
 

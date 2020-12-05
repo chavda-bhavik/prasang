@@ -7,7 +7,6 @@ export interface addUser {
         contactNo:string
         IsEnable?:boolean
         roleId:string
-        image:any
     }
 }
 export interface editUser {
@@ -20,7 +19,6 @@ export interface editUser {
         contactNo?:string
         IsEnable?:boolean
         roleId?:string
-        image:any
     }
 }
 export interface deleteUser {

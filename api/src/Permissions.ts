@@ -1,21 +1,20 @@
 import { Context, db } from "./global";
 import User from "./models/Users";
-import { rule,shield,and, or } from "graphql-shield";
+const { rule,shield,and } = require("graphql-shield");
 import getUserId from './resolvers/utils/getUserId'
 
 export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
     let userId : string = getUserId(req);
-    if(!userId) return null;
-    let user = await db.Users.findOne({
+    if(!userId) userId = '0';
+    return await db.Users.findOne({
         where: {
             userId: userId
         },
         include: [{
             model: db.Roles,
-            attributes: ["name"],
+            attributes: ["name"]
         }]
-    });
-    return user.toJSON();
+    })
 }
 
 const IsAuthenticated = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {
@@ -40,24 +39,8 @@ const IsUser = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) =
 
 export const Permissions = shield({
     Query: {
-        Dashboard: and(IsAuthenticated, IsAdmin),
-        usersProfile: and(IsAuthenticated, IsUser),
-        myParticipations: and(IsAuthenticated, IsUser),
-        // Participations
-        getParticipations: and(IsAuthenticated, or(IsAdmin, IsUser))
-    },
-    Mutation: {
-        // Event Categories
-        addEventCategory: and(IsAuthenticated, IsAdmin),
-        editEventCategory: and(IsAuthenticated, IsAdmin),
-        deleteEventCategory: and(IsAuthenticated, IsAdmin),
-        // Events
-        addEvent: and(IsAuthenticated, IsAdmin),
-        editEvent: and(IsAuthenticated, IsAdmin),
-        deleteEvent: and(IsAuthenticated, IsAdmin),
-        // Participations
-        participate: and(IsAuthenticated, IsUser)
+      Dashboard: and(IsAuthenticated, IsAdmin),
+      usersProfile: and(IsAuthenticated, IsUser),
+      myParticipations: and(IsAuthenticated, IsUser),
     }
-}, {
-    allowExternalErrors: true,
 })

@@ -1,6 +1,6 @@
 import jwt = require("jsonwebtoken");
 
-const getUserId = (req, requireAuth = false) => {
+const getUserId = (req, requireAuth = true) => {
     const header = req ? req.headers.authorization : req.connection.context.authorization
 
     if (header) {

@@ -1,10 +1,13 @@
 import { Context } from "../../global";
 import Events from "../../models/Events";
 import findThrowAndReturn from "../utils/findThrowAndReturn";
+import getUserId from '../utils/getUserId'
 import { participate } from './ParticipationArgTypes'
 
 const Mutation = {
-    participate: async ( _, args:participate, { db, user }: Context ) => {
+    participate: async ( _, args:participate, { req, db }: Context ) => {
+        const userId = await getUserId(req);
+        
         // event exists and can register
         const event:Events = await findThrowAndReturn(db, "Events", {
             where: {
@@ -19,7 +22,7 @@ const Mutation = {
         let participtaion = await findThrowAndReturn(db, "Participations", {
             where: {
                 eventId: args.eventId,
-                userId: user?.userId
+                userId: userId
             }
         }, false);
         if(participtaion) {
@@ -28,7 +31,7 @@ const Mutation = {
 
         // participated in event
         return db.Participations.create({
-            userId: user?.userId,
+            userId: userId,
             eventId: args.eventId
         });
     }

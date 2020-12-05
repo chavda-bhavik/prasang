@@ -1,18 +1,18 @@
 import { Context, db } from "./global";
 import User from "./models/Users";
-import { rule,shield,and, or } from "graphql-shield";
+const { rule,shield,and } = require("graphql-shield");
 import getUserId from './resolvers/utils/getUserId'
 
 export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
     let userId : string = getUserId(req);
-    if(!userId) return null;
+    if(!userId) userId = '0';
     let user = await db.Users.findOne({
         where: {
             userId: userId
         },
         include: [{
             model: db.Roles,
-            attributes: ["name"],
+            attributes: ["name"]
         }]
     });
     if(user) return user.toJSON();
@@ -64,8 +64,9 @@ export const Permissions = shield({
         addPhoto: and(IsAuthenticated, IsUser),
         likePhoto: and(IsAuthenticated, IsUser),
         // Comments
-        addComment: and(IsAuthenticated, IsUser)
+        addComment: and(IsAuthenticated, IsUser),
+        Dashboard: and(IsAuthenticated, IsAdmin),
+        usersProfile: and(IsAuthenticated, IsUser),
+        myParticipations: and(IsAuthenticated, IsUser),
     }
-}, {
-    allowExternalErrors: true,
 })

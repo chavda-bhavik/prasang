@@ -6,7 +6,7 @@ const DemoTypeDef = gql`
         world: String!
     }
     type Mutation {
-        hello: String!
+        hello(image: Upload!): String!
     }
 `
 

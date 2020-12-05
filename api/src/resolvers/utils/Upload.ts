@@ -40,7 +40,7 @@ export const processMultiUpload = async (files) => {
     uploadedFiles = await Promise.all(files.map(storeUpload));
     return uploadedFiles;
 };
-export const processSingleUpload = async (file):Promise<fileField> => {
-    const uploadedFile = await storeUpload(file);
+export const processSingleUpload = async (upload):Promise<fileField> => {
+    const uploadedFile = await storeUpload(upload.file);
     return uploadedFile;
 }

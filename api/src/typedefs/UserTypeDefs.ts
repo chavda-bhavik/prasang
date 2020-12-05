@@ -40,6 +40,7 @@ const UserTypeDefs = gql`
         password:String!
         username:String!
         contactNo:String!
+        image:Upload!
         IsEnable:Boolean
         roleId:ID!
     }
@@ -49,6 +50,7 @@ const UserTypeDefs = gql`
         password:String!
         username:String!
         contactNo:String!
+        image:Upload!
         IsEnable:Boolean
         roleId:ID!
     }
@@ -61,6 +63,7 @@ const UserTypeDefs = gql`
         contactNo:String!
         IsEnable:Boolean!
         roleId:String!
+        image:String!
         createdAt: String!
         updatedAt: String!
         deletedAt: String

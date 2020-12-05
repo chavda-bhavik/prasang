@@ -6,7 +6,7 @@ import getUserId from './resolvers/utils/getUserId'
 export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
     let userId : string = getUserId(req);
     if(!userId) userId = '0';
-    return await db.Users.findOne({
+    let user = await db.Users.findOne({
         where: {
             userId: userId
         },
@@ -14,7 +14,9 @@ export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
             model: db.Roles,
             attributes: ["name"]
         }]
-    })
+    });
+    if(user) return user.toJSON();
+    return null;
 }
 
 const IsAuthenticated = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {
@@ -39,8 +41,32 @@ const IsUser = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) =
 
 export const Permissions = shield({
     Query: {
-      Dashboard: and(IsAuthenticated, IsAdmin),
-      usersProfile: and(IsAuthenticated, IsUser),
-      myParticipations: and(IsAuthenticated, IsUser),
+        Dashboard: and(IsAuthenticated, IsAdmin),
+        usersProfile: and(IsAuthenticated, IsUser),
+        myParticipations: and(IsAuthenticated, IsUser),
+        // Participations
+        getParticipations: and(IsAuthenticated, or(IsAdmin, IsUser)),
+        // Photos
+        photos: and(IsAuthenticated, IsUser),
+    },
+    Mutation: {
+        // Event Categories
+        addEventCategory: and(IsAuthenticated, IsAdmin),
+        editEventCategory: and(IsAuthenticated, IsAdmin),
+        deleteEventCategory: and(IsAuthenticated, IsAdmin),
+        // Events
+        addEvent: and(IsAuthenticated, IsAdmin),
+        editEvent: and(IsAuthenticated, IsAdmin),
+        deleteEvent: and(IsAuthenticated, IsAdmin),
+        // Participations
+        participate: and(IsAuthenticated, IsUser),
+        // Photos
+        addPhoto: and(IsAuthenticated, IsUser),
+        likePhoto: and(IsAuthenticated, IsUser),
+        // Comments
+        addComment: and(IsAuthenticated, IsUser),
+        Dashboard: and(IsAuthenticated, IsAdmin),
+        usersProfile: and(IsAuthenticated, IsUser),
+        myParticipations: and(IsAuthenticated, IsUser),
     }
 })

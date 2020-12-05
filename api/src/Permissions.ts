@@ -1,6 +1,6 @@
 import { Context, db } from "./global";
 import User from "./models/Users";
-const { rule,shield,and } = require("graphql-shield");
+import { rule,shield,and, or } from "graphql-shield"
 import getUserId from './resolvers/utils/getUserId'
 
 export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
@@ -65,8 +65,5 @@ export const Permissions = shield({
         likePhoto: and(IsAuthenticated, IsUser),
         // Comments
         addComment: and(IsAuthenticated, IsUser),
-        Dashboard: and(IsAuthenticated, IsAdmin),
-        usersProfile: and(IsAuthenticated, IsUser),
-        myParticipations: and(IsAuthenticated, IsUser),
     }
 })

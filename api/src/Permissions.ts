@@ -5,7 +5,7 @@ import getUserId from './resolvers/utils/getUserId'
 
 export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
     let userId : string = getUserId(req);
-    if(!userId) userId = '0';
+    if(!userId) return null;
     let user = await db.Users.findOne({
         where: {
             userId: userId
@@ -15,7 +15,7 @@ export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
             attributes: ["name"]
         }]
     });
-    if(user) return user.toJSON();
+    if(user) return user;
     return null;
 }
 
@@ -66,4 +66,6 @@ export const Permissions = shield({
         // Comments
         addComment: and(IsAuthenticated, IsUser),
     }
+}, {
+    allowExternalErrors: true,
 })

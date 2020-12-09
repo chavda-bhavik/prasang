@@ -19,12 +19,12 @@ const server = new ApolloServer({
   typeDefs,
   resolvers: merge(resolvers),
   schema:schema,
-  context({ req, res }) {
+  async context({ req, res }) {
       return {
           db,
           req,
           res,
-          user: getUser(req, db)
+          user: await getUser(req, db)
       }
   }
 });

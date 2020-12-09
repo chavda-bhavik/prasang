@@ -28,3 +28,17 @@ export interface editEventType {
 export interface deleteEventType {
     eventId: string
 }
+export interface fetchEventType {
+    eventId: string
+}
+export interface fetchAllEventsType {
+    where: {
+        ongoing?: Boolean
+        upcoming?: Boolean
+        all?: Boolean
+        startDate?: String | Date
+        endDate?: String | Date
+        paid?: Boolean
+        categoryId?: string
+    }
+}

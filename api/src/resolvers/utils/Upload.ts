@@ -8,7 +8,7 @@ v2.config({
 });
 
 const storeUpload = async (upload):Promise<fileField> => {
-    const { createReadStream } = await upload;
+    const { createReadStream } = upload;
     const stream = createReadStream();
     return new Promise((resolve, reject) =>
         stream
@@ -40,7 +40,8 @@ export const processMultiUpload = async (files) => {
     uploadedFiles = await Promise.all(files.map(storeUpload));
     return uploadedFiles;
 };
-export const processSingleUpload = async (file):Promise<fileField> => {
-    const uploadedFile = await storeUpload(file);
+export const processSingleUpload = async (upload):Promise<fileField> => {
+    upload = await upload;
+    const uploadedFile = await storeUpload(upload.file);
     return uploadedFile;
 }

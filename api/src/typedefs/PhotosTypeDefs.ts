@@ -3,6 +3,7 @@ import { gql }  from 'apollo-server'
 const typeDefs = gql`
     extend type Query {
         photos: [Photos!]!
+        photo(photoId: ID!): Photos!
     }
     extend type Mutation {
         addPhoto(eventId: ID!, image: Upload!): Photos

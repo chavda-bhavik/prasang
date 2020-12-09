@@ -48,9 +48,9 @@ export const Permissions = shield({
     },
     Mutation: {
         // Event Categories
-        addEventCategory: and(IsAuthenticated, IsAdmin),
-        editEventCategory: and(IsAuthenticated, IsAdmin),
-        deleteEventCategory: and(IsAuthenticated, IsAdmin),
+        // addEventCategory: and(IsAuthenticated, IsAdmin),
+        // editEventCategory: and(IsAuthenticated, IsAdmin),
+        // deleteEventCategory: and(IsAuthenticated, IsAdmin),
         // Events
         addEvent: and(IsAuthenticated, IsAdmin),
         editEvent: and(IsAuthenticated, IsAdmin),

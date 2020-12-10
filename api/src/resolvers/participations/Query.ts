@@ -1,17 +1,16 @@
 import { Context } from "../../global";
-import getUserId from '../utils/getUserId'
 
 const Query = {
-    getParticipations: async (_, _2, { req, db }: Context) => {
-        const userId = getUserId(req, false);
-        if(userId) {
-            return db.Participations.findAll({
-                where: {
-                    userId: userId
-                }
-            })
+    getParticipations: async (_, _2, { user, db }: Context) => {
+        if(!user) return;
+        if(user.roles.name == 'Admin') {
+            return db.Participations.findAll();
         }
-        return db.Participations.findAll();
+        return db.Participations.findAll({
+            where: {
+                userId: user.userId
+            }
+        });
     }
 }
 

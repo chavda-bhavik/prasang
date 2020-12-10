@@ -5,3 +5,6 @@ export interface addPhoto {
 export interface likePhoto {
     photoId: string
 }
+export interface fetchPhoto {
+    photoId: string
+}

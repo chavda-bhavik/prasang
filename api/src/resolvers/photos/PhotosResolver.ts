@@ -8,7 +8,7 @@ const PhotosResolver = {
         return db.Comments.findAll({ where: { photoId: parent.photoId }});
     },
     user: async (parent: Photo, _, { db }:Context) => {
-        let particiapation:Participations = await db.Participations.findOne({
+        let particiapation:Participations | null = await db.Participations.findOne({
             where: {
                 participationId: parent.participationId
             },
@@ -16,7 +16,8 @@ const PhotosResolver = {
                 model: User
             }]
         });
-        return particiapation.user
+        if(particiapation) return particiapation.user;
+        else return null;
     },
     likes: async (parent: Photo) => {
         return parent.likes.length;

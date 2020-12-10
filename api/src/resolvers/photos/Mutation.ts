@@ -8,7 +8,7 @@ import Photo from "../../models/Photos";
 const Mutation = {
     addPhoto: async (_, args:addPhoto, { db, user }: Context) => {
         if(!user) return;
-        let participation:Participations = await db.Participations.findOne({
+        let participation:Participations|null = await db.Participations.findOne({
             where: {
                 userId: user.userId,
                 eventId: args.eventId
@@ -19,8 +19,8 @@ const Mutation = {
             throw new Error("You've already submitted photo for this event!");
         }
 
-        let event:Events =  await db.Events.findByPk(participation.eventId);
-        if(event.endDate < new Date()) {
+        let event:Events|null =  await db.Events.findByPk(participation.eventId);
+        if(event && event.endDate < new Date()) {
             throw new Error("Event is ended!");
         }
 
@@ -40,7 +40,10 @@ const Mutation = {
     },
     likePhoto: async (_, args: likePhoto, { db, user }: Context) => {
         if(!user) return;
-        let photo:Photo = await db.Photos.findByPk(args.photoId);
+        
+        let photo:Photo | null = await db.Photos.findByPk(args.photoId);
+        if(!photo) throw new Error("Photo is not available!");
+
         let likes:string[] = photo.likes;
         let userIdIndex:number = likes.findIndex(id => id === user.userId);
         

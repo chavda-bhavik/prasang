@@ -41,7 +41,6 @@ const UserTypeDefs = gql`
         username:String!
         contactNo:String!
         IsEnable:Boolean
-        roleId:ID!
     }
     input AddUserType {
         name:String!
@@ -50,7 +49,6 @@ const UserTypeDefs = gql`
         username:String!
         contactNo:String!
         IsEnable:Boolean
-        roleId:ID!
     }
     type Users {
         userId:ID!

@@ -7,6 +7,11 @@ import bcrypt = require("bcrypt");
 const Mutation = {
     addUser: async (_, args: addUser, {db}: Context) => {
         let hash_password = await hashpassword(args.data.password);
+        let role = await db.Roles.findOne({
+            where:{
+                name: "User"
+            }
+        });
         let usernameExists = await db.Users.count({
             where: {
                 username: args.data.username,
@@ -32,12 +37,24 @@ const Mutation = {
             password:hash_password,
             username:args.data.username,
             contactNo:args.data.contactNo,
-            roleId:args.data.roleId
+            roleId:role.roleId,
+            image:args.data.image
         }, {
             raw: true
         });
     },
-    editUser: async (_, args: editUser, {db}: Context) => {
+    editUser: async (_, args: editUser, {db,user}: Context) => {
+        const users = await user; 
+        let userId = '0';
+        
+        if(users?.userId){
+            userId = users?.userId;
+        }
+        let role = await db.Roles.count({
+            where:{
+                name: "User"
+            }
+        });
         let userExists = await db.Users.count({
             where: {
                 userId: args.data.userId,
@@ -52,7 +69,8 @@ const Mutation = {
             password:args.data.password,
             username:args.data.username,
             contactNo:args.data.contactNo,
-            roleId:args.data.roleId
+            roleId:role.roleId,
+            image:args.data.image
         }, {
             where: {
                 userId: args.data.userId

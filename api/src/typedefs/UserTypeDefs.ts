@@ -41,7 +41,6 @@ const UserTypeDefs = gql`
         username:String!
         contactNo:String!
         image:Upload!
-        IsEnable:Boolean
     }
     input AddUserType {
         name:String!
@@ -50,7 +49,6 @@ const UserTypeDefs = gql`
         username:String!
         contactNo:String!
         image:Upload!
-        IsEnable:Boolean
     }
     type Users {
         userId:ID!
@@ -60,7 +58,7 @@ const UserTypeDefs = gql`
         username:String!
         contactNo:String!
         IsEnable:Boolean!
-        roleId:String!
+        role:Roles
         image:String!
         createdAt: String!
         updatedAt: String!

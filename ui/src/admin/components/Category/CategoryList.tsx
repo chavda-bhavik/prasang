@@ -45,8 +45,10 @@ const CategoryList = (props:any) =>{
         }
     ];
     const deleteModal = (id:any) => {
-        console.log(id);
         setVisible({ show: true, id: id });
+    }
+    const updateHandler = async (id:any) => {
+        await props.singleCat(id);
     }
     const data : any = (list:any,Catdelete:any) => {
         let categoryArr : any = [];
@@ -57,7 +59,7 @@ const CategoryList = (props:any) =>{
                 index:i+1,
                 name:list[i].name,
                 image:<img src={list[i].imagePath} width="50px"/>,
-                edit:<Button type="primary">Edit</Button>,
+                edit:<Button type="primary" onClick={() => updateHandler(list[i].categoryId)}>Edit</Button>,
                 delete:<Button type="primary" onClick={() => Catdelete(list[i].categoryId)} danger>Delete</Button>
             });            
         }

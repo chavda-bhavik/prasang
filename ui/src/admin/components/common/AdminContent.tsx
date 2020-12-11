@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {Route,Switch} from 'react-router';
 import Category from '../../containers/Category'
 import CategoryAddForm from '../../containers/CategoryAddForm'
+import CategoryEditForm from '../../containers/CategoryEditForm'
 import { Layout, Breadcrumb } from 'antd';
 const { Content } = Layout;
 
@@ -18,6 +19,7 @@ const AdminContent = (props:any) => {
                     <Switch>
                         <Route path="/prasangadmin/category" component={Category} />
                         <Route path="/prasangadmin/addcategory" component={CategoryAddForm} />
+                        <Route path="/prasangadmin/editcategory/:id" component={CategoryEditForm} />
                     </Switch>
                 </div>
             </div>

@@ -22,6 +22,11 @@ const Mutation = {
                 email: args.data.email,
             }
         });
+        let phoneExists = await db.Users.count({
+            where: {
+                contactNo: args.data.contactNo,
+            }
+        });
         
         if(usernameExists)
         {
@@ -31,10 +36,13 @@ const Mutation = {
         {
            throw new Error("Email Exists Please Select Unique"); 
         }
+        if(phoneExists)
+        {
+           throw new Error("contactNo Exists Please Select Unique"); 
+        }
         if(args.data.image) {
             let image:fileField = await processSingleUpload(args.data.image);
             args.data.image = image.path;
-            // delete args.data.image;
         }
         return await db.Users.create({
             name: args.data.name,

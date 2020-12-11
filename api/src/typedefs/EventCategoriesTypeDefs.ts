@@ -3,6 +3,7 @@ import { gql }  from 'apollo-server'
 const EventCategoriesTypeDef = gql`
     extend type Query {
         eventCategories: [EventCategory!]!
+        eventCategory(categoryId: ID!): EventCategory!
     }
     extend type Mutation {
         addEventCategory(name: String!, image: Upload!): EventCategory!

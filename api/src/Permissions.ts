@@ -51,6 +51,10 @@ export const Permissions = shield({
         // addEventCategory: and(IsAuthenticated, IsAdmin),
         // editEventCategory: and(IsAuthenticated, IsAdmin),
         // deleteEventCategory: and(IsAuthenticated, IsAdmin),
+        
+        // Role
+        addRole: and(IsAuthenticated, IsAdmin),
+
         // Events
         addEvent: and(IsAuthenticated, IsAdmin),
         editEvent: and(IsAuthenticated, IsAdmin),

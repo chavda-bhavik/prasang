@@ -1,10 +1,10 @@
-import React , {useEffect,useState} from 'react';
+import React , {useEffect,useState,useRef} from 'react';
 import { gql, useMutation,useQuery } from '@apollo/client';
 import { useDispatch,useSelector } from 'react-redux'
 
 import CategoryList from '../components/Category/CategoryList';
 import {IRootState} from '../store/store';
-import { Card } from 'antd';
+import { Spin, Alert, Card } from 'antd';
 import * as types from '../store/actionTypes'
 
 const DELETE_Category = gql`
@@ -27,28 +27,33 @@ query {
 }`
 
 const Category = (props:any) =>{
-    const { data, refetch } = useQuery(FetchCategory);
+    const { data, refetch,loading } = useQuery(FetchCategory);
     const categoryList = useSelector((state:IRootState) => state.category.categoryList)
+    const unmounted = useRef(false);
     useEffect(()=>{
-        dispatch({
-            type:types.INIT_CATEGORY
-        })
         try {
-            refetch()
             dispatch({
-                type:types.FETCH_CATEGORY_SUCCESS,
-                categoryList:data.eventCategories
-            })  
-        } catch (error) {
-            dispatch({
-                type:types.FETCH_CATEGORY_FAILED,
-                error:error.message
+                type:types.INIT_CATEGORY
             })
+            try {
+                refetch()
+                dispatch({
+                    type:types.FETCH_CATEGORY_SUCCESS,
+                    categoryList:data.eventCategories
+                })  
+            } catch (error) {
+                dispatch({
+                    type:types.FETCH_CATEGORY_FAILED,
+                    error:error.message
+                })
+            }   
+        } catch (error) {
+            
         }
-        
-    },[props.match.params.id,data])
+        return () => { unmounted.current = true }
+    },[data])
 
-    let loadder : any = "Loading ....";
+    let loadder : any =<Spin tip="Loading..."></Spin>;
 
     const [delCat] = useMutation(DELETE_Category);
     
@@ -79,7 +84,7 @@ const Category = (props:any) =>{
 
     const catLength = categoryList; 
     
-    if(catLength!=undefined && catLength.length > 0)
+    if(catLength!=undefined && !loading && catLength.length > 0)
     {
         loadder = <CategoryList list = {categoryList} Catdelete = {deleteCategory} singleCat = { singleCategory }/>;
     }

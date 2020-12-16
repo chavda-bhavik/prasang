@@ -1,4 +1,4 @@
-import React , {useEffect} from 'react';
+import React , {useEffect,useRef} from 'react';
 import { gql, useMutation,useQuery } from '@apollo/client';
 import { useDispatch , useSelector} from 'react-redux'
 import * as types from '../store/actionTypes'
@@ -28,27 +28,34 @@ const CategoryEditForm = (props:any) => {
         variables:{categoryId:props.match.params.id}
     });
     const categoryData = useSelector((state:IRootState) => state.category.category)
+    const unmounted = useRef(false);
     useEffect(()=>{
-        dispatch({
-            type:types.INIT_SINGLE_CATEGORY
-        })
         try {
-            refetch()
             dispatch({
-                type:types.SINGLE_DATA_SUCCESS,
-                category:data,
-                categoryId:props.match.params.id
-            })  
-        } catch (error) {
-            dispatch({
-                type:types.SINGLE_DATA_FAILED,
-                error:error.message
+                type:types.INIT_SINGLE_CATEGORY
             })
+            try {
+                refetch()
+                dispatch({
+                    type:types.SINGLE_DATA_SUCCESS,
+                    category:data,
+                    categoryId:props.match.params.id
+                })  
+            } catch (error) {
+                dispatch({
+                    type:types.SINGLE_DATA_FAILED,
+                    error:error.message
+                })
+            }
+            
+        } catch (error) {
+                
         }
+        return () => { unmounted.current = true }
     },[props.match.params.id,data])
     
     
-    const [updateCat] = useMutation(Edit_Category);
+    const [updateCat,{loading}] = useMutation(Edit_Category);
     const dispatch = useDispatch();
     
     const updateCategory = async (id:string,name:string,image:any|string) => {
@@ -79,8 +86,7 @@ const CategoryEditForm = (props:any) => {
     }
     return (
         <>
-        {console.log(categoryData)}
-           {(categoryData) ? <CategoryEdit updateCategory = {updateCategory} singleCat = {categoryData}/> : null}
+           {(categoryData) ? <CategoryEdit updateCategory = {updateCategory} singleCat = {categoryData} loading={loading}/> : null}
         </>
     )
 }

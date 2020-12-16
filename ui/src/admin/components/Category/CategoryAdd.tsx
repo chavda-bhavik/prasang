@@ -88,8 +88,8 @@ const CategoryAdd = (props:any) => {
                     </Form.Item>
                     
 
-                    <Form.Item >
-                        <Button type="primary" htmlType="submit" onClick={onFinish}>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" onClick={onFinish} loading={props.loading}>
                             Submit
                         </Button>
                     </Form.Item>

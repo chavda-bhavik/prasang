@@ -67,7 +67,7 @@ const CategoryList = (props:any) =>{
     } 
     return(
         <>
-            <Table columns={columns} dataSource={data(props.list,deleteModal)}/>
+            <Table columns={columns} pagination={{ pageSize: 4 }}  dataSource={data(props.list,deleteModal)}/>
             <Modal
                 title="Modal"
                 visible={visible.show}

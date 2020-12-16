@@ -1,6 +1,6 @@
 import React from 'react';
 import CategoryAdd from '../components/Category/CategoryAdd';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation,useQuery } from '@apollo/client';
 import { useDispatch , useSelector} from 'react-redux'
 import * as types from '../store/actionTypes'
 
@@ -15,8 +15,9 @@ const ADD_Category = gql`
 `;
 const CategoryAddForm = (props:any) => {
     
-    const [addCat] = useMutation(ADD_Category);
-    
+    // const { loading } = useQuery(FetchCategory);
+    const [addCat,{loading}] = useMutation(ADD_Category);
+
     const dispatch = useDispatch();
 
     const addCategory = async (name:string,image:any) => {
@@ -39,7 +40,7 @@ const CategoryAddForm = (props:any) => {
     }
     return (
         <>
-            <CategoryAdd addCategory = {addCategory}/>            
+            <CategoryAdd addCategory = {addCategory} loading={loading}/>            
         </>
     )
 }

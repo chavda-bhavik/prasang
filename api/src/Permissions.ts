@@ -41,7 +41,7 @@ const IsUser = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) =
 export const Permissions = shield({
     Query: {
         Dashboard: and(IsAuthenticated, IsAdmin),
-        usersProfile: and(IsAuthenticated, IsUser),
+        usersProfile: IsAuthenticated,
         myParticipations: and(IsAuthenticated, IsUser),
         // Participations
         getParticipations: and(IsAuthenticated, or(IsAdmin, IsUser))

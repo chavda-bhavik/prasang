@@ -2,6 +2,7 @@ import { Context } from "../../global";
 const Query = {
     users: async (_, _2, {db}: Context, _3) => {
         const userData = await db.Users.findAll({
+            // include:[{model:db.Roles}],            
             where :{
                 IsEnable:true
             }

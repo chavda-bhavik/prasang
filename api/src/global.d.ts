@@ -26,9 +26,9 @@ export interface Context {
     user : User | null
 }
 export interface fileField {
-    path: String
-    uploadName: String
-    mimetype: String
+    path: string
+    uploadName: string
+    mimetype: string
 }
 // export interface ModelValues {
 //     [key: any]: {

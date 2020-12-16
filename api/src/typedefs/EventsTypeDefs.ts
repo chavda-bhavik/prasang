@@ -3,12 +3,22 @@ import { gql }  from 'apollo-server'
 const typeDefs = gql`
 scalar Upload
     extend type Query {
-        events: [Events!]!
+        events(where: FetchEventsType): [Events!]!
+        event(eventId: ID!): Events!
     }
     extend type Mutation {
         addEvent(data: AddEventType!): Events!
         editEvent(eventId: ID!, data: EditEventType!): Events!
         deleteEvent(eventId: ID!): Events!
+    }
+    input FetchEventsType {
+        ongoing: Boolean
+        upcoming: Boolean
+        all: Boolean
+        startDate: String
+        endDate: String
+        paid: Boolean
+        categoryId: ID
     }
     input EditEventType {
         title: String

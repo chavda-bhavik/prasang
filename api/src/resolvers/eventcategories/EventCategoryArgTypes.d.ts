@@ -10,3 +10,6 @@ export interface editCategory {
 export interface deleteCategory {
     categoryId: string
 }
+export interface fetchCategory {
+    categoryId?: string
+}

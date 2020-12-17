@@ -2,3 +2,4 @@ api/node_modules
 api/images
 api/config
 ui/node_modules
+ui/.eslintcache

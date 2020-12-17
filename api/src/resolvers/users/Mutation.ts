@@ -1,9 +1,10 @@
-import { Context } from "../../global";
+import { Context, fileField } from "../../global";
 import { addUser,deleteUser,editUser,login, enableUser,changePassword,forgotPassword} from './UserArgTypes';
 import hashpassword from '../utils/hashpassword';
 import generateToken from '../utils/generateToken';
 import getUserId from '../utils/getUserId'
 import bcrypt = require("bcrypt");
+import { processSingleUpload } from "../utils/Upload";
 const Mutation = {
     addUser: async (_, args: addUser, {db}: Context) => {
         let hash_password = await hashpassword(args.data.password);
@@ -59,7 +60,7 @@ const Mutation = {
     editUser: async (_, args: editUser, {db,user}: Context) => {
         const users = await user; 
         let userId = '0';
-        
+        console.log(userId);
         if(users?.userId){
             userId = users?.userId;
         }

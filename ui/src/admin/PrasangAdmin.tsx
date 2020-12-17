@@ -20,7 +20,7 @@ const { Content } = Layout;
 const PrasangAdmin = (props:any) => {
     const dispatch = useDispatch();
     const token = useSelector((state:IRootState) => state.auth.token ? true : false)
-    
+    const { location } = props;
     const logout = () => {
         console.log("logout={logout}")
         dispatch({

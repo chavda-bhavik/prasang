@@ -3,3 +3,6 @@ api/images
 api/config
 ui/node_modules
 ui/.eslintcache
+ui/.env
+ui/.env.development
+ui/.env.production

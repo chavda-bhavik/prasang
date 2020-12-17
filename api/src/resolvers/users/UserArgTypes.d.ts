@@ -5,8 +5,6 @@ export interface addUser {
         password:string
         username:string
         contactNo:string
-        IsEnable?:boolean
-        // roleId:string
         image:any
     }
 }
@@ -18,8 +16,6 @@ export interface editUser {
         password?:string
         username?:string
         contactNo?:string
-        IsEnable?:boolean
-        // roleId?:string
         image:any
     }
 }

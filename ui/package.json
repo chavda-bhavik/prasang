@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "@apollo/client": "^3.3.4",
     "@craco/craco": "^5.9.0",
     "@testing-library/jest-dom": "^5.11.6",
@@ -32,6 +33,7 @@
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "typescript": "^4.1.2",
     "web-vitals": "^0.2.4"
   },

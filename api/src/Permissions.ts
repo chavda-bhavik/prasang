@@ -21,21 +21,18 @@ export const getUser = async (req: Request, db: db) : Promise<User | null>  => {
 
 const IsAuthenticated = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {
     const result = !!user;
-    console.log(`isAuthenticated:${result}`);
     return result;
 });
 
 const IsAdmin = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {
     const u = await user;
     const result = u?.roles.name === "Admin";
-    console.log(`isAdmin:${result}`);
     return result;
 })
 
 const IsUser = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) => {    
     const u = await user;
     const result = u?.roles.name === "User";
-    console.log(`isUser:${result}`);
     return result;
 })
 
@@ -45,7 +42,7 @@ export const Permissions = shield({
         usersProfile: and(IsAuthenticated, IsUser),
         myParticipations: and(IsAuthenticated, IsUser),
         // Participations
-        getParticipations: and(IsAuthenticated, or(IsAdmin, IsUser)),
+        participations: and(IsAuthenticated, or(IsAdmin, IsUser)),
         // Photos
         photos: and(IsAuthenticated, IsUser),
     },

@@ -15,6 +15,7 @@ import { Menu, Dropdown } from 'antd';
 import { useDispatch,useSelector } from 'react-redux'
 import { Layout, Breadcrumb } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import Participantes from './containers/Participants';
 const { Content } = Layout;
 
 const PrasangAdmin = (props:any) => {
@@ -87,7 +88,7 @@ const PrasangAdmin = (props:any) => {
       ></Dropdown.Button>;
         const content =
         <>
-        <Content style={{ margin: '0 16px' }}>
+                <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Admin</Breadcrumb.Item>
                 <Breadcrumb.Item>Category</Breadcrumb.Item>
@@ -100,6 +101,7 @@ const PrasangAdmin = (props:any) => {
                         <Route path="/prasangadmin/addcategory" component={CategoryAddForm} />
                         <Route path="/prasangadmin/editcategory/:id" component={CategoryEditForm} />
                         <Route path="/prasangadmin/changepassword" component={ChangePassword} />
+                        <Route path="/prasangadmin/participants" component={Participantes} />
                         <Redirect to="/prasangadmin/dashboard" />
                     </Switch>
                 </div>

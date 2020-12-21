@@ -1,16 +1,17 @@
 import { Context } from "../../global";
+import { participations } from "./ParticipationArgTypes";
 
 const Query = {
-    getParticipations: async (_, _2, { user, db }: Context) => {
+    participations: async (_, args:participations, { user, db }: Context) => {
         if(!user) return;
-        if(user.roles.name == 'Admin') {
-            return db.Participations.findAll();
+        if(args.eventId) {
+            return db.Participations.findAll({
+                where: {
+                    eventId: args.eventId
+                }
+            })
         }
-        return db.Participations.findAll({
-            where: {
-                userId: user.userId
-            }
-        });
+        return db.Participations.findAll();
     }
 }
 

@@ -4,14 +4,16 @@ import { participations } from "./ParticipationArgTypes";
 const Query = {
     participations: async (_, args:participations, { user, db }: Context) => {
         if(!user) return;
+        let where:any = {};
         if(args.eventId) {
-            return db.Participations.findAll({
-                where: {
-                    eventId: args.eventId
-                }
-            })
+            where.eventId = args.eventId;
         }
-        return db.Participations.findAll();
+        if(typeof args.photoAdded === "boolean") {
+            where.photoAdded = args.photoAdded
+        }
+        return db.Participations.findAll({
+            where: where
+        });
     }
 }
 

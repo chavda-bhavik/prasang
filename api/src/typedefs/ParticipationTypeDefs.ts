@@ -2,7 +2,7 @@ import { gql }  from 'apollo-server'
 
 const ParticipationTypeDefs = gql`
     extend type Query {
-        participations(eventId: ID): [Participations!]!
+        participations(eventId: ID, photoAdded: Boolean): [Participations!]!
     }
     extend type Mutation {
         participate(eventId:ID!): Participations!
@@ -11,6 +11,7 @@ const ParticipationTypeDefs = gql`
         participationId: ID!
         user: Users!
         event: Events!
+        photo: Photos
         participationDate: String!
         photoAdded: Boolean!
     }

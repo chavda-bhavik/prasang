@@ -7,6 +7,13 @@ const ParticipationResolver = {
     },
     event: async (parent: Participations, _, { db }: Context) => {
         return db.Events.findByPk(parent.eventId);
+    },
+    photo: async (parent: Participations, _, { db }: Context) => {
+        return db.Photos.findOne({
+            where: {
+                participationId: parent.participationId
+            }
+        })
     }
 }
 

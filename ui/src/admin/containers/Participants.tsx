@@ -22,6 +22,9 @@ const FETCH_PARTICIPATIONS_QUERY = gql`
             }
             participationDate
             photoAdded
+            photo {
+                imageUrl
+            }
         }
     }
 `

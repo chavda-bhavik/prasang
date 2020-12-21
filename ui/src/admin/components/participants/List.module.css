@@ -8,8 +8,8 @@
     border-collapse: collapse;
 }
 .table thead > tr > th {
-    background-color: #35363a;
-    color: white;
+    background-color:#a2805c;
+    /* color: white; */
     font-weight: bold;
     font-size: larger;
     padding: 5px 5px;
@@ -20,7 +20,7 @@
     border-color: #c6c6c6;
     /* border-style: solid; */
     text-align: center;
-    padding: 5px 5px;
+    padding: 3px 5px;
     font-size: larger;
     transition: all 0.3s;
 }

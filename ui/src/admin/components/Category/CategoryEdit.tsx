@@ -50,7 +50,6 @@ const CategoryEdit = (props:any) => {
             categoryData.id=""
             categoryData.image=""
             setCategory(categoryData); 
-            console.log('Success:', values);
         }
         seterror(errors);
 
@@ -66,7 +65,7 @@ const CategoryEdit = (props:any) => {
       };
     
     const onFinishFailed = (errorInfo : any) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     const onDataChange = (e:any,name:string,image:string) => {

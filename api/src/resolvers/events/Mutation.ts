@@ -27,9 +27,10 @@ const Mutation = {
         });
     },
     editEvent: async (_, args: editEventType, { db }: Context) => {
+
         let event = await findThrowAndReturn(db, "Events", { where: { eventId: args.eventId }});
         if(args.data.categoryId) {
-            await findThrowAndReturn(db, "EventCategory", { where: { categoryId: args.data.categoryId }});
+            await findThrowAndReturn(db, "EventCategories", { where: { categoryId: args.data.categoryId }});
         }
         if(args.data.startDate) args.data.startDate = transformDate(args.data.startDate);
         else args.data.startDate = event.startDate;

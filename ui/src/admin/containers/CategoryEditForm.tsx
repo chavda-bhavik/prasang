@@ -1,27 +1,11 @@
 import React , {useEffect,useRef} from 'react';
-import { gql, useMutation,useQuery } from '@apollo/client';
+import { useMutation,useQuery } from '@apollo/client';
 import { useDispatch , useSelector} from 'react-redux'
 import * as types from '../store/actionTypes'
 import {IRootState} from '../store/store';
 import CategoryEdit from '../components/Category/CategoryEdit';
-const Edit_Category = gql`
-mutation editEventCategory($categoryId:ID!,$name:String,$image:Upload){
-    editEventCategory(categoryId: $categoryId, name: $name, image: $image) {
-    imagePath
-    name
-    categoryId
-  }
-}
-`;
-const SINGLE_Category = gql `
-    query eventCategory($categoryId:ID!){
-        eventCategory(categoryId: $categoryId) {
-        name
-        categoryId
-        imagePath
-    }
-    }
-`
+import { Edit_Category,SINGLE_Category } from '../store/actions/actionMethod'; 
+
 const CategoryEditForm = (props:any) => {
     
     const { data, refetch } = useQuery(SINGLE_Category,{

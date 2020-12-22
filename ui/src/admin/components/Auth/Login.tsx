@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Button,Input, Space } from 'antd';
+import { Link } from 'react-router-dom';
+import { Form, Button,Input } from 'antd';
 import { FacebookFilled,TwitterCircleFilled,GooglePlusCircleFilled,EyeInvisibleOutlined, EyeTwoTone,UserOutlined, LockOutlined } from '@ant-design/icons';
 const Login = (props:any) => {
     const [auth,setAuth] = useState({
@@ -15,7 +16,6 @@ const Login = (props:any) => {
         let loginData = {...auth}
         
         await props.loginAdmin(loginData.username,loginData.password)     
-        console.log('Success:', values);
     };
     return(
     <>
@@ -57,9 +57,13 @@ const Login = (props:any) => {
                     <span>{(props.errormsg)?<h4 style={{color:'red'}}>Wrong Username Or Password</h4>:null}</span>
                 </div>
                 <div className="text-right p-t-8 p-b-31">
-                    <a href="#">
-                    Forgot password?
-                    </a>
+                    <Link to={"/prasangadmin/forgotpassword"}>
+                        Forgot password?
+                    </Link>
+
+                    {/* <a href="/prasangadmin/forgotpassword">
+                        Forgot password?
+                    </a> */}
                 </div>
                 <div className="container-login100-form-btn">
                     <div className="wrap-login100-form-btn">

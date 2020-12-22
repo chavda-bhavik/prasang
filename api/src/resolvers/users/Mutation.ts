@@ -1,9 +1,10 @@
 import { Context, fileField } from "../../global";
-import { addUser,deleteUser,editUser,login, enableUser,changePassword,forgotPassword} from './UserArgTypes';
+import { addUser,deleteUser,editUser,login, enableUser,changePassword,forgotPassword,forgotPasswords} from './UserArgTypes';
 import hashpassword from '../utils/hashpassword';
-import generateToken from '../utils/generateToken';
+import generateToken, { generateTokenPassword } from '../utils/generateToken';
 import getUserId from '../utils/getUserId'
 import bcrypt = require("bcrypt");
+var nodemailer = require('nodemailer');
 import { processSingleUpload } from "../utils/Upload";
 const Mutation = {
     addUser: async (_, args: addUser, {db}: Context) => {
@@ -144,8 +145,8 @@ const Mutation = {
                 userId:args.data.userId
             }
         })
-
-        return IsEnable
+        const IsEnables = await db.Users.findByPk(args.data.userId);
+        return IsEnables
     },
     changePassword: async(_,args:changePassword,{db,req}:Context) => {
         const userId =await getUserId(req)
@@ -185,6 +186,44 @@ const Mutation = {
             }
         })
         return IsExists
+    },
+    forgotPasswords: async (_, args:forgotPasswords , { db }: Context) => {
+        const user = await db.Users.findOne({
+            where:{
+                email:args.data.email,
+                IsEnable:true
+            }
+        })
+        if(!user){
+            throw new Error("Email Not Registered")
+        }
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+            user: 'dp297609@gmail.com',
+            pass: 'dhaval1216'
+            }
+        });
+        const token = await generateTokenPassword(user.userId);
+        var html = `<h1><a href="http://localhost:3000/prasangadmin/forgotpasswords/${token}/${args.data.email}">Click Here</a></h1>`
+        var mailOptions = {
+            from: 'dp297609@gmail.com',
+            to: args.data.email,
+            subject: 'Forgot Password',
+            html:html
+        };       
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            console.log('Email sent: ' + info.response);
+            }
+        });
+        return {
+            user,
+            token: "Bearer "+token
+        };
     }
 }
 

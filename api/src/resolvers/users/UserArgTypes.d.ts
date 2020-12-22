@@ -43,6 +43,11 @@ export interface changePassword {
         oldPassword:string
     }
 }
+export interface forgotPasswords {
+    data : {
+        email:string
+    }
+}
 
 export interface forgotPassword {
     data:{

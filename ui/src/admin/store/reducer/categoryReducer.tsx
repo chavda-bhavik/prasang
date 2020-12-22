@@ -50,7 +50,6 @@ const store = (state=initialState,action:any) => {
                 loading:true
             };
         case types.DELETE_DATA_SUCCESS:
-            console.log(action.categoryId)
             let cat = state.categoryList.filter(category => category.categoryId !== action.categoryId );
             return {
                 ...state,

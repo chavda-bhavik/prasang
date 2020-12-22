@@ -1,18 +1,10 @@
 import React from 'react';
 import CategoryAdd from '../components/Category/CategoryAdd';
-import { gql, useMutation,useQuery } from '@apollo/client';
-import { useDispatch , useSelector} from 'react-redux'
+import { useMutation } from '@apollo/client';
+import { useDispatch } from 'react-redux'
 import * as types from '../store/actionTypes'
+import { ADD_Category } from '../store/actions/actionMethod'; 
 
-const ADD_Category = gql`
-    mutation addEventCategory($name:String!,$image:Upload!){
-        addEventCategory(name: $name, image: $image){
-        categoryId
-        name
-        imagePath
-    }
-  }
-`;
 const CategoryAddForm = (props:any) => {
     
     // const { loading } = useQuery(FetchCategory);

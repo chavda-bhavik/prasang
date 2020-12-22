@@ -42,7 +42,7 @@ const IsUser = rule({ cache: 'contextual' })(async (_, _2, {user}:Context, _3) =
 export const Permissions = shield({
     Query: {
         Dashboard: and(IsAuthenticated, IsAdmin),
-        usersProfile: and(IsAuthenticated, IsUser),
+        usersProfile: and(IsAuthenticated, or(IsAdmin, IsUser)),
         myParticipations: and(IsAuthenticated, IsUser),
         // Participations
         getParticipations: and(IsAuthenticated, or(IsAdmin, IsUser)),
@@ -51,9 +51,9 @@ export const Permissions = shield({
     },
     Mutation: {
         // Event Categories
-        // addEventCategory: and(IsAuthenticated, IsAdmin),
-        // editEventCategory: and(IsAuthenticated, IsAdmin),
-        // deleteEventCategory: and(IsAuthenticated, IsAdmin),
+        addEventCategory: and(IsAuthenticated, IsAdmin),
+        editEventCategory: and(IsAuthenticated, IsAdmin),
+        deleteEventCategory: and(IsAuthenticated, IsAdmin),
         // Events
         addEvent: and(IsAuthenticated, IsAdmin),
         editEvent: and(IsAuthenticated, IsAdmin),

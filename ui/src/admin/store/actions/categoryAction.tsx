@@ -1,34 +1,34 @@
 import axios from 'axios';
 import * as types from '../actionTypes';
-
+import { gql, useMutation,useQuery } from '@apollo/client';
+import { ADD_Category,Edit_Category,DELETE_Category,FetchCategory } from './actionMethod';
 import { Dispatch } from 'redux';
+import { useDispatch,useSelector } from 'react-redux'
 
-export const FetchCategory : any = () => {
-    return async (dispatch: Dispatch) => {
-        dispatch({
-            type:types.INIT_CATEGORY
-        })
-        await axios.post(`http://localhost:3000/graphql`,
-        {   query: ` query {
-                        eventCategories {
-                            categoryId
-                            name
-                            imagePath
-                        }
-                    }
-                `          
-        })
-        .then((response) => {
+export const FetchCategorys : any = () => {
+    const { data, refetch,loading } = useQuery(FetchCategory);
+    const dispatch = useDispatch();
+    
+    return async () => {
+        try {
             dispatch({
-                type:types.FETCH_CATEGORY_SUCCESS,
-                categoryList:response.data.data.eventCategories
-            });
-        }).catch((error) => {
-            dispatch({
-                type:types.FETCH_CATEGORY_FAILED,
-                error:error.message
-            });
-        })
+                type:types.INIT_CATEGORY
+            })
+            try {
+                refetch()
+                dispatch({
+                    type:types.FETCH_CATEGORY_SUCCESS,
+                    categoryList:data.eventCategories
+                })  
+            } catch (error) {
+                dispatch({
+                    type:types.FETCH_CATEGORY_FAILED,
+                    error:error.message
+                })
+            }   
+        } catch (error) {
+
+        }
     };
 };
 export const AddCategory : any = (name:any,imagePath:any) => {

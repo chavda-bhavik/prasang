@@ -37,9 +37,14 @@ const AdminHeader = (props:any) => {
               <Menu.Item key="/prasangadmin/addcategory"><Link to="/prasangadmin/addcategory">Add Category</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Event">
-              <Menu.Item key="6">View</Menu.Item>
-              <Menu.Item key="8">Add</Menu.Item>
+              <Menu.Item key="/prasangadmin/event"><Link to="/prasangadmin/event">Event</Link></Menu.Item>
+              <Menu.Item key="/prasangadmin/addevent"><Link to="/prasangadmin/addevent">Add Event</Link></Menu.Item>
             </SubMenu>
+            <Menu.Item key="2" icon={<PieChartOutlined />}>
+              <Link to="/prasangadmin/user">
+                User
+              </Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">

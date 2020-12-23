@@ -39,10 +39,7 @@ const Auth = (props:any) =>{
           user:response.data.login.user,
           token:response.data.login.token
       })
-      let userData =await response.data.login.user;
-      console.log(userData);
       localStorage.setItem("Prasangtoken", response.data.login.token);
-      await localStorage.setItem("PrasangUser", userData);
       props.history.push("/prasangadmin/dashboard");  
   } catch (error) {
       dispatch({

@@ -5,25 +5,33 @@ import AdminHeader from './components/common/AdminHeader'
 import Category from './containers/Category'
 import CategoryAddForm from './containers/CategoryAddForm'
 import CategoryEditForm from './containers/CategoryEditForm'
+import Event from './containers/Events/Event'
+import EventAddForm from './containers/Events/EventAddForm'
+import EventEditForm from './containers/Events/EventEditForm'
 import Dashboard from './containers/Dashboard';
 import ChangePassword from './containers/ChangePassword';
+import ForgotPassword from './containers/ForgotPassword';
 import PrasangAdminLogin from './containers/Auth';
+import ResetPassword from './containers/ResetPassword';
+import UserList from './containers/UserList';
 import {IRootState} from './store/store';
 import { Switch, Route, Redirect } from 'react-router'
 import * as types from './store/actionTypes';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown,Layout, Breadcrumb } from 'antd';
 import { useDispatch,useSelector } from 'react-redux'
-import { Layout, Breadcrumb } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined,LogoutOutlined,LockOutlined } from '@ant-design/icons';
+import { userProfile } from './store/actions/actionMethod';
+import { useQuery } from '@apollo/client';
 import Participantes from './containers/Participants';
 const { Content } = Layout;
 
 const PrasangAdmin = (props:any) => {
     const dispatch = useDispatch();
-    const token = useSelector((state:IRootState) => state.auth.token ? true : false)
+    const { data, refetch,loading } = useQuery(userProfile);
     const { location } = props;
+    const token = useSelector((state:IRootState) => state.auth.token ? true : false)
+    
     const logout = () => {
-        console.log("logout={logout}")
         dispatch({
             type:types.INIT_ADMIN_LOGOUT
         })
@@ -41,24 +49,28 @@ const PrasangAdmin = (props:any) => {
         }
     }
     useEffect(() => {
-        let token1 = localStorage.getItem("Prasangtoken");
-        let user1 = localStorage.getItem("PrasangUser");
-        if(props.location.pathname.startsWith("/prasangadmin") && !token) { 
-            dispatch({
-                type:"PRASANG_ADMIN_LOGIN_SUCCESS",
-                user:user1,
-                token:token1
-            })
+        let tokens = localStorage.getItem("Prasangtoken");
+        if(props.location.pathname.startsWith("/prasangadmin") && !token) {
+            refetch()
+            if(!loading && data) 
+            {
+                dispatch({
+                    type:"PRASANG_ADMIN_LOGIN_SUCCESS",
+                    user:data.usersProfile,
+                    token:tokens
+                })
+            }
         }
-    }, [location.pathname,token])
+    }, [location.pathname,token,data])
     
     let renders : any = <Redirect to="/prasangadmin" />;
     
     if(props.location.pathname.startsWith("/prasangadmin") && !token)
     {
-        console.log("Login In " + false + " token " + token);
         renders = <Switch>
             <Route path="/prasangadmin/login" exact component={PrasangAdminLogin}/>
+            <Route path="/prasangadmin/forgotpassword" exact component={ForgotPassword}/>
+            <Route path="/prasangadmin/forgotpasswords/:token/:email" exact component={ResetPassword}/>
             <Redirect to="/prasangadmin/login" />
         </Switch>
     }
@@ -66,10 +78,10 @@ const PrasangAdmin = (props:any) => {
     {
         const userMenu = (
             <Menu>
-              <Menu.Item key="/prasangadmin/myprofile">View Profile</Menu.Item>
-              <Menu.Item key="/prasangadmin/changepassword"><Link to={"/prasangadmin/changepassword"}>Change Password</Link></Menu.Item>
+              <Menu.Item key="admin"><h4><UserOutlined /> Welcome, Admin</h4></Menu.Item>  
+              <Menu.Item key="/prasangadmin/changepassword"><Link to={"/prasangadmin/changepassword"}><LockOutlined />Change Password</Link></Menu.Item>
               <Menu.Divider />
-              <Menu.Item key="/prasangadmin/logout" onClick={() => logout()}>Logout</Menu.Item>
+              <Menu.Item key="/prasangadmin/logout" onClick={() => logout()}><LogoutOutlined />Logout</Menu.Item>
             </Menu>
           );
         const dropdown = <Dropdown.Button
@@ -89,10 +101,10 @@ const PrasangAdmin = (props:any) => {
         const content =
         <>
                 <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
+            {/* <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Admin</Breadcrumb.Item>
                 <Breadcrumb.Item>Category</Breadcrumb.Item>
-            </Breadcrumb>
+            </Breadcrumb>  */}
                 <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 <div>
                     <Switch>
@@ -101,6 +113,10 @@ const PrasangAdmin = (props:any) => {
                         <Route path="/prasangadmin/addcategory" component={CategoryAddForm} />
                         <Route path="/prasangadmin/editcategory/:id" component={CategoryEditForm} />
                         <Route path="/prasangadmin/changepassword" component={ChangePassword} />
+                        <Route path="/prasangadmin/user" component={UserList} />
+                        <Route path="/prasangadmin/event" component={Event} />
+                        <Route path="/prasangadmin/addevent" component={EventAddForm} />
+                        <Route path="/prasangadmin/editevent/:id" component={EventEditForm} />
                         <Route path="/prasangadmin/participants" component={Participantes} />
                         <Redirect to="/prasangadmin/dashboard" />
                     </Switch>
@@ -108,7 +124,6 @@ const PrasangAdmin = (props:any) => {
             </div>
         </Content>
         </>;
-        console.log("Login In " + true + " token " + token);
         renders = <> <AdminHeader content={content} dropdown={dropdown}/></>
     }
     

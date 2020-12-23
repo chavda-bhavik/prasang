@@ -1,9 +1,11 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import rootreducer from './reducer/reducer';
+import userReducer from './reducer/userReducer';
 import categoryReducer from './reducer/categoryReducer';
 import AuthReducer from './reducer/AuthReducer';
-import {IUsers,ICategorys,IAuth} from "./reducer/types";
+import EventReducer from './reducer/eventReducer';
+import DashboardReducer from './reducer/dashboardReducer';
+import {IUsers,ICategorys,IAuth,IEvent,IDashboard} from "./reducer/types";
 
 declare global {
     interface Window {
@@ -15,12 +17,16 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export interface IRootState {
     user: IUsers
     category : ICategorys,
-    auth:IAuth
+    auth:IAuth,
+    event:IEvent,
+    dashboard:IDashboard
 }
 const store =createStore(combineReducers({
-    user:rootreducer,
+    user:userReducer,
     category:categoryReducer,
-    auth:AuthReducer
+    auth:AuthReducer,
+    event:EventReducer,
+    dashboard:DashboardReducer
 }),
 composeEnhancers(applyMiddleware(thunk)))
 

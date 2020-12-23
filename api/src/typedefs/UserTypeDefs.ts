@@ -13,6 +13,7 @@ const UserTypeDefs = gql`
         enableUser(data:EnableInput!): Users!
         changePassword(data:changePasswordInput!): Users!
         forgotPassword(data:forgotPasswordInput!): Users!
+        forgotPasswords(data: forgotPasswordUserInput!): AuthPayload!
     }
     input EnableInput {
         userId: ID!
@@ -25,6 +26,9 @@ const UserTypeDefs = gql`
     input forgotPasswordInput {
         email:String!
         password:String!
+    }
+    input forgotPasswordUserInput {
+        email:String!
     }
     type AuthPayload {
         token: String!

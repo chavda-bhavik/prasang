@@ -49,6 +49,7 @@ scalar Upload
         fees: Int
         imageUrl: String
         slug: String
+        lastRegistraionDate: String
         category: EventCategory
         createdAt: String!
         updatedAt: String!

@@ -1,10 +1,12 @@
 import { Context } from "../../global";
+const { Op } = require("sequelize");
 const Query = {
     users: async (_, _2, {db}: Context, _3) => {
         const userData = await db.Users.findAll({
-            // include:[{model:db.Roles}],            
-            where :{
-                IsEnable:true
+            include:[{model:db.Roles}],            
+            where : {
+                [Op.not] : [{
+                    username:'admin'}]
             }
         }); 
         return userData

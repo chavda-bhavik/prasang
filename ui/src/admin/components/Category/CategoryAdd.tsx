@@ -32,13 +32,12 @@ const CategoryAdd = (props:any) => {
         if(errors.IsValid)
         {
             await props.addCategory(categoryData.name,categoryData.image)     
-            console.log('Success:', values);
         }
         seterror(errors);
     };
     
     const onFinishFailed = (errorInfo : any) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
     };
 
     const onDataChange = (e:any,name:string,image:string) => {

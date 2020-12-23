@@ -26,6 +26,7 @@
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "^7.4.2",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.4.17",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.22.3",

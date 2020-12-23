@@ -52,14 +52,14 @@ async function makeRoleEntries() {
                 email:"admin@gmail.com",
                 password: password1,
                 username: "admin",
-                contactNo: '0000000000',
+                contactNo: '9998886660',
                 roleId: roles[0].roleId
             }, {
                 name:"user",
                 email:"user@gmail.com",
                 password: password2,
                 username: "user",
-                contactNo: '1111111111',
+                contactNo: '9784561230',
                 roleId: roles[1].roleId
             }
         ]);

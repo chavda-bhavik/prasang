@@ -1,5 +1,9 @@
 export interface IUsers {
-    userList: any[]
+    userList: any[],
+    error:"",
+    loading:false,
+    userId:null,
+    enable:any
 }
 
 export interface ICategorys {
@@ -15,6 +19,20 @@ export interface IAuth {
     user:null,
     token:null,
     userId:string,
+    loading:false,
+    error:""
+}
+
+export interface IEvent {
+    eventList: any[],
+    event:{},
+    eventId:string,
+    loading:false,
+    error:""
+}
+
+export interface IDashboard {
+    dashboards:{},
     loading:false,
     error:""
 }

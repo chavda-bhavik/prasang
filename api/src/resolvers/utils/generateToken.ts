@@ -5,4 +5,9 @@ const generateToken = (userId : any) => {
     return "Bearer "+jwttoken
 }
 
-export { generateToken as default }
+const generateTokenPassword = (userId : any) => {
+    const jwttoken = jwt.sign({ userId }, 'prasangforgotmail', { expiresIn: '1 days' });
+    return jwttoken
+}
+
+export { generateTokenPassword , generateToken as default }

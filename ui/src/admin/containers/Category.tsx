@@ -1,30 +1,12 @@
 import React , {useEffect,useState,useRef} from 'react';
-import { gql, useMutation,useQuery } from '@apollo/client';
+import { useMutation,useQuery } from '@apollo/client';
 import { useDispatch,useSelector } from 'react-redux'
 
 import CategoryList from '../components/Category/CategoryList';
 import {IRootState} from '../store/store';
-import { Spin, Alert, Card } from 'antd';
+import { Spin, Alert, Card,Empty } from 'antd';
 import * as types from '../store/actionTypes'
-
-const DELETE_Category = gql`
-  mutation deleteEventCategory($categoryId: ID!){
-    deleteEventCategory(categoryId: $categoryId){
-        categoryId
-        name
-        imagePath
-    }
-  }  
-`;
-
-const FetchCategory= gql` 
-query {
-    eventCategories {
-        categoryId
-        name
-        imagePath
-    }
-}`
+import { FetchCategory,DELETE_Category } from '../store/actions/actionMethod';
 
 const Category = (props:any) =>{
     const { data, refetch,loading } = useQuery(FetchCategory);
@@ -52,8 +34,11 @@ const Category = (props:any) =>{
         }
         return () => { unmounted.current = true }
     },[data])
-
-    let loadder : any =<Spin tip="Loading..."></Spin>;
+    let loadder : any =<Empty/>;
+    if(loading)
+    {
+        loadder = <Spin tip="Loading..."></Spin>
+    }
 
     const [delCat] = useMutation(DELETE_Category);
     

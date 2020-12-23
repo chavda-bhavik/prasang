@@ -14,16 +14,35 @@ const ChangePasswords = (props:any) => {
       IsValid:true
   })
   useEffect(()=> {
-    console.log(props.err);
-    if(props.err)
+    if(props.errs.length>0)
+    {
+      if(props.errs == 'Old Password is Not Match')
+      {
+        seterror({
+          ...error,
+          oldPassword:"Old Password is Not Match",
+          IsValid:false
+        })  
+      }
+      if(props.errs == 'Password Must be 8')
+      {
+        seterror({
+          ...error,
+          confirmPassword:"Password Must be 8",
+          IsValid:false
+        })
+      }
+    }
+    if(error.IsValid)
     {
       seterror({
-        ...error,
-        oldPassword:"Old Password Not Matched",
-        IsValid:false
-      })  
+        confirmPassword:"",
+        oldPassword:"",
+        password:"",
+        IsValid:true
+      })
     }
-  },[props.err])
+  },[props.pass,props.errs,error.IsValid])
 
   const onDataChange = (e:any,name:string) => {
     
@@ -41,9 +60,13 @@ const ChangePasswords = (props:any) => {
             errors.IsValid = true;
             errors.oldPassword = ""
         } 
-
         if(!password.password || passwords.password === "")
         {
+            // if(passwords.password.length < 8)
+            // {
+            //   errors.password = " Password Length Should be More Than 8"
+            // }
+            // else
             errors.password = "New Password Is Required"
         } else {
           errors.IsValid = true;
@@ -59,7 +82,6 @@ const ChangePasswords = (props:any) => {
         } 
         if(password.password.length > 0 && password.confirmPassword.length > 0)
         {
-          console.log(password.password +" <=> "+ password.confirmPassword)
           if(password.password !== password.confirmPassword)
           {
               errors.IsValid = false;
@@ -72,16 +94,16 @@ const ChangePasswords = (props:any) => {
           }
         }
         seterror(errors);
+        console.log(errors);
         if(errors.IsValid)
         {
           await props.changePassword(passwords.oldPassword,passwords.password);     
         }
-        console.log('Success:', values);
         
       };
     
       const onFinishFailed = (errorInfo:any) => {
-        console.log('Failed:', errorInfo);
+        // console.log('Failed:', errorInfo);
       };
 
     return ( <> 
@@ -99,7 +121,7 @@ const ChangePasswords = (props:any) => {
         validateStatus={(error.oldPassword)?"error":""}
         help={error.oldPassword}
       >
-        <Input.Password name="oldPassword" onChange={(e) => onDataChange(e,'oldPassword')}/>
+        <Input.Password name="oldPassword" value={password.oldPassword} onChange={(e) => onDataChange(e,'oldPassword')}/>
       </Form.Item>
 
       <Form.Item
@@ -109,7 +131,7 @@ const ChangePasswords = (props:any) => {
         validateStatus={(error.password)?"error":""}
         help={error.password}
       >
-        <Input.Password name="password" onChange={(e) => onDataChange(e,'password')}/>
+        <Input.Password name="password" value={password.password} onChange={(e) => onDataChange(e,'password')}/>
       </Form.Item>
 
       <Form.Item
@@ -119,7 +141,7 @@ const ChangePasswords = (props:any) => {
         validateStatus={(error.confirmPassword)?"error":""}
         help={error.confirmPassword}
       >
-        <Input.Password name="confirmPassword" onChange={(e) => onDataChange(e,'confirmPassword')}/>
+        <Input.Password name="confirmPassword" value={password.confirmPassword} onChange={(e) => onDataChange(e,'confirmPassword')}/>
       </Form.Item>
 
       <Form.Item>

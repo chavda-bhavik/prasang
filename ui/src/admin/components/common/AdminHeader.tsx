@@ -40,6 +40,9 @@ const AdminHeader = (props:any) => {
               <Menu.Item key="6">View</Menu.Item>
               <Menu.Item key="8">Add</Menu.Item>
             </SubMenu>
+            <Menu.Item key="sub3" icon={<TeamOutlined />} title="Participants">
+              <Link to="/prasangadmin/participants">Participants</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">

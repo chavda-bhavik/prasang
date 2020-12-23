@@ -6,7 +6,7 @@ import { createUploadLink } from 'apollo-upload-client'
 import { setContext } from '@apollo/client/link/context';
 
 const upload = createUploadLink({
-    uri:'http://localhost:3000/graphql',
+    uri:process.env.REACT_APP_SERVER_URL,
     headers:{
         "keep-alive":"true"
     }
@@ -31,6 +31,7 @@ const client = new ApolloClient({
   // authLink.concat(httpLink)
 });
 function App() {
+  console.log(process.env.REACT_APP_SERVER_URL);
   return (
     <>
       <Switch>

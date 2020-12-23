@@ -17,13 +17,12 @@ import UserList from './containers/UserList';
 import {IRootState} from './store/store';
 import { Switch, Route, Redirect } from 'react-router'
 import * as types from './store/actionTypes';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown,Layout, Breadcrumb } from 'antd';
 import { useDispatch,useSelector } from 'react-redux'
-import { Layout, Breadcrumb } from 'antd';
 import { UserOutlined,LogoutOutlined,LockOutlined } from '@ant-design/icons';
 import { userProfile } from './store/actions/actionMethod';
 import { useQuery } from '@apollo/client';
-
+import Participantes from './containers/Participants';
 const { Content } = Layout;
 
 const PrasangAdmin = (props:any) => {
@@ -101,11 +100,11 @@ const PrasangAdmin = (props:any) => {
       ></Dropdown.Button>;
         const content =
         <>
-        <Content style={{ margin: '0 16px' }}>
+                <Content style={{ margin: '0 16px' }}>
             {/* <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Admin</Breadcrumb.Item>
                 <Breadcrumb.Item>Category</Breadcrumb.Item>
-            </Breadcrumb> */}
+            </Breadcrumb>  */}
                 <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 <div>
                     <Switch>
@@ -118,6 +117,7 @@ const PrasangAdmin = (props:any) => {
                         <Route path="/prasangadmin/event" component={Event} />
                         <Route path="/prasangadmin/addevent" component={EventAddForm} />
                         <Route path="/prasangadmin/editevent/:id" component={EventEditForm} />
+                        <Route path="/prasangadmin/participants" component={Participantes} />
                         <Redirect to="/prasangadmin/dashboard" />
                     </Switch>
                 </div>

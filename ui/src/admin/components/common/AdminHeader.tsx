@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import Logo from '../../../images/prasang.png'
 import "antd/dist/antd.css";
@@ -44,6 +44,9 @@ const AdminHeader = (props:any) => {
               <Link to="/prasangadmin/user">
                 User
               </Link>
+            </Menu.Item>
+            <Menu.Item key="sub3" icon={<TeamOutlined />} title="Participants">
+              <Link to="/prasangadmin/participants">Participants</Link>
             </Menu.Item>
           </Menu>
         </Sider>

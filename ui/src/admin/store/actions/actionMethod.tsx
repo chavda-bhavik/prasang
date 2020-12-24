@@ -157,7 +157,6 @@ query {
       password
       name
       email
-      contactNo
       IsEnable
       createdAt
     }
@@ -171,7 +170,6 @@ export const Enable_Disable_USER = gql`
       password
       name
       email
-      contactNo
       IsEnable
       createdAt
     }
@@ -202,7 +200,6 @@ mutation forgotPasswords($email:String!){
       password
       name
       email
-      contactNo
       IsEnable
     }
   }
@@ -219,7 +216,6 @@ mutation forgotPassword($email:String!,$password:String!){
     password
     name
     email
-    contactNo
     IsEnable
   }
 }
@@ -233,7 +229,6 @@ query {
     password
     name
     email
-    contactNo
     IsEnable
     createdAt
   }

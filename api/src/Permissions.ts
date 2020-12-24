@@ -44,7 +44,7 @@ export const Permissions = shield({
         // Participations
         participations: and(IsAuthenticated, or(IsAdmin, IsUser)),
         // Photos
-        photos: and(IsAuthenticated, IsUser),
+        photos: and(IsAuthenticated, or(IsAdmin, IsUser)),
     },
     Mutation: {
         // Event Categories
@@ -62,6 +62,8 @@ export const Permissions = shield({
         likePhoto: and(IsAuthenticated, IsUser),
         // Comments
         addComment: and(IsAuthenticated, IsUser),
+        // Winners
+        setWinner: and(IsAuthenticated, IsAdmin)
     }
 }, {
     allowExternalErrors: true,

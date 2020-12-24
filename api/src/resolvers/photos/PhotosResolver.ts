@@ -25,6 +25,13 @@ const PhotosResolver = {
     isLiked: async (parent: Photo, _, { user }:Context) => {
         if(!user) return false;
         return parent.likes.includes(user.userId);
+    },
+    participant: async (parent:Photo, _, { db }: Context) => {
+        return db.Participations.findByPk(parent.participationId);
+    },
+    winner: async (parent: Photo, _, { db }: Context) => {
+        let count = await db.Winners.count({ where: { participationId: parent.participationId } });
+        return count === 0 ? false : true;
     }
 }
 

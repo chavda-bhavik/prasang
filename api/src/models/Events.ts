@@ -24,6 +24,11 @@ class Events extends Model{
     })
     title: string
 
+    @Column({
+        defaultValue: 0
+    })
+    priceAmount: number
+
     @Column
     description: string
 

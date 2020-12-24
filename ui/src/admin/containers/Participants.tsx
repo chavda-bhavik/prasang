@@ -47,7 +47,7 @@ const Participantes = (props:ParticipantsProps) => {
 
     let heading = "No Participants found.";
     if(!participationsLoading && participationsData) {
-        heading = participationsData.participations.length == 0 ? "No" : participationsData.participations.length;
+        heading = participationsData.participations.length === 0 ? "No" : participationsData.participations.length;
         heading += " Participants found.";
     }
     let content = <Spin />

@@ -9,7 +9,7 @@ import { processSingleUpload } from "../utils/Upload";
 const Mutation = {
     registerUser: async (_, args: addUser, {db}: Context) => {
         let hash_password = await hashpassword(args.data.password);
-        let role = await db.Roles.findOne({
+        let role:any = await db.Roles.findOne({
             where:{
                 name: "User"
             }
@@ -65,7 +65,7 @@ const Mutation = {
         if(users?.userId){
             userId = users?.userId;
         }
-        let role = await db.Roles.count({
+        let role:any = await db.Roles.count({
             where:{
                 name: "User"
             }

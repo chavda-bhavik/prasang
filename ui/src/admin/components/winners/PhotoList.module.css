@@ -1,0 +1,11 @@
+.PhotoBox {
+    padding: 0px;
+}
+.PhotoInfo {
+    z-index: 10;
+    position: relative;
+    display: flex;
+    background-color: #626262bf;
+    bottom: 22px;
+    justify-content: space-evenly;
+}

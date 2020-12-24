@@ -23,6 +23,8 @@ import { UserOutlined,LogoutOutlined,LockOutlined } from '@ant-design/icons';
 import { userProfile } from './store/actions/actionMethod';
 import { useQuery } from '@apollo/client';
 import Participantes from './containers/Participants';
+import Winners from './containers/Winners';
+
 const { Content } = Layout;
 
 const PrasangAdmin = (props:any) => {
@@ -118,6 +120,7 @@ const PrasangAdmin = (props:any) => {
                         <Route path="/prasangadmin/addevent" component={EventAddForm} />
                         <Route path="/prasangadmin/editevent/:id" component={EventEditForm} />
                         <Route path="/prasangadmin/participants" component={Participantes} />
+                        <Route path="/prasangadmin/winners" component={Winners} />
                         <Redirect to="/prasangadmin/dashboard" />
                     </Switch>
                 </div>

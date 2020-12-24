@@ -29,6 +29,7 @@ scalar Upload
         lastRegistraionDate: String
         fees: Int
         image: Upload
+        priceAmount: Int
     }
     input AddEventType {
         title: String!
@@ -39,6 +40,7 @@ scalar Upload
         lastRegistraionDate: String!
         fees: Int
         image: Upload
+        priceAmount: Int
     }
     type Events {
         eventId: ID!
@@ -46,6 +48,7 @@ scalar Upload
         description: String
         startDate: String
         endDate: String
+        priceAmount: Int
         fees: Int
         imageUrl: String
         slug: String

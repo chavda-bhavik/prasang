@@ -7,6 +7,7 @@ import DashboardTypeDefs from './DashboardTypeDefs'
 import ParticipationTypeDefs from './ParticipationTypeDefs'
 import PhotosTypeDefs from './PhotosTypeDefs'
 import CommentTypeDefs from './CommentTypeDefs'
+import WinnerTypeDefs from './WinnerTypeDefs'
 
 const types = [
     DemoTypeDef,
@@ -17,7 +18,8 @@ const types = [
     DashboardTypeDefs,
     ParticipationTypeDefs,
     PhotosTypeDefs,
-    CommentTypeDefs
+    CommentTypeDefs,
+    WinnerTypeDefs
 ];
 
 export default types;

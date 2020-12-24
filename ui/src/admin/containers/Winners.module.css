@@ -1,0 +1,15 @@
+.section {
+    height: 300px;
+}
+.header {
+    background-color: orange;
+    padding: 5px;
+    display: flex;
+    justify-content: end;
+    align-content: center;
+}
+.body {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}

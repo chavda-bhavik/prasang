@@ -1,4 +1,5 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, ForeignKey, BelongsTo, IsUUID } from "sequelize-typescript";
+import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, ForeignKey, BelongsTo, IsUUID, HasMany } from "sequelize-typescript";
+import Comments from "./Comments";
 import Participations from "./Participations";
 
 @Table({
@@ -32,6 +33,9 @@ class Photo extends Model{
         type: DataType.UUID
     })
     participationId: string
+
+    @HasMany(() => Comments)
+    comments: Comments[]
 
     @BelongsTo( () => Participations)
     participations: Participations

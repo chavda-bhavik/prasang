@@ -1,6 +1,5 @@
 import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, ForeignKey, BelongsTo } from "sequelize-typescript";
-import User from "./Users";
-import Event from './Events';
+import Participations from "./Participations";
 
 @Table({
     tableName: "winners"
@@ -13,29 +12,29 @@ class Winner extends Model{
     })
     winnerId: string
 
-    @Column
+    @Column({
+        defaultValue: 0
+    })
     priceAmount: number
 
-    @Column
+    @Column({
+        defaultValue: new Date()
+    })
     winDate: Date
 
-    @ForeignKey( () => User)
+    @Column({
+        defaultValue: 1
+    })
+    rank:number
+
+    @ForeignKey( () => Participations)
     @Column({
         type: DataType.UUID
     })
-    userId: string
+    participationId: string
 
-    @BelongsTo( () => User)
-    user: User
-
-    @ForeignKey( () => Event)
-    @Column({
-        type: DataType.UUID
-    })
-    eventId: string
-
-    @BelongsTo( () => Event)
-    event: Event
+    @BelongsTo( () => Participations)
+    participation: Participations
 
     @CreatedAt
     createdAt: Date

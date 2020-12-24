@@ -44,13 +44,13 @@ export const Permissions = shield({
         // Participations
         participations: and(IsAuthenticated, or(IsAdmin, IsUser)),
         // Photos
-        photos: and(IsAuthenticated, IsUser),
+        photos: and(IsAuthenticated, or(IsAdmin, IsUser)),
     },
     Mutation: {
         // Event Categories
-        // addEventCategory: and(IsAuthenticated, IsAdmin),
-        // editEventCategory: and(IsAuthenticated, IsAdmin),
-        // deleteEventCategory: and(IsAuthenticated, IsAdmin),
+        addEventCategory: and(IsAuthenticated, IsAdmin),
+        editEventCategory: and(IsAuthenticated, IsAdmin),
+        deleteEventCategory: and(IsAuthenticated, IsAdmin),
         // Events
         addEvent: and(IsAuthenticated, IsAdmin),
         editEvent: and(IsAuthenticated, IsAdmin),
@@ -62,6 +62,8 @@ export const Permissions = shield({
         likePhoto: and(IsAuthenticated, IsUser),
         // Comments
         addComment: and(IsAuthenticated, IsUser),
+        // Winners
+        setWinner: and(IsAuthenticated, IsAdmin)
     }
 }, {
     allowExternalErrors: true,

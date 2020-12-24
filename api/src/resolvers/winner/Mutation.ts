@@ -1,15 +1,17 @@
 import { Context } from "../../global";
-import {addWinner} from './WinnerArgTypes';
+import { setWinner } from './WinnerArgTypes';
 
 const Mutation = {
-    addWinner: async (_, args: addWinner, ctx: Context) => {
-        return ctx.db.Winners.create({
-            winDate:args.winDate,
-            priceAmount:args.priceAmount,
-            userId:args.userId,
-            eventId:args.eventId,
-        }, {
-            raw: true
+    setWinner: async (_, args: setWinner, { db }: Context) => {
+        let photo = await db.Photos.findOne({
+            where: {
+                photoId: args.photoId
+            }
+        });
+
+        return db.Winners.create({
+            priceAmount: photo.priceAmount,
+            participationId: photo.participationId
         });
     },
 }

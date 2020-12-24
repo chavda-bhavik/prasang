@@ -1,17 +1,17 @@
 import { gql }  from 'apollo-server'
 const WinnerTypeDefs = gql`
-    type Query {
-        winners: [Winner!]!
+    extend type Query {
+        winners(eventId: ID): [Winner!]!
     }
-    type Mutation {
-        addWinner(winDate: Date!, winDate: Date,priceAmount: Number,userId: String,eventId: String): Winner!
+    extend type Mutation {
+        setWinner(photoId: ID!): Winner
     }
     type Winner {
         winnerId:ID!
-        winDate:Date!
-        priceAmount:Number!
-        userId:ID!
-        eventId:ID!
+        winDate:String!
+        rank: Int!
+        priceAmount:Int!
+        participation:Participations
     }
 `
 

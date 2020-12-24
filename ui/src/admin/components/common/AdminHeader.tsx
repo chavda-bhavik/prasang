@@ -43,6 +43,17 @@ const AdminHeader = (props:any) => {
             <Menu.Item key="sub3" icon={<TeamOutlined />} title="Participants">
               <Link to="/prasangadmin/participants">Participants</Link>
             </Menu.Item>
+            {/* <SubMenu key="sub4" icon={<TeamOutlined />} title="Winners">
+              <Menu.Item key="sub5">
+                <Link to="/prasangadmin/winners">Decide Winners</Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="/prasangadmin/winners/list">List Winners</Link>
+              </Menu.Item>
+            </SubMenu> */}
+            <Menu.Item key="sub4" icon={<TeamOutlined />} title="Winners">
+              <Link to="/prasangadmin/winners">Winners</Link>
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">

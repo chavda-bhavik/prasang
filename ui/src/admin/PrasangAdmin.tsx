@@ -16,6 +16,8 @@ import { useDispatch,useSelector } from 'react-redux'
 import { Layout, Breadcrumb } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import Participantes from './containers/Participants';
+import Winners from './containers/Winners';
+
 const { Content } = Layout;
 
 const PrasangAdmin = (props:any) => {
@@ -102,6 +104,7 @@ const PrasangAdmin = (props:any) => {
                         <Route path="/prasangadmin/editcategory/:id" component={CategoryEditForm} />
                         <Route path="/prasangadmin/changepassword" component={ChangePassword} />
                         <Route path="/prasangadmin/participants" component={Participantes} />
+                        <Route path="/prasangadmin/winners" component={Winners} />
                         <Redirect to="/prasangadmin/dashboard" />
                     </Switch>
                 </div>

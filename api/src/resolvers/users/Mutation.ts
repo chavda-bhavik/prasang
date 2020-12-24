@@ -1,5 +1,5 @@
 import { Context, fileField } from "../../global";
-import { addUser,deleteUser,editUser,login, enableUser,changePassword,forgotPassword,forgotPasswords} from './UserArgTypes';
+import { addUser,deleteUser,editProfile,login, enableUser,changePassword,forgotPassword,forgotPasswords} from './UserArgTypes';
 import hashpassword from '../utils/hashpassword';
 import generateToken, { generateTokenPassword } from '../utils/generateToken';
 import getUserId from '../utils/getUserId'
@@ -7,7 +7,7 @@ import bcrypt = require("bcrypt");
 var nodemailer = require('nodemailer');
 import { processSingleUpload } from "../utils/Upload";
 const Mutation = {
-    addUser: async (_, args: addUser, {db}: Context) => {
+    registerUser: async (_, args: addUser, {db}: Context) => {
         let hash_password = await hashpassword(args.data.password);
         let role = await db.Roles.findOne({
             where:{
@@ -24,11 +24,11 @@ const Mutation = {
                 email: args.data.email,
             }
         });
-        let phoneExists = await db.Users.count({
-            where: {
-                contactNo: args.data.contactNo,
-            }
-        });
+        // let phoneExists = await db.Users.count({
+        //     where: {
+        //         contactNo: args.data.contactNo,
+        //     }
+        // });
         
         if(usernameExists)
         {
@@ -38,27 +38,27 @@ const Mutation = {
         {
            throw new Error("Email Exists Please Select Unique"); 
         }
-        if(phoneExists)
-        {
-           throw new Error("contactNo Exists Please Select Unique"); 
-        }
-        if(args.data.image) {
-            let image:fileField = await processSingleUpload(args.data.image);
-            args.data.image = image.path;
-        }
+        // if(phoneExists)
+        // {
+        //    throw new Error("contactNo Exists Please Select Unique"); 
+        // }
+        // if(args.data.image) {
+        //     let image:fileField = await processSingleUpload(args.data.image);
+        //     args.data.image = image.path;
+        // }
         return await db.Users.create({
             name: args.data.name,
             email:args.data.email,
             password:hash_password,
             username:args.data.username,
-            contactNo:args.data.contactNo,
+            // contactNo:args.data.contactNo,
             roleId:role.roleId,
-            image:args.data.image
+            // image:args.data.image
         }, {
             raw: true
         });
     },
-    editUser: async (_, args: editUser, {db,user}: Context) => {
+    editProfile: async (_, args: editProfile, {db,user}: Context) => {
         const users = await user; 
         let userId = '0';
         console.log(userId);
@@ -70,13 +70,47 @@ const Mutation = {
                 name: "User"
             }
         });
-        let userExists = await db.Users.count({
-            where: {
-                userId: args.data.userId,
+        if(args.data.username)
+        {
+            let usernameExists = await db.Users.count({
+                where: {
+                    username: args.data.username,
+                }
+            });
+            if(!usernameExists) {
+                throw new Error("user not exists");
             }
-        });
-        if(!userExists) {
-            throw new Error("user not exists");
+        }
+        if(args.data.email)
+        {
+            let emailExists = await db.Users.count({
+                where: {
+                    email: args.data.email,
+                }
+            });
+
+            if(emailExists)
+            {
+               throw new Error("Email Exists Please Select Unique"); 
+            }
+        }
+        if(args.data.contactNo)
+        {
+            let phoneExists = await db.Users.count({
+                where: {
+                    contactNo: args.data.contactNo,
+                }
+            });
+            
+            if(phoneExists)
+            {
+               throw new Error("contactNo Exists Please Select Unique"); 
+            }
+        }
+        
+        if(args.data.image) {
+            let image:fileField = await processSingleUpload(args.data.image);
+            args.data.image = image.path;
         }
         await db.Users.update({
             name: args.data.name,
@@ -114,10 +148,25 @@ const Mutation = {
         return userExists;
     },
     login: async (_, args:login , { db }: Context) => {
+        let rolename="";
+        if(args.data.role === 'Admin')
+            rolename="Admin"
+        if(args.data.role === 'User')
+            rolename="User"    
+        const role = await db.Roles.findOne({
+            where:{
+                name:rolename
+            }  
+        })
+        if(!role)
+        {
+            throw new Error("Unable to login")
+        }
         const user = await db.Users.findOne({
             where:{
                 email:args.data.email,
-                IsEnable:true
+                IsEnable:true,
+                roleId:role.roleId
             }
         })
         if(!user){

@@ -4,11 +4,11 @@ export interface addUser {
         email:string
         password:string
         username:string
-        contactNo:string
-        image:any
+        // contactNo:string
+        // image:any
     }
 }
-export interface editUser {
+export interface editProfile {
     data : {
         userId:string
         name?:string
@@ -16,7 +16,7 @@ export interface editUser {
         password?:string
         username?:string
         contactNo?:string
-        image:any
+        image?:any
     }
 }
 export interface deleteUser {
@@ -28,6 +28,7 @@ export interface login {
     data : {
         email:string
         password:string
+        role:string
     }
 }
 export interface enableUser {

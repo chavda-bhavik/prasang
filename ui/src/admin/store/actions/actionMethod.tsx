@@ -16,6 +16,23 @@ query {
       }
 }`
 
+export const Login_Admin = gql`
+  mutation login($email:String!,$password:String!){
+    login(data:{
+            email:$email,
+            password:$password,
+            role:"Admin"}){
+      token
+      user {
+        userId
+        name
+        email
+        username
+      }
+    }
+  }
+`;
+
 export const ADD_Event = gql`
   mutation addEvent($title:String!,$categoryId:String!,$startDate:String!,$endDate:String!,$lastRegistraionDate:String!,$description:String,$fees:Int,$image:Upload){
     addEvent(data: {title: $title, categoryId: $categoryId, startDate: $startDate, endDate: $endDate, lastRegistraionDate: $lastRegistraionDate, description: $description, fees: $fees, image: $image})

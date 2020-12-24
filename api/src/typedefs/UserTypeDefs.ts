@@ -6,8 +6,8 @@ const UserTypeDefs = gql`
         usersProfile: Users!
     }
     extend type Mutation {
-        addUser(data:AddUserType!): Users!
-        editUser(data:EditUserType!): Users!
+        registerUser(data:RegisterUserType!): Users!
+        editProfile(data:EditProfileType!): Users!
         deleteUser(userId: ID!): Users!
         login(data: LoginUserInput!): AuthPayload!
         enableUser(data:EnableInput!): Users!
@@ -37,8 +37,9 @@ const UserTypeDefs = gql`
     input LoginUserInput {
         email: String!
         password: String!
+        role:String!
     }
-    input EditUserType {
+    input EditProfileType {
         name:String!
         email:String!
         password:String!
@@ -46,13 +47,11 @@ const UserTypeDefs = gql`
         contactNo:String!
         image:Upload!
     }
-    input AddUserType {
+    input RegisterUserType {
         name:String!
         email:String!
         password:String!
         username:String!
-        contactNo:String!
-        image:Upload!
     }
     type Users {
         userId:ID!

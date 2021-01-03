@@ -1,4 +1,4 @@
-import { gql }  from 'apollo-server'
+import { gql } from "apollo-server";
 const UserTypeDefs = gql`
     extend type Query {
         users(userId: ID): [Users!]!
@@ -6,30 +6,30 @@ const UserTypeDefs = gql`
         usersProfile: Users!
     }
     extend type Mutation {
-        registerUser(data:RegisterUserType!): Users!
-        editProfile(data:EditProfileType!): Users!
+        registerUser(data: RegisterUserType!): Users!
+        editProfile(data: EditProfileType!): Users!
         deleteUser(userId: ID!): Users!
         login(data: LoginUserInput!): AuthPayload!
-        enableUser(data:EnableInput!): Users!
-        changePassword(data:changePasswordInput!): Users!
-        forgotPassword(data:forgotPasswordInput!): Users!
+        enableUser(data: EnableInput!): Users!
+        changePassword(data: changePasswordInput!): Users!
+        forgotPassword(data: forgotPasswordInput!): Users!
         forgotPasswords(data: forgotPasswordUserInput!): AuthPayload!
     }
 
     input EnableInput {
         userId: ID!
-        IsEnable:Boolean!
+        IsEnable: Boolean!
     }
     input changePasswordInput {
-        oldPassword:String!
-        password:String!
+        oldPassword: String!
+        password: String!
     }
     input forgotPasswordInput {
-        email:String!
-        password:String!
+        email: String!
+        password: String!
     }
     input forgotPasswordUserInput {
-        email:String!
+        email: String!
     }
     type AuthPayload {
         token: String!
@@ -38,32 +38,32 @@ const UserTypeDefs = gql`
     input LoginUserInput {
         email: String!
         password: String!
-        role:String!
+        role: String!
     }
     input EditProfileType {
-        name:String
-        email:String
-        password:String
-        username:String
-        contactNo:String
-        image:Upload
+        name: String
+        email: String
+        password: String
+        username: String
+        contactNo: String
+        image: Upload
     }
     input RegisterUserType {
-        name:String!
-        email:String!
-        password:String!
-        username:String!
+        name: String!
+        email: String!
+        password: String!
+        username: String!
     }
     type Users {
-        userId:ID!
-        name:String!
-        email:String!
-        password:String!
-        username:String!
-        contactNo:String
-        IsEnable:Boolean!
-        role:Roles
-        image:String
+        userId: ID!
+        name: String!
+        email: String!
+        password: String!
+        username: String!
+        contactNo: String
+        IsEnable: Boolean!
+        role: Roles
+        image: String
         createdAt: String!
         updatedAt: String!
         deletedAt: String
@@ -71,6 +71,6 @@ const UserTypeDefs = gql`
         participations: [Participations!]
         photos: [Photos!]
     }
-`
+`;
 
-export default UserTypeDefs
+export default UserTypeDefs;

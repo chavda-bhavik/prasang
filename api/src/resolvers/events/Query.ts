@@ -6,24 +6,22 @@ import { fetchAllEventsType, fetchEventType } from "./EventArgTypes";
 const Query = {
   events: async (_, args: fetchAllEventsType, { db }: Context) => {
     let sql: string = "";
-    let {
-      where: { status, paid, categoryId },
-    } = args;
+    let { where } = args;
 
-    if (status === "Ongoing") {
+    if (where && where.status === "Ongoing") {
       sql = `select * from "events" where ( NOW() BETWEEN "events"."startDate" AND "events"."endDate")`;
-    } else if (status === "Ended") {
+    } else if (where && where.status === "Ended") {
       sql = `select * from "events" where ( "events"."endDate" < NOW() )`;
-    } else if (status === "Upcoming") {
+    } else if (where && where.status === "Upcoming") {
       sql = `select * from "events" where ( "events"."startDate" > NOW() )`;
     } else {
       sql = `select * from "events" where ( NOW() BETWEEN "events"."startDate" AND "events"."endDate")`;
     }
-    if (paid) {
+    if (where && where.paid) {
       sql += ` and "events"."fees" > 0`;
     }
-    if (categoryId) {
-      sql += ` and "events"."categoryId" = ${categoryId}`;
+    if (where && where.categoryId) {
+      sql += ` and "events"."categoryId" = '${where.categoryId}'`;
     }
     sql += ` order by "events"."startDate"`;
     let events = await db.sequelize.query(sql);

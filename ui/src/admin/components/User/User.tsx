@@ -15,26 +15,25 @@ const User = (props:any) => {
           title: 'Name',
           dataIndex: 'name',
           key: 'name',    
+          sorter: (a:any, b:any) => a.name.length - b.name.length
       },
       {
           title: 'Email',
           dataIndex: 'email',
           key: 'Email',
+          sorter: (a:any, b:any) => a.email.length - b.email.length,
       },
       {
         title: 'UserName',
         dataIndex: 'username',
         key: 'username',
-      },
-      {
-          title: 'ContactNo',
-          dataIndex: 'contactNo',
-          key: 'ContactNo',
+        sorter: (a:any, b:any) => a.username.length - b.username.length,
       },
       {
         title: 'Joining Date',
         dataIndex: 'createdAt',
         key: 'Joining Date',
+        sorter: (a:any, b:any) => a.createdAt.length - b.createdAt.length,
     },
     {
         title: 'Enable',
@@ -54,7 +53,6 @@ const User = (props:any) => {
               name:list[i].name,
               email:list[i].email,
               username:list[i].username,
-              contactNo:list[i].contactNo,
               createdAt:moment(+list[i].createdAt).format("D/MM/yyyy"),
               IsEnable:(list[i].IsEnable) ?
               <Switch

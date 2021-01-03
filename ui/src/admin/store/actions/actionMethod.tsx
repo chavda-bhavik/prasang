@@ -16,6 +16,23 @@ query {
       }
 }`
 
+export const Login_Admin = gql`
+  mutation login($email:String!,$password:String!){
+    login(data:{
+            email:$email,
+            password:$password,
+            role:"Admin"}){
+      token
+      user {
+        userId
+        name
+        email
+        username
+      }
+    }
+  }
+`;
+
 export const ADD_Event = gql`
   mutation addEvent($title:String!,$categoryId:String!,$startDate:String!,$endDate:String!,$lastRegistraionDate:String!,$description:String,$fees:Int,$image:Upload){
     addEvent(data: {title: $title, categoryId: $categoryId, startDate: $startDate, endDate: $endDate, lastRegistraionDate: $lastRegistraionDate, description: $description, fees: $fees, image: $image})
@@ -140,7 +157,6 @@ query {
       password
       name
       email
-      contactNo
       IsEnable
       createdAt
     }
@@ -154,7 +170,6 @@ export const Enable_Disable_USER = gql`
       password
       name
       email
-      contactNo
       IsEnable
       createdAt
     }
@@ -185,7 +200,6 @@ mutation forgotPasswords($email:String!){
       password
       name
       email
-      contactNo
       IsEnable
     }
   }
@@ -202,7 +216,6 @@ mutation forgotPassword($email:String!,$password:String!){
     password
     name
     email
-    contactNo
     IsEnable
   }
 }
@@ -216,7 +229,6 @@ query {
     password
     name
     email
-    contactNo
     IsEnable
     createdAt
   }

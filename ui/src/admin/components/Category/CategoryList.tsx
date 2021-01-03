@@ -27,6 +27,7 @@ const CategoryList = (props:any) =>{
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            sorter: (a:any, b:any) => a.name.length - b.name.length,
         },
         {
             title: 'Image',

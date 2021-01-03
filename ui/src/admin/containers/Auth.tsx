@@ -4,25 +4,9 @@ import { useDispatch } from 'react-redux'
 
 import * as types from '../store/actionTypes'
 import Login from '../components/Auth/Login'; 
-
+import {Login_Admin} from '../store/actions/actionMethod';
 import './css/main.css';
 import './css/util.css';
-
-const Login_Admin = gql`
-  mutation login($email:String!,$password:String!){
-    login(data:{
-            email:$email,
-            password:$password}){
-      token
-      user {
-        userId
-        name
-        email
-        username
-      }
-    }
-  }
-`;
 
 const Auth = (props:any) =>{
   const [login] = useMutation(Login_Admin);

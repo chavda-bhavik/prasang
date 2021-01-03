@@ -28,32 +28,39 @@ const EventList = (props:any) =>{
         {
             title: 'Title',
             dataIndex: 'title',
-            key: 'title'
+            key: 'title',    
+            sorter: (a:any, b:any) => a.title.length - b.title.length
+            
         },
         {
             title: 'StartDate',
             dataIndex: 'startDate',
-            key: 'startDate'
+            key: 'startDate',    
+            sorter: (a:any, b:any) => a.startDate.length - b.startDate.length
         },
         {
             title: 'EndDate',
             dataIndex: 'endDate',
-            key: 'endDate',
+            key: 'endDate',    
+            sorter: (a:any, b:any) => a.endDate.length - b.endDate.length
         },
         {
             title: 'LastRegistraionDate',
             dataIndex: 'lastRegistraionDate',
-            key: 'lastRegistraionDate',
+            key: 'lastRegistraionDate',    
+            sorter: (a:any, b:any) => a.lastRegistraionDate.length - b.lastRegistraionDate.length
         },
         {
             title: 'Description',
             dataIndex: 'description',
-            key: 'description',
+            key: 'description',    
+            sorter: (a:any, b:any) => a.description.length - b.description.length
         },
         {
             title: 'Fees',
             dataIndex: 'fees',
-            key: 'fees',
+            key: 'fees',    
+            sorter: (a:any, b:any) => a.fees - b.fees
         },
         {
             title: 'Image',

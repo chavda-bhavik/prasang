@@ -49,6 +49,12 @@ class User extends Model {
   })
   IsEnable: boolean;
 
+  @Column({
+    defaultValue:
+      "https://res.cloudinary.com/dkuoqamig/image/upload/v1609515874/avatar_wr7mqu.jpg",
+  })
+  image: string;
+
   @ForeignKey(() => Roles)
   @Column({
     type: DataType.UUID,

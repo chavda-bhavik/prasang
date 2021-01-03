@@ -18,7 +18,7 @@ const typeDefs = gql`
     All
   }
   input FetchEventsType {
-    status: EventStatus!
+    status: EventStatus
     paid: Boolean
     categoryId: ID
   }

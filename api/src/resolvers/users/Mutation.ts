@@ -4,6 +4,7 @@ import hashpassword from '../utils/hashpassword';
 import generateToken, { generateTokenPassword } from '../utils/generateToken';
 import getUserId from '../utils/getUserId'
 import bcrypt = require("bcrypt");
+const { Op } = require("sequelize");
 var nodemailer = require('nodemailer');
 import { processSingleUpload } from "../utils/Upload";
 const Mutation = {
@@ -61,7 +62,6 @@ const Mutation = {
     editProfile: async (_, args: editProfile, {db,user}: Context) => {
         const users = await user; 
         let userId = '0';
-        console.log(userId);
         if(users?.userId){
             userId = users?.userId;
         }
@@ -70,41 +70,55 @@ const Mutation = {
                 name: "User"
             }
         });
+        if(user)
+        {
+        
         if(args.data.username)
         {
             let usernameExists = await db.Users.count({
                 where: {
+                    [Op.not] : [{
+                        username:user.username
+                    }],
                     username: args.data.username,
                 }
             });
-            if(!usernameExists) {
-                throw new Error("user not exists");
+            
+            if(usernameExists) {
+                // if(usernameExists.username !== user.username)
+                {
+                    throw new Error("Username already exists");
+                }
             }
         }
         if(args.data.email)
         {
             let emailExists = await db.Users.count({
                 where: {
+                    [Op.not] : [{
+                        email:user.email
+                    }],
                     email: args.data.email,
                 }
             });
 
-            if(emailExists)
-            {
-               throw new Error("Email Exists Please Select Unique"); 
+            if(emailExists) {
+                throw new Error("Email already exists");                     
             }
         }
         if(args.data.contactNo)
         {
             let phoneExists = await db.Users.count({
                 where: {
+                    [Op.not] : [{
+                        contactNo:user.contactNo
+                    }],
                     contactNo: args.data.contactNo,
                 }
             });
             
-            if(phoneExists)
-            {
-               throw new Error("contactNo Exists Please Select Unique"); 
+            if(phoneExists) {
+                throw new Error("ContactNo already exists");     
             }
         }
         
@@ -112,6 +126,7 @@ const Mutation = {
             let image:fileField = await processSingleUpload(args.data.image);
             args.data.image = image.path;
         }
+        console.log(userId);
         await db.Users.update({
             name: args.data.name,
             email:args.data.email,
@@ -122,12 +137,13 @@ const Mutation = {
             image:args.data.image
         }, {
             where: {
-                userId: args.data.userId
+                userId: userId
             }
         });
+        }
         return await db.Users.findOne({
             where: {
-                userId: args.data.userId
+                userId: userId
             }
         })
     },
@@ -160,7 +176,7 @@ const Mutation = {
         })
         if(!role)
         {
-            throw new Error("Unable to login")
+            throw new Error("Unable to logins")
         }
         const user = await db.Users.findOne({
             where:{

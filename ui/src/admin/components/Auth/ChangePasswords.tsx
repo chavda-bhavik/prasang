@@ -33,15 +33,15 @@ const ChangePasswords = (props:any) => {
         })
       }
     }
-    if(error.IsValid)
-    {
-      seterror({
-        confirmPassword:"",
-        oldPassword:"",
-        password:"",
-        IsValid:true
-      })
-    }
+    // if(error.IsValid)
+    // {
+    //   seterror({
+    //     confirmPassword:"",
+    //     oldPassword:"",
+    //     password:"",
+    //     IsValid:true
+    //   })
+    // }
   },[props.pass,props.errs,error.IsValid])
 
   const onDataChange = (e:any,name:string) => {

@@ -40,12 +40,12 @@ const UserTypeDefs = gql`
         role:String!
     }
     input EditProfileType {
-        name:String!
-        email:String!
-        password:String!
-        username:String!
-        contactNo:String!
-        image:Upload!
+        name:String
+        email:String
+        password:String
+        username:String
+        contactNo:String
+        image:Upload
     }
     input RegisterUserType {
         name:String!
@@ -59,10 +59,10 @@ const UserTypeDefs = gql`
         email:String!
         password:String!
         username:String!
-        contactNo:String!
+        contactNo:String
         IsEnable:Boolean!
         role:Roles
-        image:String!
+        image:String
         createdAt: String!
         updatedAt: String!
         deletedAt: String

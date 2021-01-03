@@ -1,55 +1,71 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, ForeignKey, BelongsTo } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+  DataType,
+  IsUUID,
+  ForeignKey,
+  BelongsTo,
+  HasOne,
+} from "sequelize-typescript";
 import Events from "./Events";
-import Users from './Users'
+import Photo from "./Photos";
+import Users from "./Users";
 
 @Table({
-    tableName: "participations"
+  tableName: "participations",
 })
-class Participations extends Model{
-    @IsUUID(4)
-    @Column({
-        primaryKey: true,
-        defaultValue: DataType.UUIDV4,
-        type: DataType.UUID
-    })
-    participationId: string
+class Participations extends Model {
+  @IsUUID(4)
+  @Column({
+    primaryKey: true,
+    defaultValue: DataType.UUIDV4,
+    type: DataType.UUID,
+  })
+  participationId: string;
 
-    @ForeignKey( () => Users)
-    @Column({
-        type: DataType.UUID
-    })
-    userId: string
+  @ForeignKey(() => Users)
+  @Column({
+    type: DataType.UUID,
+  })
+  userId: string;
 
-    @BelongsTo( () => Users)
-    user: Users
+  @BelongsTo(() => Users)
+  user: Users;
 
-    @ForeignKey( () => Events)
-    @Column({
-        type: DataType.UUID
-    })
-    eventId: string
+  @ForeignKey(() => Events)
+  @Column({
+    type: DataType.UUID,
+  })
+  eventId: string;
 
-    @BelongsTo( () => Events)
-    event: Events
+  @BelongsTo(() => Events)
+  event: Events;
 
-    @Column({
-        defaultValue: new Date()
-    })
-    participationDate: Date
+  @Column({
+    defaultValue: new Date(),
+  })
+  participationDate: Date;
 
-    @Column({
-        defaultValue: false
-    })
-    photoAdded: Boolean
+  @Column({
+    defaultValue: false,
+  })
+  photoAdded: Boolean;
 
-    @CreatedAt
-    createdAt: Date
+  @HasOne(() => Photo)
+  photo: Photo;
 
-    @UpdatedAt
-    updatedAt: Date
+  @CreatedAt
+  createdAt: Date;
 
-    @DeletedAt
-    deletedAt: Date
+  @UpdatedAt
+  updatedAt: Date;
+
+  @DeletedAt
+  deletedAt: Date;
 }
 
-export default Participations
+export default Participations;

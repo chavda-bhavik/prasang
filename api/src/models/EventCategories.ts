@@ -1,31 +1,43 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+  DataType,
+  IsUUID,
+} from "sequelize-typescript";
 
 @Table({
-    tableName: "eventcategories"
+  tableName: "eventcategories",
 })
-class EventCategories extends Model{
-    @IsUUID(4)
-    @Column({
-        primaryKey: true,
-        defaultValue: DataType.UUIDV4,
-        type: DataType.UUID
-    })
-    categoryId: string
+class EventCategories extends Model {
+  @IsUUID(4)
+  @Column({
+    primaryKey: true,
+    defaultValue: DataType.UUIDV4,
+    type: DataType.UUID,
+  })
+  categoryId: string;
 
-    @Column
-    name: string
+  @Column
+  name: string;
 
-    @Column
-    imagePath: string
+  @Column
+  description: string;
 
-    @CreatedAt
-    createdAt: Date
+  @Column
+  imagePath: string;
 
-    @UpdatedAt
-    updatedAt: Date
-    
-    @DeletedAt
-    deletedAt: Date
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
+
+  @DeletedAt
+  deletedAt: Date;
 }
 
-export default EventCategories
+export default EventCategories;

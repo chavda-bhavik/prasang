@@ -21,7 +21,7 @@ const Query = {
       sql += ` and "events"."fees" > 0`;
     }
     if (where && where.categoryId) {
-      sql += ` and "events"."categoryId" = '${where.categoryId}'`;
+      sql += ` and "events"."categoryId" = ${where.categoryId}`;
     }
     sql += ` order by "events"."startDate"`;
     let events = await db.sequelize.query(sql);

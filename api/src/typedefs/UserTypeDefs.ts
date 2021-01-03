@@ -15,6 +15,7 @@ const UserTypeDefs = gql`
         forgotPassword(data:forgotPasswordInput!): Users!
         forgotPasswords(data: forgotPasswordUserInput!): AuthPayload!
     }
+
     input EnableInput {
         userId: ID!
         IsEnable:Boolean!
@@ -66,6 +67,9 @@ const UserTypeDefs = gql`
         createdAt: String!
         updatedAt: String!
         deletedAt: String
+        comments: [Comments!]
+        participations: [Participations!]
+        photos: [Photos!]
     }
 `
 

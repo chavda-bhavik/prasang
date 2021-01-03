@@ -1,60 +1,74 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, BelongsTo, ForeignKey } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+  DataType,
+  IsUUID,
+  BelongsTo,
+  ForeignKey,
+} from "sequelize-typescript";
 import Roles from "./Roles";
 
 @Table({
-    tableName: "users"
+  tableName: "users",
 })
-class User extends Model{
-    @IsUUID(4)
-    @Column({
-        primaryKey: true,
-        defaultValue: DataType.UUIDV4,
-        type: DataType.UUID
-    })
-    userId: string
+class User extends Model {
+  @IsUUID(4)
+  @Column({
+    primaryKey: true,
+    defaultValue: DataType.UUIDV4,
+    type: DataType.UUID,
+  })
+  userId: string;
 
-    @Column
-    name: string
-    
-    @Column({
-        unique: true
-    })
-    email: string
+  @Column
+  name: string;
 
-    @Column
-    password: string
+  @Column({
+    unique: true,
+  })
+  email: string;
 
-    @Column
-    username: string
+  @Column
+  password: string;
 
-    @Column
-    contactNo: string
+  @Column
+  username: string;
 
-    @Column
-    image: string
+  @Column
+  bio: string;
 
-    @Column({
-        defaultValue:true
-    })
-    IsEnable: boolean
+  @Column
+  contactNo: string;
 
-    @ForeignKey( () => Roles)
-    @Column({
-        type: DataType.UUID
-    })
-    roleId: string
+  @Column
+  image: string
 
-    @BelongsTo( () => Roles)
-    roles: Roles    
+  @Column({
+    defaultValue: true,
+  })
+  IsEnable: boolean;
 
-    @CreatedAt
-    createdAt: Date
+  @ForeignKey(() => Roles)
+  @Column({
+    type: DataType.UUID,
+  })
+  roleId: string;
 
-    @UpdatedAt
-    updatedAt: Date
+  @BelongsTo(() => Roles)
+  roles: Roles;
 
-    @DeletedAt
-    deletedAt: Date
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
+
+  @DeletedAt
+  deletedAt: Date;
 }
 
-export default User
+export default User;

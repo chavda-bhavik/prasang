@@ -1,15 +1,16 @@
 export interface addCategory {
-    name: string
-    image: any
+  name: string;
+  image: any;
+  description: string;
 }
 export interface editCategory {
-    categoryId: string
-    name?: string
-    image?: string
+  categoryId: string;
+  name?: string;
+  image?: string;
 }
 export interface deleteCategory {
-    categoryId: string
+  categoryId: string;
 }
 export interface fetchCategory {
-    categoryId?: string
+  categoryId?: string;
 }

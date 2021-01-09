@@ -52,8 +52,10 @@ export const Permissions = shield(
             usersProfile: and(IsAuthenticated, or(IsAdmin, IsUser)),
             // Participations
             participations: and(IsAuthenticated, or(IsAdmin, IsUser)),
+            myParticipations: and(IsAuthenticated, or(IsAdmin, IsUser)),
             // Photos
             photos: and(IsAuthenticated, or(IsAdmin, IsUser)),
+            
         },
         Mutation: {
             // Event Categories

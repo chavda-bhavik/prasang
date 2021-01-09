@@ -1,9 +1,11 @@
-import Mutation from './mutation'
-import CommentResolver from './CommentResolver'
+import Mutation from "./mutation";
+import CommentResolver from "./CommentResolver";
+import Query from "./Query";
 
 const index = {
+    Query,
     Mutation,
-    Comments: CommentResolver
-}
+    Comments: CommentResolver,
+};
 
 export default index;

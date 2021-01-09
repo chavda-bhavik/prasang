@@ -40,7 +40,7 @@ const EventEditForm = (props:any) => {
     const eventData = useSelector((state:IRootState) => state.event.event)
     const [updateEve,{loading}] = useMutation(Edit_Event);
     const dispatch = useDispatch();
-    const updateEvent = async (id:string,title: string, categoryId: string, startDate: string, endDate: string, lastRegistraionDate: string, description: string, fees: string, image:any|string) => {
+    const updateEvent = async (id:string,title: string,prize:string, categoryId: string, startDate: string, endDate: string, lastRegistraionDate: string, description: string, fees: string, image:any|string) => {
         if(typeof image === 'string')
         {
             if(image.includes("http"))
@@ -52,7 +52,7 @@ const EventEditForm = (props:any) => {
             type:types.INIT_EDIT_EVENT
         })
         try {
-            const response = await updateEve({variables:{eventId:id,title: title,categoryId:categoryId,startDate:startDate,endDate:endDate,lastRegistraionDate:lastRegistraionDate,description:description,fees: parseInt(fees),image:image}});
+            const response = await updateEve({variables:{eventId:id,title: title,categoryId:categoryId,startDate:startDate,endDate:endDate,lastRegistraionDate:lastRegistraionDate,description:description,fees: parseInt(fees),priceAmount: parseInt(prize),image:image}});
             dispatch({
                 type:types.EDIT_EVENT_SUCCESS,
                 eventList:response.data

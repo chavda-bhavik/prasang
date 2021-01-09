@@ -6,6 +6,7 @@ const ParticipationTypeDefs = gql`
     }
     extend type Mutation {
         participate(eventId:ID!): Participations!
+        participateCheck(eventId:ID!): Participations
     }
     type Participations {
         participationId: ID!

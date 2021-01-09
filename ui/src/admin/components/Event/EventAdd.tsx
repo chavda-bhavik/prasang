@@ -12,6 +12,7 @@ const EventAdd = (props:any) => {
         endDate: '', 
         lastRegistraionDate: '', 
         description: '', 
+        prize: '', 
         fees: 10
     })
     const [error,setError] = useState({
@@ -23,6 +24,7 @@ const EventAdd = (props:any) => {
         lastRegistraionDateError: '', 
         descriptionError: '', 
         feesError: '',
+        prizeError: '', 
         IsValid:false
     })
     const range = (start:any, end:any) => {
@@ -60,6 +62,13 @@ const EventAdd = (props:any) => {
         }
         else
             errors.titleError = ""
+        if(!event.prize || event.prize === "")
+        {
+            errors.IsValid = false;
+            errors.prizeError = "Event prize Is Required "
+        }
+        else
+            errors.prizeError = ""
         if(!event.image)
         {
             errors.IsValid = false;
@@ -95,9 +104,9 @@ const EventAdd = (props:any) => {
         }
         else
             errors.lastRegistraionDateError = ""
-        if(event.endDate)
+        if(event.lastRegistraionDate && event.startDate)
         {
-            if(event.startDate < event.lastRegistraionDate)
+            if(event.startDate <= event.lastRegistraionDate)
             {
                 errors.IsValid = false;
                 errors.lastRegistraionDateError = " Last RegistraionDate Should Greter Than Start Date"
@@ -123,7 +132,7 @@ const EventAdd = (props:any) => {
 
         if(errors.IsValid)
         {
-            await props.insertEvent(eventData.title,eventData.categoryId,eventData.startDate,eventData.endDate,eventData.lastRegistraionDate,eventData.description,eventData.fees,eventData.image)     
+            await props.insertEvent(eventData.title,eventData.prize,eventData.categoryId,eventData.startDate,eventData.endDate,eventData.lastRegistraionDate,eventData.description,eventData.fees,eventData.image)     
         }
         setError(errors);
     };
@@ -267,6 +276,13 @@ const EventAdd = (props:any) => {
                             onChange={(e) => onDataChange(e,'lastRegistraionDate','')}
                             />
                         {/* <Input name="lastRegistraionDate" onChange={(e) => onDataChange(e,'lastRegistraionDate','')}/> */}
+                    </Form.Item>
+                    <Form.Item label="Prize"
+                        hasFeedback
+                        validateStatus={(error.prizeError)?"error":""}
+                        help={error.prizeError}
+                      >
+                        <Input name="prize" placeholder={"Enter Prize"} value={event.prize} onChange={(e) => onDataChange(e,'prize','')}/>
                     </Form.Item>
                     <Form.Item label="Fees"
                         hasFeedback

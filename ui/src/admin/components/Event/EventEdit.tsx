@@ -14,6 +14,7 @@ const EventEdit = (props:any) => {
         lastRegistraionDate: '', 
         description: '', 
         fees: 10,
+        prize: '',
         dimage:"",
         eventId:""
     })
@@ -25,6 +26,7 @@ const EventEdit = (props:any) => {
         endDateError: '', 
         lastRegistraionDateError: '', 
         descriptionError: '', 
+        prizeError: '', 
         feesError: '',
         IsValid:false
     })
@@ -42,6 +44,7 @@ const EventEdit = (props:any) => {
             eventData.dimage = props.singleEdit.event.imageUrl;
             eventData.image = props.singleEdit.event.imageUrl;
             eventData.eventId = props.singleEdit.event.eventId;
+            eventData.prize = props.singleEdit.event.priceAmount;
             setEvent(eventData);
         }
     },[props.singleEdit])
@@ -80,6 +83,13 @@ const EventEdit = (props:any) => {
         }
         else
             errors.titleError = ""
+        if(!event.prize || event.prize === "")
+        {
+            errors.IsValid = false;
+            errors.prizeError = "Event prize Is Required "
+        }
+        else
+            errors.prizeError = ""
         if(!event.image)
         {
             errors.IsValid = false;
@@ -142,7 +152,7 @@ const EventEdit = (props:any) => {
             errors.descriptionError = ""
         if(errors.IsValid)
         {
-            await props.updateEvent(eventData.eventId,eventData.title,eventData.categoryId,moment(+eventData.startDate).format('DD-MM-YYYY'),moment(+eventData.endDate).format('DD-MM-YYYY') ,moment(+eventData.lastRegistraionDate).format('DD-MM-YYYY'),eventData.description,eventData.fees,eventData.image)     
+            await props.updateEvent(eventData.eventId,eventData.title,eventData.prize,eventData.categoryId,moment(+eventData.startDate).format('DD-MM-YYYY'),moment(+eventData.endDate).format('DD-MM-YYYY') ,moment(+eventData.lastRegistraionDate).format('DD-MM-YYYY'),eventData.description,eventData.fees,eventData.image)     
             console.log('Success:', values);
         }
         setError(errors);
@@ -289,6 +299,13 @@ const EventEdit = (props:any) => {
                             onChange={(e) => onDataChange(e,'lastRegistraionDate','')}
                             />
                         {/* <Input name="lastRegistraionDate" onChange={(e) => onDataChange(e,'lastRegistraionDate','')}/> */}
+                    </Form.Item>
+                    <Form.Item label="Prize"
+                        hasFeedback
+                        validateStatus={(error.prizeError)?"error":""}
+                        help={error.prizeError}
+                      >
+                        <Input name="prize" placeholder={"Enter Prize"} value={event.prize} onChange={(e) => onDataChange(e,'prize','')}/>
                     </Form.Item>
                     <Form.Item label="Fees"
                         hasFeedback

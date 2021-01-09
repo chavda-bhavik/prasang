@@ -12,6 +12,7 @@ query {
         startDate
         title
         eventId
+        priceAmount
         lastRegistraionDate
       }
 }`
@@ -34,8 +35,8 @@ export const Login_Admin = gql`
 `;
 
 export const ADD_Event = gql`
-  mutation addEvent($title:String!,$categoryId:String!,$startDate:String!,$endDate:String!,$lastRegistraionDate:String!,$description:String,$fees:Int,$image:Upload){
-    addEvent(data: {title: $title, categoryId: $categoryId, startDate: $startDate, endDate: $endDate, lastRegistraionDate: $lastRegistraionDate, description: $description, fees: $fees, image: $image})
+  mutation addEvent($title:String!,$categoryId:String!,$startDate:String!,$endDate:String!,$lastRegistraionDate:String!,$description:String,$fees:Int,$priceAmount:Int,$image:Upload){
+    addEvent(data: {title: $title, categoryId: $categoryId, startDate: $startDate, endDate: $endDate, lastRegistraionDate: $lastRegistraionDate, description: $description, fees: $fees,priceAmount:$priceAmount, image: $image})
     {
       description
       endDate
@@ -43,6 +44,7 @@ export const ADD_Event = gql`
       imageUrl
       startDate
       title
+      priceAmount
       category {
         categoryId
       }}
@@ -50,14 +52,15 @@ export const ADD_Event = gql`
 `;
 
 export const Edit_Event = gql`
-mutation editEvent($eventId:ID!,$title:String!,$categoryId:String!,$startDate:String!,$endDate:String!,$lastRegistraionDate:String!,$description:String,$fees:Int,$image:Upload){
-    editEvent(eventId: $eventId,data: {title: $title, categoryId: $categoryId, startDate: $startDate, endDate: $endDate, lastRegistraionDate: $lastRegistraionDate, description: $description, fees: $fees, image: $image}){
+mutation editEvent($eventId:ID!,$title:String!,$categoryId:String!,$startDate:String!,$endDate:String!,$lastRegistraionDate:String!,$description:String,$fees:Int,$priceAmount:Int,$image:Upload){
+    editEvent(eventId: $eventId,data: {title: $title, categoryId: $categoryId, startDate: $startDate, endDate: $endDate, lastRegistraionDate: $lastRegistraionDate, description: $description, fees: $fees,priceAmount:$priceAmount, image: $image}){
       description
       endDate
       fees
       imageUrl
       startDate
       title
+      priceAmount
       eventId
       lastRegistraionDate
   }
@@ -72,6 +75,7 @@ export const SINGLE_Event = gql `
           imageUrl
           startDate
           title
+          priceAmount
           eventId
           lastRegistraionDate
           category{

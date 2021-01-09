@@ -35,12 +35,12 @@ const EventAddForm = (props:any) => {
         }
     },[data])
 
-    const addEvent = async (title: string, categoryId: string, startDate: string, endDate: string, lastRegistraionDate: string, description: string, fees: string, image: string) => {
+    const addEvent = async (title: string,prize:string, categoryId: string, startDate: string, endDate: string, lastRegistraionDate: string, description: string, fees: string, image: string) => {
         dispatch({
             type:types.INIT_EVENT_DATA
         })
         try {
-            const response = await addEvents({variables:{title: title,categoryId:categoryId,startDate:startDate,endDate:endDate,lastRegistraionDate:lastRegistraionDate,description:description,fees: parseInt(fees),image:image}});
+            const response = await addEvents({variables:{title: title,categoryId:categoryId,startDate:startDate,endDate:endDate,lastRegistraionDate:lastRegistraionDate,description:description,fees: parseInt(fees),priceAmount: parseInt(prize),image:image}});
             dispatch({
                 type:types.ADD_EVENT_SUCCESS,
                 eventList:response.data

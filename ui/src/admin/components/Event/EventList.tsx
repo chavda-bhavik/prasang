@@ -51,6 +51,12 @@ const EventList = (props:any) =>{
             sorter: (a:any, b:any) => a.lastRegistraionDate.length - b.lastRegistraionDate.length
         },
         {
+            title: 'Prize',
+            dataIndex: 'priceAmount',
+            key: 'priceAmount',    
+            sorter: (a:any, b:any) => a.priceAmount - b.priceAmount
+        },
+        {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',    
@@ -96,6 +102,7 @@ const EventList = (props:any) =>{
                 startDate:moment(+list[i].startDate).format("D/MM/yyyy"),
                 endDate:moment(+list[i].endDate).format("D/MM/yyyy"),
                 lastRegistraionDate:moment(+list[i].lastRegistraionDate).format('D/MM/yyyy'),
+                priceAmount:list[i].priceAmount,
                 description:list[i].description,
                 fees:list[i].fees,
                 image:<img src={list[i].imageUrl} width="50px"/>,

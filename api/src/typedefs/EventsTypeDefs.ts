@@ -10,6 +10,7 @@ const typeDefs = gql`
         addEvent(data: AddEventType!): Events!
         editEvent(eventId: ID!, data: EditEventType!): Events!
         deleteEvent(eventId: ID!): Events!
+        dummyParticipations(userId: ID!): String!
     }
     enum EventStatus {
         Ongoing

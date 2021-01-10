@@ -1,12 +1,12 @@
-import { gql }  from 'apollo-server'
+import { gql } from "apollo-server";
 
 const ParticipationTypeDefs = gql`
     extend type Query {
         participations(eventId: ID, photoAdded: Boolean): [Participations!]!
     }
     extend type Mutation {
-        participate(eventId:ID!): Participations!
-        participateCheck(eventId:ID!): Participations
+        participate(eventId: ID!): Participations!
+        participateCheck(eventId: ID!): Participations
     }
     type Participations {
         participationId: ID!
@@ -16,6 +16,6 @@ const ParticipationTypeDefs = gql`
         participationDate: String!
         photoAdded: Boolean!
     }
-`
+`;
 
-export default ParticipationTypeDefs
+export default ParticipationTypeDefs;

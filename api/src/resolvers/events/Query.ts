@@ -18,6 +18,9 @@ const Query = {
         } else if (where && where.status === "Upcoming") {
             sql = `select * from "events" where ( "events"."startDate" > NOW() )`;
             whereAdded = true;
+        } else if (where && where.status === "Participatable") {
+            sql = `select * from "events" where ( NOW() BETWEEN "events"."startDate" AND "events"."lastRegistraionDate")`;
+            whereAdded = true;
         } else {
             sql = `select * from "events"`;
         }

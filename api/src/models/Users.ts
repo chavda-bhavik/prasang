@@ -1,77 +1,82 @@
 import {
-  Table,
-  Column,
-  Model,
-  CreatedAt,
-  UpdatedAt,
-  DeletedAt,
-  DataType,
-  IsUUID,
-  BelongsTo,
-  ForeignKey,
+    Table,
+    Column,
+    Model,
+    CreatedAt,
+    UpdatedAt,
+    DeletedAt,
+    DataType,
+    IsUUID,
+    BelongsTo,
+    ForeignKey,
 } from "sequelize-typescript";
 import Roles from "./Roles";
 
 @Table({
-  tableName: "users",
+    tableName: "users",
 })
 class User extends Model {
-  @IsUUID(4)
-  @Column({
-    primaryKey: true,
-    defaultValue: DataType.UUIDV4,
-    type: DataType.UUID,
-  })
-  userId: string;
+    @IsUUID(4)
+    @Column({
+        primaryKey: true,
+        defaultValue: DataType.UUIDV4,
+        type: DataType.UUID,
+    })
+    userId: string;
 
-  @Column
-  name: string;
+    @Column
+    name: string;
 
-  @Column({
-    unique: true,
-  })
-  email: string;
+    @Column({
+        unique: true,
+    })
+    email: string;
 
-  @Column
-  password: string;
+    @Column
+    password: string;
 
-  @Column
-  username: string;
+    @Column
+    username: string;
 
-  @Column
-  bio: string;
+    @Column
+    bio: string;
 
-  @Column
-  contactNo: string;
+    @Column
+    contactNo: string;
 
-  @Column({
-    defaultValue: true,
-  })
-  IsEnable: boolean;
+    @Column({
+        defaultValue: 0,
+    })
+    viewIndex: number;
 
-  @Column({
-    defaultValue:
-      "https://res.cloudinary.com/dkuoqamig/image/upload/v1609515874/avatar_wr7mqu.jpg",
-  })
-  image: string;
+    @Column({
+        defaultValue: true,
+    })
+    IsEnable: boolean;
 
-  @ForeignKey(() => Roles)
-  @Column({
-    type: DataType.UUID,
-  })
-  roleId: string;
+    @Column({
+        defaultValue:
+            "https://res.cloudinary.com/dkuoqamig/image/upload/v1609515874/avatar_wr7mqu.jpg",
+    })
+    image: string;
 
-  @BelongsTo(() => Roles)
-  roles: Roles;
+    @ForeignKey(() => Roles)
+    @Column({
+        type: DataType.UUID,
+    })
+    roleId: string;
 
-  @CreatedAt
-  createdAt: Date;
+    @BelongsTo(() => Roles)
+    roles: Roles;
 
-  @UpdatedAt
-  updatedAt: Date;
+    @CreatedAt
+    createdAt: Date;
 
-  @DeletedAt
-  deletedAt: Date;
+    @UpdatedAt
+    updatedAt: Date;
+
+    @DeletedAt
+    deletedAt: Date;
 }
 
 export default User;

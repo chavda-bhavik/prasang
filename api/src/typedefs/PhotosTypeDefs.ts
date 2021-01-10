@@ -1,7 +1,8 @@
-import { gql }  from 'apollo-server'
+import { gql } from "apollo-server";
 
 const typeDefs = gql`
     extend type Query {
+        feed(limit: Int): [Photos!]
         photos(options: fetchPhotosType): [Photos!]!
         photo(photoId: ID!): Photos!
     }
@@ -31,6 +32,6 @@ const typeDefs = gql`
         updatedAt: String!
         deletedAt: String
     }
-`
+`;
 
-export default typeDefs
+export default typeDefs;

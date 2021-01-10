@@ -48,6 +48,7 @@ const IsUser = rule({ cache: "contextual" })(
 export const Permissions = shield(
     {
         Query: {
+            feed: and(IsAuthenticated, IsUser),
             Dashboard: and(IsAuthenticated, IsAdmin),
             usersProfile: and(IsAuthenticated, or(IsAdmin, IsUser)),
             // Participations
@@ -55,7 +56,6 @@ export const Permissions = shield(
             myParticipations: and(IsAuthenticated, or(IsAdmin, IsUser)),
             // Photos
             photos: and(IsAuthenticated, or(IsAdmin, IsUser)),
-            
         },
         Mutation: {
             // Event Categories

@@ -5,6 +5,7 @@ const typeDefs = gql`
   extend type Query {
     events(where: FetchEventsType): [Events!]!
     event(eventId: ID!): Events!
+    participant_event:[Events!]
   }
   extend type Mutation {
     addEvent(data: AddEventType!): Events!

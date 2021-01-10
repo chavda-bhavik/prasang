@@ -5,3 +5,7 @@ export interface participations {
     eventId?: string,
     photoAdded?: boolean
 }
+
+export interface user_participations {
+    photoId?: string
+}

@@ -85,7 +85,6 @@ const EventList = (props:any) =>{
         }
     ];
     const deleteModal = (id:any) => {
-        console.log(id);
         setVisible({ show: true, id: id });
     }
     const updateHandler = async (id:any) => {

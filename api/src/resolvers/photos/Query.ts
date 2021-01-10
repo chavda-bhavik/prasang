@@ -4,6 +4,20 @@ import findThrowAndReturn from "../utils/findThrowAndReturn";
 import { fetchPhoto, fetchPhotosType } from "./PhotosArgTypes";
 
 const Query = {
+    myPhotos:async (_, _2, { db,user }: Context) => {
+        const users = await user; 
+        let userId = '0';
+        if(users?.userId){
+            userId = users?.userId;
+        }
+        return db.Photos.findAll({
+            include:[{
+                model:db.Participations, where:{
+                    userId
+                }
+            }]
+        });
+    },
     photos: async (_, args:fetchPhotosType, { db }: Context) => {
         let { options } = args;
         let obj:any = {};

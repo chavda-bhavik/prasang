@@ -2,7 +2,7 @@ import { Context } from "../../global";
 import findThrowAndReturn from "../utils/findThrowAndReturn";
 import { fetchAllEventsType, fetchEventType } from "./EventArgTypes";
 // import transformDate from "../utils/transformDate";
-
+import { Sequelize } from "sequelize-typescript";
 const Query = {
     events: async (_, args: fetchAllEventsType, { db }: Context) => {
         let sql: string = "";
@@ -42,6 +42,13 @@ const Query = {
             where: { eventId: args.eventId },
         });
     },
+    participant_event: async (_, _2, { db }: Context) => {
+        return db.Events.findAll({
+            attributes: [[Sequelize.fn('eventId', Sequelize.col('eventId')), 'eventId']],
+            group: ["symbol"],
+            raw: true
+        })
+    }
 };
 
 export default Query;

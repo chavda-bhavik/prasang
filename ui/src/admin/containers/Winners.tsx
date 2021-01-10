@@ -78,8 +78,6 @@ const Winners = () => {
     });
     const [isModalVisible, setIsModalVisible] = useState(false);
     
-
-
     const showModal = () => {
       setIsModalVisible(true);
     };
@@ -119,10 +117,7 @@ const Winners = () => {
         //     console.log(winnerPhotoId)
            
         // }
-
         setphotoId(winnerPhotoId);
-
-
     }
     
     const datas = () => {

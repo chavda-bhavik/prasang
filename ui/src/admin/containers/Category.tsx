@@ -64,7 +64,7 @@ const Category = (props:any) =>{
         }
     }
     const singleCategory = async (id:string) => {
-        props.history.push("/prasangadmin/editcategory/"+id);
+        props.history.push("/editcategory/"+id);
     }
 
     const catLength = categoryList; 

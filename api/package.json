@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "^7.4.2",
+    "html-pdf": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.4.17",
     "pg": "^8.5.1",

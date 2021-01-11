@@ -57,11 +57,11 @@ const Login = (props:any) => {
                     <span>{(props.errormsg)?<h4 style={{color:'red'}}>Wrong Username Or Password</h4>:null}</span>
                 </div>
                 <div className="text-right p-t-8 p-b-31">
-                    <Link to={"/prasangadmin/forgotpassword"}>
+                    <Link to={"/forgotpassword"}>
                         Forgot password?
                     </Link>
 
-                    {/* <a href="/prasangadmin/forgotpassword">
+                    {/* <a href="/forgotpassword">
                         Forgot password?
                     </a> */}
                 </div>

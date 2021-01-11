@@ -1,74 +1,85 @@
-import { Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, DataType, IsUUID, ForeignKey, BelongsTo } from "sequelize-typescript";
+import {
+    Table,
+    Column,
+    Model,
+    CreatedAt,
+    UpdatedAt,
+    DeletedAt,
+    DataType,
+    IsUUID,
+    ForeignKey,
+    BelongsTo,
+} from "sequelize-typescript";
 import EventCategories from "./EventCategories";
-import slugify from '../resolvers/utils/slugify'
+import slugify from "../resolvers/utils/slugify";
 
 @Table({
-    tableName: "events"
+    tableName: "events",
 })
-class Events extends Model{
+class Events extends Model {
     @IsUUID(4)
     @Column({
         primaryKey: true,
         defaultValue: DataType.UUIDV4,
-        type: DataType.UUID
+        type: DataType.UUID,
     })
-    eventId: string
+    eventId: string;
 
     @Column({
         set(value: string) {
             // @ts-ignore
-            this.setDataValue("title", value)
+            this.setDataValue("title", value);
             // @ts-ignore
-            this.setDataValue("slug", slugify(value))
-        }
+            this.setDataValue("slug", slugify(value));
+        },
     })
-    title: string
+    title: string;
 
     @Column({
-        defaultValue: 0
+        defaultValue: 0,
     })
-    priceAmount: number
+    priceAmount: number;
 
     @Column
-    description: string
+    description: string;
 
     @Column
-    startDate: Date
+    startDate: Date;
 
     @Column
-    endDate: Date
+    endDate: Date;
 
     @Column
-    lastRegistraionDate: Date
+    lastRegistraionDate: Date;
 
     @Column({
-        defaultValue: 0
+        defaultValue: 0,
     })
-    fees: number
+    fees: number;
 
     @Column
-    imageUrl: string
+    imageUrl: string;
 
     @Column
-    slug: string
+    slug: string;
 
-    @ForeignKey( () => EventCategories)
+    @ForeignKey(() => EventCategories)
     @Column({
-        type: DataType.UUID
+        type: DataType.UUID,
     })
-    categoryId: string
+    categoryId: string;
 
-    @BelongsTo( () => EventCategories)
-    category: EventCategories
+    @BelongsTo(() => EventCategories)
+    category: EventCategories;
 
     @CreatedAt
-    createdAt: Date
+    createdAt: Date;
 
     @UpdatedAt
-    updatedAt: Date
+    updatedAt: Date;
 
     @DeletedAt
-    deletedAt: Date
+    deletedAt: Date;
 }
 
-export default Events
+export default Events;

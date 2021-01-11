@@ -28,36 +28,36 @@ const AdminHeader = (props:any) => {
           
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1" icon={<PieChartOutlined />}>
-              <Link to="/prasangadmin/dashboard">
+              <Link to="/dashboard">
                 Dashboard
               </Link>
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="Category">
-              <Menu.Item key="/prasangadmin/category"><Link to="/prasangadmin/category">Category</Link></Menu.Item>
-              <Menu.Item key="/prasangadmin/addcategory"><Link to="/prasangadmin/addcategory">Add Category</Link></Menu.Item>
+              <Menu.Item key="/category"><Link to="/category">Category</Link></Menu.Item>
+              <Menu.Item key="/addcategory"><Link to="/addcategory">Add Category</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Event">
-              <Menu.Item key="/prasangadmin/event"><Link to="/prasangadmin/event">Event</Link></Menu.Item>
-              <Menu.Item key="/prasangadmin/addevent"><Link to="/prasangadmin/addevent">Add Event</Link></Menu.Item>
+              <Menu.Item key="/event"><Link to="/event">Event</Link></Menu.Item>
+              <Menu.Item key="/addevent"><Link to="/addevent">Add Event</Link></Menu.Item>
             </SubMenu>
             <Menu.Item key="2" icon={<PieChartOutlined />}>
-              <Link to="/prasangadmin/user">
+              <Link to="/user">
                 User
               </Link>
             </Menu.Item>
             <Menu.Item key="sub3" icon={<TeamOutlined />} title="Participants">
-              <Link to="/prasangadmin/participants">Participants</Link>
+              <Link to="/participants">Participants</Link>
             </Menu.Item>
             {/* <SubMenu key="sub4" icon={<TeamOutlined />} title="Winners">
               <Menu.Item key="sub5">
-                <Link to="/prasangadmin/winners">Decide Winners</Link>
+                <Link to="/winners">Decide Winners</Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link to="/prasangadmin/winners/list">List Winners</Link>
+                <Link to="/winners/list">List Winners</Link>
               </Menu.Item>
             </SubMenu> */}
             <Menu.Item key="sub4" icon={<TeamOutlined />} title="Winners">
-              <Link to="/prasangadmin/winners">Winners</Link>
+              <Link to="/winners">Winners</Link>
             </Menu.Item>
           </Menu>
         </Sider>

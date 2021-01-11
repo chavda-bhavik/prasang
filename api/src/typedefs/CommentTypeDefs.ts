@@ -1,6 +1,9 @@
-import { gql }  from 'apollo-server'
+import { gql } from "apollo-server";
 
 const typeDefs = gql`
+    extend type Query {
+        comments(photoId: ID!): [Comments!]
+    }
     extend type Mutation {
         addComment(photoId: ID!, text: String!): Comments
     }
@@ -13,6 +16,6 @@ const typeDefs = gql`
         updatedAt: String!
         deletedAt: String
     }
-`
+`;
 
-export default typeDefs
+export default typeDefs;

@@ -17,6 +17,7 @@ export interface editProfile {
         username?:string
         contactNo?:string
         image?:any
+        bio?:string
     }
 }
 export interface deleteUser {

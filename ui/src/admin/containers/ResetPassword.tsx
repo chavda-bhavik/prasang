@@ -32,7 +32,7 @@ const ResetPassword= (props:any) => {
             dispatch({
                 type:types.RESET_PASSWORD_SUCCESS
             })
-            props.history.push("/prasangadmin/login");
+            props.history.push("/login");
       } catch (error) {
           dispatch({
               type:types.RESET_PASSWORD_FAILED,

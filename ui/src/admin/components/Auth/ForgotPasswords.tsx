@@ -51,7 +51,7 @@ const ForgotPasswords = (props:any) => {
                    
                 <div className="txt1 text-center p-t-54 p-b-20">
                     <span>
-                    <Link to={"/prasangadmin/login"}>
+                    <Link to={"/login"}>
                         Click here for Sign In
                     </Link>
                     </span>

@@ -62,7 +62,7 @@ const Event = (props:any) =>{
         }
     }
     const singleEvent = async (id:string) => {
-        props.history.push("/prasangadmin/editevent/"+id);
+        props.history.push("/editevent/"+id);
     }
     const eveLength = eventList;
     

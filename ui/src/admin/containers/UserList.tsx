@@ -15,6 +15,7 @@ const UserList = (props:any) => {
     const unmounted = useRef(false);
     useEffect(()=>{
         try {
+            refetch()
             dispatch({
                 type:types.INIT_FETCH_USER
             })

@@ -46,6 +46,7 @@ const UserTypeDefs = gql`
         username: String
         contactNo: String
         image: Upload
+        bio : String
     }
     input RegisterUserType {
         name: String!
@@ -57,7 +58,6 @@ const UserTypeDefs = gql`
         userId: ID!
         name: String!
         email: String!
-        password: String!
         username: String!
         contactNo: String
         IsEnable: Boolean!
@@ -66,6 +66,7 @@ const UserTypeDefs = gql`
         photos: [Photos!]
         role: Roles
         image: String
+        bio: String
         createdAt: String!
         updatedAt: String!
         deletedAt: String

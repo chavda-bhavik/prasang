@@ -28,7 +28,7 @@ const CategoryAddForm = (props:any) => {
                 error:error.message
             })
         }
-        props.history.push("/prasangadmin/category");
+        props.history.push("/category");
     }
     return (
         <>

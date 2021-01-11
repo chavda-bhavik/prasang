@@ -29,8 +29,8 @@ const AdminSlider = (props:any) => {
               Dashboard
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="Category">
-              <Menu.Item key="/prasangadmin/category"><Link to="/prasangadmin/category">Category</Link></Menu.Item>
-              <Menu.Item key="/prasangadmin/addcategory"><Link to="/prasangadmin/addcategory">Add Category</Link></Menu.Item>
+              <Menu.Item key="/category"><Link to="/category">Category</Link></Menu.Item>
+              <Menu.Item key="/addcategory"><Link to="/addcategory">Add Category</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Event">
               <Menu.Item key="6">View</Menu.Item>

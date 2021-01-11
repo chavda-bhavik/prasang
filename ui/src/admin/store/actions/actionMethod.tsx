@@ -158,7 +158,6 @@ query {
     users{
       username
       userId
-      password
       name
       email
       IsEnable
@@ -170,9 +169,7 @@ export const Enable_Disable_USER = gql`
   mutation enableUser($userId:ID!,$IsEnable:Boolean!){
     enableUser(data: {userId: $userId, IsEnable: $IsEnable}){
       username
-      userId
-      password
-      name
+      userId      name
       email
       IsEnable
       createdAt
@@ -201,7 +198,6 @@ mutation forgotPasswords($email:String!){
     user{
       username
       userId
-      password
       name
       email
       IsEnable
@@ -217,7 +213,6 @@ mutation forgotPassword($email:String!,$password:String!){
   }){
     username
     userId
-    password
     name
     email
     IsEnable
@@ -230,7 +225,6 @@ query {
   usersProfile{
     username
     userId
-    password
     name
     email
     IsEnable

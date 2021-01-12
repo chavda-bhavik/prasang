@@ -4,7 +4,7 @@ import findThrowAndReturn from "../utils/findThrowAndReturn";
 import getUserId from "../utils/getUserId";
 import { participate } from "./ParticipationArgTypes";
 var nodemailer = require("nodemailer");
-var pdf = require('html-pdf');
+// var pdf = require('html-pdf');
 
 const Mutation = {
     participate: async (_, args: participate, { req, db }: Context) => {
@@ -38,10 +38,7 @@ const Mutation = {
         let participantUser = await db.Users.findByPk(userId);
         let eventId : any = args.eventId;
         let participantEvent = await db.Events.findByPk(eventId);
-        console.log(participantUser.email);
-        console.log(participantEvent.title);
-        console.log(participantEvent.fees);
-        console.log(participantEvent.priceAmount);
+        
         // console.log(participtaion.);
         
         var transporter = nodemailer.createTransport({
@@ -654,23 +651,12 @@ const Mutation = {
         </table>
         </body>
         </html>`;
-        // pdf.create(html).toFile([filepath, ]function(err, res){
-        //     console.log(res.filename);
-        // });
-        
-        const fileBuffer = await pdf.create(html).toBuffer((err:any, buffer) => {
-            if(err)
-                console.log(err);
-            console.log('This is a buffer:', Buffer.isBuffer(buffer));
-        });
+
         var mailOptions = {
             from: "dp297609@gmail.com",
             to: participantUser.email,
             subject: "Prasang Participants",
-            html: html,
-            attachments: [
-                { filename: "attachment.pdf", content: fileBuffer }
-            ]
+            html: html
         };
         
         transporter.sendMail(mailOptions, function (error, info) {

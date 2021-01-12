@@ -5,6 +5,7 @@ const typeDefs = gql`
         feed(limit: Int): [Photos!]
         photos(options: fetchPhotosType): [Photos!]!
         photo(photoId: ID!): Photos!
+        myPhotos: [Photos!]
     }
     extend type Mutation {
         addPhoto(eventId: ID!, image: Upload!): Photos

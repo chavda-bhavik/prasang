@@ -23,6 +23,7 @@ const typeDefs = gql`
         status: EventStatus
         paid: Boolean
         categoryId: ID
+        limit: Int
     }
     input EditEventType {
         title: String

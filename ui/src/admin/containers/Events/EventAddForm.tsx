@@ -51,7 +51,7 @@ const EventAddForm = (props:any) => {
                 error:error.message
             })
         }
-        props.history.push("/prasangadmin/event");
+        props.history.push("/event");
     }
     let addData : any = "";
     const catLength = categoryList; 

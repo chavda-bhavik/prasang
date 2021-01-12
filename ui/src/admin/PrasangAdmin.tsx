@@ -42,7 +42,7 @@ const PrasangAdmin = (props:any) => {
                 type:types.ADMIN_LOGOUT_SUCCESS,  
             })
             localStorage.removeItem("Prasangtoken");
-            props.history.push("/prasangadmin/login");  
+            props.history.push("/login");  
         } catch (error) {
             dispatch({
                 type:types.ADMIN_LOGOUT_FAILED,
@@ -52,7 +52,7 @@ const PrasangAdmin = (props:any) => {
     }
     useEffect(() => {
         let tokens = localStorage.getItem("Prasangtoken");
-        if(props.location.pathname.startsWith("/prasangadmin") && !token) {
+        if(props.location.pathname.startsWith("/") && !token) {
             refetch()
             if(!loading && data) 
             {
@@ -65,25 +65,25 @@ const PrasangAdmin = (props:any) => {
         }
     }, [location.pathname,token,data])
     
-    let renders : any = <Redirect to="/prasangadmin" />;
+    let renders : any = <Redirect to="/" />;
     
-    if(props.location.pathname.startsWith("/prasangadmin") && !token)
+    if(props.location.pathname.startsWith("/") && !token)
     {
         renders = <Switch>
-            <Route path="/prasangadmin/login" exact component={PrasangAdminLogin}/>
-            <Route path="/prasangadmin/forgotpassword" exact component={ForgotPassword}/>
-            <Route path="/prasangadmin/forgotpasswords/:token/:email" exact component={ResetPassword}/>
-            <Redirect to="/prasangadmin/login" />
+            <Route path="/login" exact component={PrasangAdminLogin}/>
+            <Route path="/forgotpassword" exact component={ForgotPassword}/>
+            <Route path="/forgotpasswords/:token/:email" exact component={ResetPassword}/>
+            <Redirect to="/login" />
         </Switch>
     }
-    else if(props.location.pathname.startsWith("/prasangadmin") && token)
+    else if(props.location.pathname.startsWith("/") && token)
     {
         const userMenu = (
             <Menu>
               <Menu.Item key="admin"><h4><UserOutlined /> Welcome, Admin</h4></Menu.Item>  
-              <Menu.Item key="/prasangadmin/changepassword"><Link to={"/prasangadmin/changepassword"}><LockOutlined />Change Password</Link></Menu.Item>
+              <Menu.Item key="/changepassword"><Link to={"/changepassword"}><LockOutlined />Change Password</Link></Menu.Item>
               <Menu.Divider />
-              <Menu.Item key="/prasangadmin/logout" onClick={() => logout()}><LogoutOutlined />Logout</Menu.Item>
+              <Menu.Item key="/logout" onClick={() => logout()}><LogoutOutlined />Logout</Menu.Item>
             </Menu>
           );
         const dropdown = <Dropdown.Button
@@ -110,18 +110,18 @@ const PrasangAdmin = (props:any) => {
                 <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 <div>
                     <Switch>
-                        <Route path="/prasangadmin/dashboard" component={Dashboard} />
-                        <Route path="/prasangadmin/category" component={Category} />
-                        <Route path="/prasangadmin/addcategory" component={CategoryAddForm} />
-                        <Route path="/prasangadmin/editcategory/:id" component={CategoryEditForm} />
-                        <Route path="/prasangadmin/changepassword" component={ChangePassword} />
-                        <Route path="/prasangadmin/user" component={UserList} />
-                        <Route path="/prasangadmin/event" component={Event} />
-                        <Route path="/prasangadmin/addevent" component={EventAddForm} />
-                        <Route path="/prasangadmin/editevent/:id" component={EventEditForm} />
-                        <Route path="/prasangadmin/participants" component={Participantes} />
-                        <Route path="/prasangadmin/winners" component={Winners} />
-                        <Redirect to="/prasangadmin/dashboard" />
+                        <Route path="/dashboard" component={Dashboard} />
+                        <Route path="/category" component={Category} />
+                        <Route path="/addcategory" component={CategoryAddForm} />
+                        <Route path="/editcategory/:id" component={CategoryEditForm} />
+                        <Route path="/changepassword" component={ChangePassword} />
+                        <Route path="/user" component={UserList} />
+                        <Route path="/event" component={Event} />
+                        <Route path="/addevent" component={EventAddForm} />
+                        <Route path="/editevent/:id" component={EventEditForm} />
+                        <Route path="/participants" component={Participantes} />
+                        <Route path="/winners" component={Winners} />
+                        <Redirect to="/dashboard" />
                     </Switch>
                 </div>
             </div>

@@ -125,12 +125,12 @@ const EventEdit = (props:any) => {
         }
         else
             errors.lastRegistraionDateError = ""
-        if(event.endDate)
+        if(event.lastRegistraionDate && event.endDate)
         {
-            if(event.startDate < event.lastRegistraionDate)
+            if(event.endDate <= event.lastRegistraionDate)
             {
                 errors.IsValid = false;
-                errors.lastRegistraionDateError = " Last RegistraionDate Should Less Than Start Date"
+                errors.lastRegistraionDateError = " Last RegistraionDate Should Less Than End Date"
             }
             else {
                 errors.lastRegistraionDateError = ""

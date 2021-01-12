@@ -38,7 +38,7 @@ function App() {
       <Switch>
           {/* <Route path="/prasangadmin/login" component={PrasangAdminLogin}/> */}
         <ApolloProvider client={client}>
-          <Route path="/prasangadmin" component={PrasangAdmin}/>
+          <Route path="/" component={PrasangAdmin}/>
         </ApolloProvider>
         {/* <Route path="/" component ={PrasangUser}/> */}
       </Switch>

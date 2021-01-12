@@ -49,6 +49,22 @@ const Query = {
         }
         return photos;
     },
+    myPhotos:async (_, _2, { db,user }: Context) => {
+        const users = await user; 
+        let userId = '0';
+        if(users?.userId){
+            userId = users?.userId;
+        }
+        return db.Photos.findAll({            
+            include:[{
+                model:db.Participations, where:{ userId }
+            },{
+                model:db.Comments
+            }],
+            
+            
+        });
+    },
     photos: async (_, args: fetchPhotosType, { db }: Context) => {
         let { options } = args;
         let obj: any = {};

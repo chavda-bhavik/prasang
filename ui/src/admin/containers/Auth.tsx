@@ -24,7 +24,7 @@ const Auth = (props:any) =>{
           token:response.data.login.token
       })
       localStorage.setItem("Prasangtoken", response.data.login.token);
-      props.history.push("/prasangadmin/dashboard");  
+      props.history.push("/dashboard");  
   } catch (error) {
       dispatch({
           type:types.ADMIN_LOGIN_FAILED,

@@ -1,5 +1,5 @@
 import { Context } from "../../global";
-import { participations } from "./ParticipationArgTypes";
+import { participations, user_participations } from "./ParticipationArgTypes";
 
 const Query = {
     participations: async (_, args: participations, { user, db }: Context) => {
@@ -15,6 +15,19 @@ const Query = {
         }
         return db.Participations.findAll({ where });
     },
+    user_participations: async (_, args:user_participations, { db }: Context) => {
+        if(args.photoId)
+        {
+            const parti = db.Participations.findAll({
+                include:[{
+                    model:db.Photos,where:{
+                        photoId:args.photoId
+                    }
+                }]
+            });
+            return parti;
+        }
+    }
 };
 
 export default Query;

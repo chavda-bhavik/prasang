@@ -17,9 +17,9 @@ const AdminContent = (props:any) => {
                 <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 <div>
                     <Switch>
-                        <Route path="/prasangadmin/category" component={Category} />
-                        <Route path="/prasangadmin/addcategory" component={CategoryAddForm} />
-                        <Route path="/prasangadmin/editcategory/:id" component={CategoryEditForm} />
+                        <Route path="/category" component={Category} />
+                        <Route path="/addcategory" component={CategoryAddForm} />
+                        <Route path="/editcategory/:id" component={CategoryEditForm} />
                     </Switch>
                 </div>
             </div>

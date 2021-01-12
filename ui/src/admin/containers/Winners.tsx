@@ -1,8 +1,8 @@
-import React, { ReactNode, useState } from 'react'
-import { Select, Spin, Alert } from "antd";
+import React, { ReactNode, useState,useEffect } from 'react'
+import { Select, Spin, Alert,Modal } from "antd";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from '@apollo/client'
-
+import { PayPalButton } from "react-paypal-button-v2";
 import PhotoList from '../components/winners/PhotoList';
 import Sidebar from '../components/winners/Sidebar';
 import classes from './Winners.module.css'
@@ -46,6 +46,22 @@ const DECIDE_WINNER_MUTATION = gql`
     }
 `
 
+const Fetch_User = gql`
+query user_participations($photoId:ID){
+    user_participations(photoId:$photoId){
+   participationDate
+   user{
+     name
+     email
+   }
+   event{
+     title
+     priceAmount
+   }
+ } 
+}
+`;
+
 const Winners = () => {
     const [eventId, setEventId] = useState<String>("");
     const [winnerPhotoId, setWinnerPhotoId] = useState<String>("");
@@ -60,15 +76,58 @@ const Winners = () => {
             endLikes: likesRange[1]
         }
     });
-
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    
+    const showModal = () => {
+      setIsModalVisible(true);
+    };
+  
+    const handleOk = () => {
+      setIsModalVisible(false);
+    };
+  
+    const handleCancel = () => {
+      setIsModalVisible(false);
+    };
+    const [photoId, setphotoId] : any = useState("");
+    const [users,setuserData] = useState({
+        email:"",
+        username:"",
+        prize:""
+    })
+    const {data:userData,loading:userLoad} = useQuery(Fetch_User,{
+        variables:{photoId:photoId}
+    });
+    useEffect(()=>{
+        if(!userLoad && photoId)
+        {
+            setuserData({
+                email:userData.user_participations[0].user.email,
+                prize:userData.user_participations[0].event.priceAmount,
+                username:userData.user_participations[0].user.name
+            })
+        setIsModalVisible(true);
+        }
+        //decide winner
+    },[photoId,userData])
     const decideWinner = () => {
+        // console.log(winnerPhotoId)
+        // if(winnerPhotoId)
+        // {
+        //     console.log(winnerPhotoId)
+           
+        // }
+        setphotoId(winnerPhotoId);
+    }
+    
+    const datas = () => {
+        setIsModalVisible(false);
         setWinner({
             variables: {
                 photoId: winnerPhotoId
             }
-        });
+        });      
     }
-
     const onEventChange = (eventId:string) => {
         setEventId(eventId);
         refetch();
@@ -79,13 +138,15 @@ const Winners = () => {
     }
 
     let alertContent:ReactNode = "";
+    
     if(setWinnerData) {
         alertContent = <Alert type="success" message="Winner decided!" closable={true} />
     } else if(setWinnerError) {
         alertContent = <Alert type="error" message={setWinnerError.message} />
     }
-
     return (
+        <>
+        
         <div className={classes.section}>
             { alertContent }       
             <div className={classes.header}>
@@ -116,6 +177,29 @@ const Winners = () => {
                 <Sidebar setWinnerLoading={setWinnerLoading} submitWinner={decideWinner} likesChange={onLikesChange} likes={likesRange} />
             </div>
         </div>
+        <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <h3>Name : {users.username}</h3>
+        <h3>Email : {users.email}</h3>
+        <h3>Prize Money : {users.prize}</h3>
+        <PayPalButton
+            amount={users.prize}
+            onSuccess={(details: any, data: any) => {
+                alert("Transaction completed by " + details.payer.name.given_name);
+                datas();
+                // paymentSuccess();
+                // return props.amt(id);
+                // OPTIONAL: Call your server to save the transaction
+                // return fetch("/paypal-transaction-complete", {
+                //     method: "post",
+                //     body: JSON.stringify({
+                //     orderID: data.orderID
+                //     })
+                // });
+            }
+            }
+        />
+    </Modal>
+    </>
     )
 }
 

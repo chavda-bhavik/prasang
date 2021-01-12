@@ -40,7 +40,7 @@ const PhotoList = (props:PhotoListProps) => {
                                     value={photo.photoId} 
                                     type="radio" 
                                     name="winner"
-                                    onChange={handleWinnerChange}
+                                    onClick={handleWinnerChange}
                                     defaultChecked={photo.winner}
                                 />
                             </div>

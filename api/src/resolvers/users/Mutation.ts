@@ -149,6 +149,7 @@ const Mutation = {
                     contactNo: args.data.contactNo,
                     roleId: role.roleId,
                     image: args.data.image,
+                    bio : args.data.bio
                 },
                 {
                     where: {
@@ -179,37 +180,38 @@ const Mutation = {
         });
         return userExists;
     },
-    login: async (_, args: login, { db }: Context) => {
-        // let rolename="";
-        // if(args.data.role === 'Admin')
-        //     rolename="Admin"
-        // if(args.data.role === 'User')
-        //     rolename="User"
-        // const role = await db.Roles.findOne({
-        //     where:{
-        //         name:rolename
-        //     }
-        // })
-        // if(!role)
-        // {
-        //     throw new Error("Unable to logins")
-        // }
-        const user = await db.Users.findOne({
-            where: {
-                email: args.data.email,
-                IsEnable: true,
-            },
-        });
-        if (!user) {
-            throw new Error("Unable to Login");
+    login: async (_, args:login , { db }: Context) => {
+        let rolename="";
+        if(args.data.role === 'Admin')
+            rolename="Admin"
+        if(args.data.role === 'User')
+            rolename="User"    
+        const role = await db.Roles.findOne({
+            where:{
+                name:rolename
+            }  
+        })
+        if(!role)
+        {
+            throw new Error("Unable to logins")
         }
-        const isMatch = await bcrypt.compare(args.data.password, user.password);
-        if (!isMatch) {
-            throw new Error("Invalid Username or Password");
+        const user = await db.Users.findOne({
+            where:{
+                email:args.data.email,
+                IsEnable:true,
+                roleId:role.roleId
+            }
+        })
+        if(!user){
+            throw new Error("Unable to Login")
+        }
+        const isMatch = await bcrypt.compare(args.data.password,user.password);
+        if(!isMatch){
+            throw new Error("Invalid Username or Password")
         }
         return {
             user,
-            token: generateToken(user.userId),
+            token: generateToken(user.userId)
         };
     },
     enableUser: async (_, args: enableUser, { db }: Context) => {
@@ -291,7 +293,7 @@ const Mutation = {
             service: "gmail",
             auth: {
                 user: "dp297609@gmail.com",
-                pass: "dhaval1216",
+                pass: "dhaval",
             },
         });
         const token = await generateTokenPassword(user.userId);

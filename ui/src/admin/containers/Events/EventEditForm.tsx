@@ -63,7 +63,7 @@ const EventEditForm = (props:any) => {
                 error:error.message
             })
         }
-        props.history.push("/prasangadmin/event");
+        props.history.push("/event");
     }
    
     const { data } = useQuery(FetchCategory);

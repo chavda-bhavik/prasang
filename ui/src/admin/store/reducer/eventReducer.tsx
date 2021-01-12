@@ -51,6 +51,7 @@ const store = (state=initialState,action:any) => {
             };
         case types.DELETE_EVENT_SUCCESS:
             let events = state.eventList.filter(event => event.eventId !== action.eventId );
+            console.log("Called");
             return {
                 ...state,
                 eventList:events,

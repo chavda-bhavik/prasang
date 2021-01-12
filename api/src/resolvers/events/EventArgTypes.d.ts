@@ -36,5 +36,6 @@ export interface fetchAllEventsType {
         status?: "Ongoing" | "Ended" | "Upcoming" | "All" | "Participatable";
         paid?: Boolean;
         categoryId?: string;
+        limit?: Number;
     };
 }

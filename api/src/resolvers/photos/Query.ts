@@ -4,6 +4,23 @@ import findThrowAndReturn from "../utils/findThrowAndReturn";
 import { fetchPhoto, fetchPhotosType } from "./PhotosArgTypes";
 
 const Query = {
+    myPhotos: async (_, _2, { db, user }: Context) => {
+        const users = await user;
+        let userId = "0";
+        if (users?.userId) {
+            userId = users?.userId;
+        }
+        return db.Photos.findAll({
+            include: [
+                {
+                    model: db.Participations,
+                    where: {
+                        userId,
+                    },
+                },
+            ],
+        });
+    },
     feed: async (
         _,
         args: { limit: number | undefined },
@@ -21,12 +38,16 @@ const Query = {
                 },
             }
         );
-        return db.Photos.findAll({
+        let photos = await db.Photos.findAll({
             order: [["createdAt", "DESC"]],
             offset: offset * (args.limit || 5),
             limit: args.limit || 5,
             subQuery: false,
         });
+        if (photos.length === 0) {
+            throw new Error("No photo left for feed.");
+        }
+        return photos;
     },
     myPhotos:async (_, _2, { db,user }: Context) => {
         const users = await user; 

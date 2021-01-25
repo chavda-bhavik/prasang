@@ -3,9 +3,9 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
     extend type Query {
         feed(limit: Int): [Photos!]
-        photos(options: fetchPhotosType): [Photos!]!
+        photos(options: fetchPhotosType): photosReturnType!
         photo(photoId: ID!): Photos!
-        myPhotos:[Photos!]
+        myPhotos: [Photos!]
     }
     extend type Mutation {
         addPhoto(eventId: ID!, image: Upload!): Photos
@@ -13,12 +13,18 @@ const typeDefs = gql`
     }
     input fetchPhotosType {
         eventId: ID
-        likesRange: range
-        commantsRange: range
+        likesPlus: Int
+        commentsPlus: Int
+        offset: Int
+        limit: Int
     }
     input range {
         start: Int!
         end: Int!
+    }
+    type photosReturnType {
+        photos: [Photos!]!
+        total: Int!
     }
     type Photos {
         photoId: ID!

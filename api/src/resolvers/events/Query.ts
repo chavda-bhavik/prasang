@@ -36,8 +36,8 @@ const Query = {
             } else sql += ` and "events"."categoryId" = '${where.categoryId}'`;
         }
         sql += ` order by "events"."startDate"`;
-        if (args.where.limit) {
-            sql += ` LIMIT ${args.where.limit}`;
+        if (where && where.limit) {
+            sql += ` LIMIT ${where.limit}`;
         }
         let events = await db.sequelize.query(sql);
         return events[0];

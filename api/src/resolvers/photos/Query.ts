@@ -1,26 +1,26 @@
-import { Sequelize } from "sequelize";
+// import { Sequelize } from "sequelize";
 import { Context } from "../../global";
 import findThrowAndReturn from "../utils/findThrowAndReturn";
 import { fetchPhoto, fetchPhotosType } from "./PhotosArgTypes";
 
 const Query = {
-    // myPhotos: async (_, _2, { db, user }: Context) => {
-    //     const users = await user;
-    //     let userId = "0";
-    //     if (users?.userId) {
-    //         userId = users?.userId;
-    //     }
-    //     return db.Photos.findAll({
-    //         include: [
-    //             {
-    //                 model: db.Participations,
-    //                 where: {
-    //                     userId,
-    //                 },
-    //             },
-    //         ],
-    //     });
-    // },
+    myPhotos: async (_, _2, { db, user }: Context) => {
+        const users = await user;
+        let userId = "0";
+        if (users?.userId) {
+            userId = users?.userId;
+        }
+        return db.Photos.findAll({
+            include: [
+                {
+                    model: db.Participations,
+                    where: {
+                        userId,
+                    },
+                },
+            ],
+        });
+    },
     feed: async (
         _,
         args: { limit: number | undefined },
@@ -49,88 +49,66 @@ const Query = {
         }
         return photos;
     },
-    myPhotos:async (_, _2, { db,user }: Context) => {
-        const users = await user; 
-        let userId = '0';
-        if(users?.userId){
-            userId = users?.userId;
-        }
-        return db.Photos.findAll({            
-            include:[{
-                model:db.Participations, where:{ userId }
-            },{
-                model:db.Comments
-            }],
-            
-            
-        });
-    },
     photos: async (_, args: fetchPhotosType, { db }: Context) => {
         let { options } = args;
-        let obj: any = {};
-        let includes: any[] = [];
-        let where: any[] = [];
+        let sql: string = `select "photos".* from photos`;
+        let paginatedQuery: string;
+        let commentsInnerAdded = false,
+            whereAdded = false;
+        let limit = options && options.limit ? options.limit : 20;
 
         if (options && options.eventId) {
-            includes.push({
-                model: db.Participations,
-                required: true,
-                include: [
-                    { model: db.Events, where: { eventId: options.eventId } },
-                ],
-            });
+            sql += ` INNER JOIN participations ON "participations"."participationId"="photos"."participationId" INNER JOIN events ON "participations"."eventId"="events"."eventId"`;
+            if (options && options.commentsPlus) {
+                commentsInnerAdded = true;
+                sql += ` INNER JOIN comments ON "photos"."photoId"="comments"."photoId"`;
+            }
+            sql += ` WHERE "events"."eventId"='${options.eventId}'`;
+            whereAdded = true;
         }
-        if (options && options.likesRange) {
-            // console.log(options.likesRange)
-            // where.push(
-            Sequelize.where(
-                Sequelize.fn("array_length", Sequelize.col("likes"), 1),
-                <any>options.likesRange.start
-            );
-            // Sequelize.where(
-            //     Sequelize.fn('array_length', Sequelize.col('likes'), 1),
-            //     {
-            //         [Op.and]:[
-            //             { [Op.gte]: options.likesRange.start },
-            //             { [Op.lte]: options.likesRange.end }
-            //         ]
-            //     }
-            // )
-            // )
+        if (options && options.commentsPlus && !commentsInnerAdded) {
+            sql += ` INNER JOIN comments ON "photos"."photoId"="comments"."photoId"`;
         }
-        // if(options && options.commantsRange) {
-        // includes.push({
-        //     model: db.Comments,
-        //     required: true
-        // })
-        // include: [ {
-        //     model: db.Comments,
-        //     required: true,
-        //     attributes: [ "commentId" ]
-        // }],
-        // attributes: [ Sequelize.fn('COUNT', Sequelize.col('Comments.commentId')) ],
-        // logging: true
-        // where.push(
-        //     Sequelize.where(
-        //         Sequelize.fn('COUNT', Sequelize.col('Comments.commentId')),
-        //         {
-        //             [Op.and]:{
-        //                 [Op.gte]: 1,
-        //             }
-        //         }
-        //     )
-        // )
-        // includes.push({
-        //     model: db.Comments,
-        //     attributes: [[Sequelize.fn('COUNT', Sequelize.col('Comments.commentId')), 1]]
-        // });
-        // }
-        obj = {
-            where,
-            include: includes,
+        if (options && options.likesPlus) {
+            if (whereAdded)
+                sql += ` AND cardinality("photos"."likes")>=${options.likesPlus}`;
+            else
+                sql += ` WHERE cardinality("photos"."likes")>=${options.likesPlus}`;
+        }
+        sql += ` GROUP BY "photos"."photoId"`;
+        if (options && options.commentsPlus) {
+            sql += ` HAVING COUNT("comments"."commentId")>=${options.commentsPlus}`;
+        }
+        paginatedQuery = sql;
+        paginatedQuery += ` LIMIT ${limit}`;
+        if (options && options.offset) {
+            paginatedQuery += ` OFFSET ${options.offset * limit}`;
+        }
+
+        let paginatdePhotos = await db.sequelize.query(paginatedQuery);
+        let totalPhotos = await db.sequelize.query(sql);
+        let totalPhotosLength = totalPhotos[0].length;
+        return {
+            photos: paginatdePhotos[0],
+            total: totalPhotosLength,
         };
-        // console.log(JSON.stringify(obj));
-        return db.Photos.findAll(obj);
+        // select "photos".*, COUNT("comments"."commentId")
+        // from photos
+        // INNER JOIN participations ON "participations"."participationId"="photos"."participationId"
+        // INNER JOIN events ON "participations"."eventId"="events"."eventId"
+        // INNER JOIN comments ON "photos"."photoId"="comments"."photoId"
+        // WHERE "events"."eventId"='9a1b31e7-b1ad-4fe8-8181-5ef1bfc4faa3'
+        // AND cardinality("photos"."likes")>1
+        // GROUP BY "photos"."photoId"
+        // HAVING COUNT("comments"."commentId")>1
+
+        // -- SELECT * FROM photos where cardinality("photos"."likes")>1;
+
+        // -- select *
+        // -- from photos
+        // -- INNER JOIN participations ON "participations"."participationId"="photos"."participationId"
+        // -- INNER JOIN events ON "participations"."eventId"="events"."eventId"
+        // -- WHERE "events"."eventId"='0279f16f-5972-4d88-a894-0b90bb5e59ea'
     },
     photo: async (_, args: fetchPhoto, { db }: Context) => {
         return findThrowAndReturn(db, "Photos", {

@@ -35,10 +35,16 @@ const Query = {
                 whereAdded = true;
             } else sql += ` and "events"."categoryId" = '${where.categoryId}'`;
         }
+        if(whereAdded) {
+            sql += ` AND "events"."deletedAt" IS NULL`;
+        } else {
+            sql += ` WHERE "events"."deletedAt" IS NULL`;
+        }
         sql += ` order by "events"."startDate"`;
         if (where && where.limit) {
-            sql += ` LIMIT ${args.where.limit}`;
+            sql += ` LIMIT ${where.limit}`;
         }
+
         let events = await db.sequelize.query(sql);
         return events[0];
     },

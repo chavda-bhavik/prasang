@@ -1,21 +1,23 @@
 export interface addPhoto {
-    eventId: any
-    image: any
+    eventId: any;
+    image: any;
 }
 export interface likePhoto {
-    photoId: string
+    photoId: string;
 }
 export interface fetchPhoto {
-    photoId: string
+    photoId: string;
 }
 export interface fetchPhotosType {
-    options:{
-        eventId?: string
-        likesRange?: range
-        commantsRange?: range
-    }
+    options: {
+        eventId?: string;
+        likesPlus?: number;
+        commentsPlus?: number;
+        offset?: number;
+        limit?: number;
+    };
 }
 interface range {
-    start: number
-    end: number
+    start: number;
+    end: number;
 }

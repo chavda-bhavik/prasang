@@ -1,4 +1,4 @@
-<h1 align="center">Prasang API/h1>
+<h1 align="center">Prasang API</h1>
 
 > Prasang backend api to manage events, participations, likes, comments, users and many other things
 

@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+<h1 align="center">Prasang UI</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Prasang ui with 
+> admin panel to manage events and declare winners, and
+> user panel with register/login, photos timeline and participation functionality
 
-## Available Scripts
+## 🤖 Things used for building Prasang UI
+<dl>
+  <dt>💅 UI</dt>
+  <dd><a href="https://ant.design/" target="_blank">Ant Design</a></dd>
+  
+  <dt>🧰 Build Tool</dt>
+  <dd><a href="https://create-react-app.dev/" target="_blank">CRA</a></dd>
+  
+  <dt>📊 State Management</dt>
+  <dd><a href="https://redux.js.org" target="_blank">redux</a></dd>
+  
+  <dt>💰 Payment</dt>
+  <dd><a href="https://www.paypal.com/in/home" target="_blank">Paypal</a></dd>
+  
+  <dt>🛣️ Routing</dt>
+  <dd><a href="https://reactrouter.com" target="_blank">react-router</a></dd>
+  
+  <dt>🚀 API Requests<dt>
+  <dd><a href="https://www.apollographql.com/docs/react" target="_blank">apollo-client</a><dd>
+</dl>
 
-In the project directory, you can run:
+## ✨ Features
+* Easy Login/Registration facility for user and admin
+* Photos timeline facility for user
+* Easy and Simple dashboard for admin to manage categories, winners, and events
+* Payment integration with paypal
+* Instagram like **timeline** view with comment and like functionality
+* **Unlimited Scrolling**
+  
 
-### `npm start`
+## 📩 Install
+```sh
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 💨 Run
+```sh
+npm start
+```
